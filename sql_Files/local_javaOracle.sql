@@ -19,18 +19,18 @@ unique (memberJumin)
 create sequence seq_member start with 1 increment by 1 nomaxvalue nocache;
 
 
-insert into member values(seq_member.nextval, 'hong', '1234', 'È«±æµ¿', '1111112222222', '01012345678', 'hong@gmail.com', '´ë±¸', sysdate);
+insert into member values(seq_member.nextval, 'hong', '1234', 'í™ê¸¸ë™', '1111112222222', '01012345678', 'hong@gmail.com', 'ëŒ€êµ¬', sysdate);
 
-insert into member values(seq_member.nextval, 'lee', '1234', 'ÀÌ¼º¼ø', '2222223333333', '01098765432', 'lee@gmail.com', '¼­¿ï', sysdate);
+insert into member values(seq_member.nextval, 'lee', '1234', 'ì´ì„±ìˆœ', '2222223333333', '01098765432', 'lee@gmail.com', 'ì„œìš¸', sysdate);
 
-insert into member values(seq_member.nextval, 'jang', '1234', 'ÀåÃµ¿ë', '3333334444444', '01099887766', 'jang@gmail.com', '°æ±â', sysdate);
+insert into member values(seq_member.nextval, 'jang', '1234', 'ì¥ì²œìš©', '3333334444444', '01099887766', 'jang@gmail.com', 'ê²½ê¸°', sysdate);
 commit;
 
 
 select seq_member.currval from dual;
 select seq_member.nextval from dual;
 
-TRUNCATE table member; --ÀÚ¸£±â
+TRUNCATE table member; --ìë¥´ê¸°
 
 select * from member;
 
@@ -55,3 +55,5 @@ primary key (no)
 );
 
 create sequence seq_sungjuk start with 1 increment by 1 nomaxvalue nocache;
+
+select * from sungjuk;

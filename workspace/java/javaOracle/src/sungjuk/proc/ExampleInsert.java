@@ -46,7 +46,16 @@ public class ExampleInsert {
 		//dao.setInsert01(name, kor, eng, math, tot, avg, grade);
 		//dao.setInsert02(imsi);
 		//dao.setInsert03(array);
-		dao.setInsert04(dto);
+		int result = dao.setInsert04(dto);
+		
+		if (result > 0) {
+			System.out.println("-- 성공 --");
+		} else {
+			System.out.println("-- 실패 --");
+		}
+		
+		
+		
 		
 	}
 

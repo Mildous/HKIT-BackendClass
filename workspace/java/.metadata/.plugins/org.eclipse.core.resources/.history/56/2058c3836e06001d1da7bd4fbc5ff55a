@@ -1,0 +1,96 @@
+package sungjuk.model;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
+import common.DB;
+
+public class SungjukDAO {
+	
+	Connection conn = null;
+	PreparedStatement pstmt = null;
+	ResultSet rs = null;
+	
+	public void getSelectAll() {
+		System.out.println("-- getSelectAll --");
+	}
+	
+	public void getSelectOne() {
+		System.out.println("-- getSelectOne --");
+	}
+	
+	public void setInsert01(String name, int kor, int eng, int math, int tot, double avg, String grade) {
+		System.out.println("name : " + name);
+		System.out.println("kor : " + kor);
+		System.out.println("eng : " + eng);
+		System.out.println("math : " + math);
+		System.out.println("tot : " + tot);
+		System.out.println("avg : " + eng);
+		System.out.println("grade : " + grade);
+	}
+	
+	public void setInsert02(String str) {
+		//홍길동|90|80|70|240|80.0|B
+		String[] imsiArray = str.split("[|]");
+		
+		System.out.println("name : " + imsiArray[0]);
+		System.out.println("kor : " + imsiArray[1]);
+		System.out.println("eng : " + imsiArray[2]);
+		System.out.println("math : " + imsiArray[3]);
+		System.out.println("tot : " + imsiArray[4]);
+		System.out.println("avg : " + imsiArray[5]);
+		System.out.println("grade : " + imsiArray[6]);
+	}
+	
+	public void setInsert03(String[] sungjukArray) {
+		System.out.println("name : " + sungjukArray[0]);
+		System.out.println("kor : " + sungjukArray[1]);
+		System.out.println("eng : " + sungjukArray[2]);
+		System.out.println("math : " + sungjukArray[3]);
+		System.out.println("tot : " + sungjukArray[4]);
+		System.out.println("avg : " + sungjukArray[5]);
+		System.out.println("grade : " + sungjukArray[6]);
+	}
+	
+	public void setInsert04(SungjukDTO dto) {
+		int result = 0;
+		try {
+			conn = DB.dbConn();
+			//------------------------------------
+			
+			String sql = "insert into sungjuk values (seq_sungjuk.nextval, ?, ?, ?, ?, ?, ?, ?, sysdate)";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, dto.getName());
+			pstmt.setInt(2, dto.getKor());
+			pstmt.setInt(3, dto.getEng());
+			pstmt.setInt(4, dto.getMath());
+			pstmt.setInt(5, dto.getTot());
+			pstmt.setDouble(6, dto.getAvg());
+			pstmt.setString(7, dto.getGrade());
+			result = pstmt.executeQuery();
+			//------------------------------------
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DB.dbConnClose(rs, pstmt, conn);
+		}
+		
+		System.out.println("name : " + dto.getName());
+		System.out.println("kor : " + dto.getKor());
+		System.out.println("eng : " + dto.getEng());
+		System.out.println("math : " + dto.getMath());
+		System.out.println("tot : " + dto.getTot());
+		System.out.println("avg : " + dto.getAvg());
+		System.out.println("grade : " + dto.getGrade());
+	}
+	
+	public void setUpdate() {
+		System.out.println("-- setUpdate --");
+	}
+	
+	public void setDelete() {
+		System.out.println("-- setDelete --");
+	}
+}
