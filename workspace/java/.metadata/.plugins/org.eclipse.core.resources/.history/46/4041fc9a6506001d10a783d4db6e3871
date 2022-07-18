@@ -1,0 +1,38 @@
+package sungjuk.model;
+
+public class SungjukDAO {
+
+	public void getSelectAll() {
+		System.out.println("-- getSelectAll --");
+	}
+	
+	public void getSelectOne() {
+		System.out.println("-- getSelectOne --");
+	}
+	
+	public void setInsert01(String name, int kor, int eng, int math, int tot, double avg, String grade) {
+		System.out.println("name : " + name);
+		System.out.println("kor : " + kor);
+		System.out.println("eng : " + eng);
+		System.out.println("math : " + math);
+		System.out.println("tot : " + tot);
+		System.out.println("avg : " + eng);
+		System.out.println("grade : " + grade);
+	}
+	
+	public void setInsert02(String str) {
+		//홍길동|90|80|70|240|80.0|B
+		String[] imsiArray = str.split("[|]");
+		
+		
+		System.out.println("str : " + str);
+	}
+	
+	public void setUpdate() {
+		System.out.println("-- setUpdate --");
+	}
+	
+	public void setDelete() {
+		System.out.println("-- setDelete --");
+	}
+}

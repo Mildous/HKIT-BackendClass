@@ -1,0 +1,46 @@
+package example.exam11;
+
+import java.util.Scanner;
+
+public class Test01 {
+
+	public static void main(String[] args) {
+//		입력 : 3명분의 이름, 국어, 영어, 수학	<-- 변수 1개 사용
+//		출력 : 이름 국어 영어 수학 총점
+		
+		Scanner s = new Scanner(System.in);
+		String stu = "";
+		
+		System.out.print("1 name.. ");
+		stu = s.nextLine();
+		System.out.print("1 kor.. ");
+		stu = stu + "\t" + s.nextLine();
+		System.out.print("1 eng.. ");
+		stu = stu + "\t" + s.nextLine();
+		System.out.print("1 math.. ");
+		stu = stu + "\t" + s.nextLine();
+		
+		System.out.print("2 name.. ");
+		stu = s.nextLine();
+		System.out.print("2 kor.. ");
+		stu = stu + "\t" + s.nextLine();
+		System.out.print("2 eng.. ");
+		stu = stu + "\t" + s.nextLine();
+		System.out.print("2 math.. ");
+		stu = stu + "\t" + s.nextLine();
+		/*
+		for(int i=0; i<3; i++) {
+			System.out.print((i+1) + " name.. ");
+			stu = s.nextLine();
+			System.out.print((i+1) + " kor.. ");
+			stu = stu + "\t" + s.nextLine();
+			System.out.print((i+1) + " eng.. ");
+			stu = stu + "\t" + s.nextLine();
+			System.out.print((i+1) + " math.. ");
+			stu = stu + "\t" + s.nextLine();
+		}
+		*/
+		System.out.println(stu);
+	}
+
+}

@@ -1,0 +1,18 @@
+package sungjuk.proc;
+
+import java.util.Scanner;
+
+public class ExampleInsert {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.print("Name ?  ");
+		String name = sc.nextLine();
+		System.out.print("Kor ?  ");
+		int kor = Integer.parseInt(name.nextLine());
+		System.out.print("Eng ?  ");
+		System.out.print("Math ?  ");
+	}
+
+}

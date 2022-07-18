@@ -1,0 +1,37 @@
+package sungjuk.proc;
+
+import java.util.Scanner;
+import sungjuk.model.SungjukDTO;
+
+public class Example {
+
+	public static void main(String[] args) {
+		Scanner s = new Scanner(System.in);
+		
+		System.out.print("이름 : ");
+		String name = s.nextLine();
+		System.out.print("국어 : ");
+		String kor_ = s.nextLine();
+		System.out.print("영어 : ");
+		String eng_ = s.nextLine();
+		System.out.print("수학 : ");
+		String math_ = s.nextLine();
+		s.close();
+		
+		int kor = Integer.parseInt(kor_);
+		int eng = Integer.parseInt(eng_);
+		int math = Integer.parseInt(math_);
+/*
+		SungjukDTO dto = new SungjukDTO();	//작은 가방
+		dto.setName(name);
+		dto.setKor(kor);
+		dto.setEng(eng);
+		dto.setMath(math);
+*/
+		SungjukDTO dto = new SungjukDTO(name, kor, eng, math);
+		
+		System.out.println(dto.getName() + "\t" + dto.getKor() + "\t" + dto.getEng() + "\t" + dto.getMath());
+		
+	}
+
+}

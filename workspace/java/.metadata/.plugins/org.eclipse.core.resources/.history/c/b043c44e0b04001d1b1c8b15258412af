@@ -1,0 +1,22 @@
+package member.proc;
+
+import java.util.Scanner;
+
+public class Example {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.print("ID : ");
+		String id = sc.nextLine();
+		System.out.print("PW : ");
+		System.out.print("Name : ");
+		System.out.print("Jumin : ");
+		System.out.print("Phone : ");
+		System.out.print("Email : ");
+		System.out.print("Address : ");
+		
+
+	}
+
+}

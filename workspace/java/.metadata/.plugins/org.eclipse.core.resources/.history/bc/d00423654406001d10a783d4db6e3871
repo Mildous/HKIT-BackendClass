@@ -1,0 +1,27 @@
+package member.proc;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.Scanner;
+
+public class ExampleView {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		System.out.print("조회할 회원번호를 입력하세요 : ");
+		String memberNo_ = sc.nextLine();
+		sc.close();
+		
+		int memberNo = Integer.parseInt(memberNo_);
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try
+
+	}
+	
+
+}

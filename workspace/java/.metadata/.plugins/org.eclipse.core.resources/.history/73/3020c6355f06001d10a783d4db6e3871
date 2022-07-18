@@ -1,0 +1,15 @@
+package sungjuk.model;
+
+import java.sql.Date;
+
+public class SungjukDTO {
+	private int no;
+	private String name;
+	private int kor;
+	private int eng;
+	private int math;
+	private int tot;
+	private double avg;
+	private String grade;
+	private Date regiDate;
+}

@@ -1,0 +1,17 @@
+package member.proc;
+
+import java.util.Scanner;
+
+public class ExampleDelete {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		
+		String memberNo_ = sc.nextLine();
+		sc.close();
+		
+		int memberNo_ = Integer.parseInt(memberNo_);
+		
+	}
+
+}

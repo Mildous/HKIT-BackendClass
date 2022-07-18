@@ -1,0 +1,11 @@
+package example.exam11;
+
+public class Test01 {
+
+	public static void main(String[] args) {
+//		입력 : 3명분의 이름, 국어, 영어, 수학
+//		출력 : 이름 국어 영어 수학 총점
+
+	}
+
+}
