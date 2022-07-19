@@ -1,0 +1,27 @@
+package member.proc;
+
+import java.util.ArrayList;
+
+import member.model.MemberDAO;
+import member.model.MemberDTO;
+import product.model.ProductDTO;
+
+public class ExampleList {
+
+	public static void main(String[] args) {
+		
+		MemberDAO dao = new MemberDAO();
+		ArrayList<MemberDTO> list = dao.getSelectAll();
+		
+		for(int i=0; i<list.size(); i++) {
+			MemberDTO dto = list.get(i);
+			int memberNo = dto.setMemberNo();
+			String memberId = dto.setMemberId();
+			String memberName = dto.setMemberName();
+			Date regiDate = dto.setRegiDate();
+		}
+		
+
+	}
+
+}

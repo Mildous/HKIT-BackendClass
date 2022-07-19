@@ -10,8 +10,6 @@ public class DB {
 	
 	public static Connection dbConn() {
 		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
 		
 		try {
 			String dbDriver = "oracle.jdbc.driver.OracleDriver";

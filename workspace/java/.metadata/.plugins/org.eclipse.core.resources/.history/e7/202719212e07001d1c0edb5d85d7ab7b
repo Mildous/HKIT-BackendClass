@@ -1,0 +1,17 @@
+package product.proc;
+
+import java.util.ArrayList;
+
+import product.model.ProductDAO;
+import product.model.ProductDTO;
+
+public class ExampleList {
+
+	public static void main(String[] args) {
+		ProductDAO productDao = new ProductDAO();
+		ArrayList<ProductDTO> list = productDao.getSelectAll();
+		
+		}
+	}
+
+}

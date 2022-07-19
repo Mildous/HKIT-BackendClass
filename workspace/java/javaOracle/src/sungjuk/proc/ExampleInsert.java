@@ -22,7 +22,7 @@ public class ExampleInsert {
 		int tot = kor + eng + math;
 		double avg = tot / 3.0;
 		
-		String grade = "E";
+		String grade = "F";
 		if (avg >= 90) {
 			grade = "A";
 		} else if (avg >= 80) {
@@ -31,6 +31,8 @@ public class ExampleInsert {
 			grade = "C";
 		} else if (avg >= 60) {
 			grade = "D";
+		} else if (avg >= 50) {
+			grade = "E";
 		}
 		
 		SungjukDTO dto = new SungjukDTO();

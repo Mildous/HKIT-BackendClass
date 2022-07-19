@@ -1,0 +1,9 @@
+package product.proc;
+
+public class ExampleInsert {
+
+	public static void main(String[] args) {
+
+	}
+
+}

@@ -1,0 +1,14 @@
+package product.proc;
+
+import product.model.ProductDAO;
+
+public class ExampleList {
+
+	public static void main(String[] args) {
+		ProductDAO productDao = new ProductDAO();
+		String result = productDao.getSelectAll();
+		result.split("|");
+		System.out.println(result);
+	}
+
+}

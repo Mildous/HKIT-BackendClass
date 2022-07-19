@@ -1,10 +1,5 @@
 package member.proc;
 
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.Scanner;
 
 import member.model.MemberDAO;
@@ -20,11 +15,19 @@ public class ExampleView {
 		
 		int memberNo = Integer.parseInt(memberNo_);
 		
-		MemberDTO dto = new MemberDTO();
-		dto.setMemberNo(memberNo);
+		MemberDTO productDto = new MemberDTO();
+		productDto.setMemberNo(memberNo);
 		
 		MemberDAO dao = new MemberDAO();
-		dao.getSelectOne(dto);		
+		MemberDTO dto = dao.getSelectOne(productDto);
+		
+		System.out.println("memberId : " + dto.getMemberId());
+		System.out.println("memberName : " + dto.getMemberName());
+		System.out.println("memberJumin : " + dto.getMemberJumin());
+		System.out.println("memberPhone : " + dto.getMemberPhone());
+		System.out.println("memberEmail : " + dto.getMemberEmail());
+		System.out.println("memberAddr : " + dto.getMemberAddr());
+		System.out.println("regiDate : " + dto.getRegiDate());
 
 	}
 

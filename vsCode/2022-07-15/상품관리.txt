@@ -1,0 +1,100 @@
+* 상품관리
+
+코드
+이름
+가격
+설명
+제조사
+
+create table product (
+productCode number not null,
+productName varchar2(50) not null,
+productPrice number not null,
+productContent clob not null,
+vendor varchar2(50) not null,
+regiDate date not null,
+primary key (productCode)
+);
+
+create sequence seq_product start with 1 increment by 1 nomaxvalue nocache;
+
+...
+이름
+재고
+코드
+판매가격
+원가
+제조사
+분류
+입고일
+출고일
+설명
+...
+
+유일성
+최소성
+무결성
+
+슈퍼키
+후보키
+기본키
+대체키
+
+------------------------------------------------------------------------
+select count(*) from product;
+
+public class ExampleList {
+
+	public static void main(String[] args) {
+		ProductDAO productDao = new ProductDAO();
+		String result = productDao.getSelectAll();
+
+		String[] imsiArray = result.split("[|]");
+		for (int i=0; i<imsiArray.length; i++) {
+			String str = imsiArray[i];
+			
+			String[] tmpArray = str.split("/");
+			System.out.println("productCode : " + tmpArray[0]);
+			System.out.println("productName : " + tmpArray[1]);
+			System.out.println("productPrice : " + tmpArray[2]);
+			System.out.println("productContent : " + tmpArray[3]);
+			System.out.println("vendor : " + tmpArray[4]);
+			System.out.println("regiDate : " + tmpArray[5]);
+			System.out.println("------------------------------");
+		}
+	}
+
+}
+
+public String getSelectAll() {
+		String result = "";
+		try {
+			conn = DB.dbConn();
+			String sql = "Select * from product order by productCode desc";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				int productCode = rs.getInt("productCode");
+				String productName = rs.getString("productName");
+				int productPrice = rs.getInt("productPrice");
+				String productContent = rs.getString("productContent");
+				String vendor = rs.getString("vendor");
+				Date regiDate = rs.getDate("regiDate");
+				
+				String imsi = productCode + "/" + productName + "/" + productPrice + "/" +
+						productContent + "/" + vendor + "/" + regiDate;
+				if (!result.equals("")) {
+					result += "|";
+				}
+				result += imsi;
+				//String t = " / ";
+				//System.out.println(productCode + t + productName + t + productPrice + t + productContent + t + vendor + t + regiDate);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DB.dbConnClose(rs, pstmt, conn);
+		}
+		return result;
+	}
+

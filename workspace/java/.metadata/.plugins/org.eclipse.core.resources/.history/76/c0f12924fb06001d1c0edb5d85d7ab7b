@@ -1,0 +1,12 @@
+package sungjuk.proc;
+
+import java.util.Scanner;
+
+public class ExampleEdit {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		
+	}
+
+}

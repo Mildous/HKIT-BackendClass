@@ -1,0 +1,12 @@
+package product.proc;
+
+import java.util.Scanner;
+
+public class ExampleView {
+
+	public static void main(String[] args) {
+		Scanner scanner = new Scanner(System.in);
+
+	}
+
+}

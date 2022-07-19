@@ -131,11 +131,46 @@ public class SungjukDAO {
 		return result;
 	}
 	
-	public void setUpdate() {
-		System.out.println("-- setUpdate --");
+	public int setUpdate(SungjukDTO dto) {
+		int result = 0;
+		try	{
+			conn = DB.dbConn();
+			//--------------------------------------
+			String sql = "update sungjuk set kor = ?, eng = ?, math = ?, tot = ?, avg = ?, grade = ? where no = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, dto.getKor());
+			pstmt.setInt(2, dto.getEng());
+			pstmt.setInt(3, dto.getMath());
+			pstmt.setInt(4, dto.getTot());
+			pstmt.setDouble(5, dto.getAvg());
+			pstmt.setString(6, dto.getGrade());
+			pstmt.setInt(7, dto.getNo());
+			
+			result = pstmt.executeUpdate();
+			//--------------------------------------
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DB.dbConnClose(rs, pstmt, conn);
+		}
+		return result;
 	}
 	
-	public void setDelete() {
-		System.out.println("-- setDelete --");
+	public int setDelete(SungjukDTO dto) {
+		int result = 0;
+		try {
+			conn = DB.dbConn();
+			//------------------------------------
+			String sql = "delete from sungjuk where no = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, dto.getNo());
+			result = pstmt.executeUpdate();
+			//------------------------------------
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DB.dbConnClose(rs, pstmt, conn);
+		}
+		return result;
 	}
 }

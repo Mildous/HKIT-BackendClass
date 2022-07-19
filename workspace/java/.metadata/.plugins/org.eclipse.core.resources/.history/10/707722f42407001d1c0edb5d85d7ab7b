@@ -1,0 +1,9 @@
+package product.proc;
+
+public class ExampleDelete {
+
+	public static void main(String[] args) {
+
+	}
+
+}

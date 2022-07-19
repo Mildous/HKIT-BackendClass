@@ -1,0 +1,46 @@
+package product.model;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
+import common.DB;
+
+public class ProductDAO {
+	
+	Connection conn = null;
+	PreparedStatement pstmt = null;
+	ResultSet rs = null;
+	
+	public void getSelectAll() {
+		System.out.println("-- getSelectAll --");
+	}
+	
+	public void getSelectOne() {
+		System.out.println("-- getSelectOne --");
+	}
+	
+	public void setInsert(ProductDTO paramDto) {
+		try {
+			conn = DB.dbConn();
+			//-----------------------------------
+			String sql = "insert into product values (seq_product.nextval, ?, ?, ?, ?, sysdate)";
+			
+			//-----------------------------------
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DB.dbConnClose(rs, pstmt, conn);
+		}
+	}
+	
+	public void setUpdate() {
+		System.out.println("-- setUpdate --");
+	}
+	
+	public void setDelete() {
+		System.out.println("-- setDelete --");
+	}
+
+}

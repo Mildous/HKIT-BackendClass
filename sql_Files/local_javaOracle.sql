@@ -57,3 +57,27 @@ primary key (no)
 create sequence seq_sungjuk start with 1 increment by 1 nomaxvalue nocache;
 
 select * from sungjuk;
+commit;
+
+update sungjuk set kor='60', eng='60', math='60' where no = '1';
+update sungjuk set name = '장천용' where no = '3';
+
+-------------------------------------------------------
+
+create table product (
+productCode number not null,
+productName varchar2(50) not null,
+productPrice number not null,
+productContent clob not null,
+vendor varchar2(50) not null,
+regiDate date not null,
+primary key (productCode)
+);
+
+commit;
+
+create sequence seq_product start with 1 increment by 1 nomaxvalue nocache;
+
+select * from product;
+
+select count(*) from product;

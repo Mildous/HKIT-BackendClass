@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 import common.DB;
 
@@ -13,8 +14,8 @@ public class MemberDAO {
 	ResultSet rs = null;
 	
 	//전체 출력
-	public void getSelectAll() {
-		
+	public ArrayList<MemberDTO> getSelectAll() {
+		ArrayList<MemberDTO> list = new ArrayList<>();
 		try {
 			conn = DB.dbConn();
 			//-------------------------------------------------
@@ -23,23 +24,17 @@ public class MemberDAO {
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
-				int memberNo = rs.getInt("memberNo");
-				String memberId = rs.getString("memberId");
-				String memberName = rs.getString("memberName");
+				MemberDTO dto = new MemberDTO();
+				dto.setMemberNo(rs.getInt("memberNo"));
+				dto.setMemberId(rs.getString("memberId"));
+				dto.setMemberName(rs.getString("memberName"));
 				//String memberJumin = rs.getString("memberJumin");
 				//String memberPhone = rs.getString("memberPhone");
 				//String memberEmail = rs.getString("memberEmail");
 				//String memberAddr = rs.getString("memberAddr");
-				Date regiDate = rs.getDate("regiDate");
+				dto.setRegiDate(rs.getDate("regiDate"));
 				
-				String imsi = "";
-				imsi += memberNo + " / ";
-				imsi += memberId + " / ";
-				imsi += memberName + " / ";
-				//imsi += memberJumin + " / " + memberPhone + " / " + memberEmail + " / " + memberAddr + " / ";
-				imsi += regiDate;
-				
-				System.out.println(imsi);
+				list.add(dto);
 			}
 			//-------------------------------------------------
 		} catch(Exception e) {
@@ -47,36 +42,28 @@ public class MemberDAO {
 		} finally {
 			DB.dbConnClose(rs, pstmt, conn);
 		}
-
+		return list;
 	}
 	
 	//상세 출력
-	public void getSelectOne(MemberDTO dto) {
-		
+	public MemberDTO getSelectOne(MemberDTO paramDto) {
+		MemberDTO dto = new MemberDTO();
 		try {
 			conn = DB.dbConn();
 			//-------------------------------------------------
 			String sql = "select * from member where memberNo = ?";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, dto.getMemberNo());
+			pstmt.setInt(1, paramDto.getMemberNo());
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
-				String memberId = rs.getString("memberId");
-				String memberName = rs.getString("memberName");
-				String memberJumin = rs.getString("memberJumin");
-				String memberPhone = rs.getString("memberPhone");
-				String memberEmail = rs.getString("memberEmail");
-				String memberAddr = rs.getString("memberAddr");
-				Date regiDate = rs.getDate("regiDate");
+				dto.setMemberId(rs.getString("memberId"));
+				dto.setMemberName(rs.getString("memberName"));
+				dto.setMemberJumin(rs.getString("memberJumin"));
+				dto.setMemberPhone(rs.getString("memberPhone"));
+				dto.setMemberEmail(rs.getString("memberEmail"));
+				dto.setMemberAddr(rs.getString("memberAddr"));
+				dto.setRegiDate(rs.getDate("regiDate"));
 				
-				String imsi = "";
-				imsi += rs.getInt("memberNo") + " / ";
-				imsi += memberId + " / ";
-				imsi += memberName + " / ";
-				imsi += memberJumin + " / " + memberPhone + " / " + memberEmail + " / " + memberAddr + " / ";
-				imsi += regiDate;
-				
-				System.out.println(imsi);
 			} else {
 				System.out.println("존재하지 않는 회원번호 입니다.");
 			}
@@ -86,7 +73,7 @@ public class MemberDAO {
 		} finally {
 			DB.dbConnClose(rs, pstmt, conn);
 		}
-
+		return dto;
 	}
 	
 	//추가

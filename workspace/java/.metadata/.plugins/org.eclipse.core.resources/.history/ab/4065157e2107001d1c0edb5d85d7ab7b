@@ -1,0 +1,31 @@
+package product.proc;
+
+import java.util.Scanner;
+
+import product.model.ProductDAO;
+import product.model.ProductDTO;
+
+public class ExampleView {
+
+	public static void main(String[] args) {
+		Scanner scanner = new Scanner(System.in);
+		int i = 0;
+		int productCode = 0;
+		while(i > 0) {
+			try {
+				System.out.print("Product Code is.. ");
+				productCode = Integer.parseInt(scanner.nextLine());
+				i++;
+			} catch(Exception e) {
+				System.out.println("You entered it incorrectly...");
+			}
+		}
+		
+		ProductDTO productDto = new ProductDTO();
+		productDto.setProductCode(productCode);
+		
+		ProductDAO productDao = new ProductDAO();
+		productDao.getSelectOne(productDto);
+	}
+
+}

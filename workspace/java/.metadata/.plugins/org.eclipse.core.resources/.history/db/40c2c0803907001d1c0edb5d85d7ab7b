@@ -1,0 +1,40 @@
+package member.proc;
+
+import java.util.Scanner;
+
+import member.model.MemberDAO;
+import member.model.MemberDTO;
+
+public class ExampleView {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		System.out.print("조회할 회원번호를 입력하세요 : ");
+		String memberNo_ = sc.nextLine();
+		sc.close();
+		
+		int memberNo = Integer.parseInt(memberNo_);
+		
+		MemberDTO dto = new MemberDTO();
+		dto.setMemberNo(memberNo);
+		
+		MemberDAO dao = new MemberDAO();
+		MemberDTO productDto = dao.getSelectOne(dto);
+		
+		System.out.println("memberId : " + productDto.getMemberId());
+		System.out.println("memberName : " + productDto.getMemberId());
+		System.out.println("memberJumin : " + productDto.getMemberId());
+		System.out.println("memberPhone : " + productDto.getMemberId());
+		System.out.println("memberEmail : " + productDto.getMemberId());
+		System.out.println("memberAddr : " + productDto.getMemberId());
+		memberDto.setMemberId(rs.getString("memberId"));
+		memberDto.setMemberName(rs.getString("memberName"));
+		memberDto.setMemberJumin(rs.getString("memberJumin"));
+		memberDto.setMemberPhone(rs.getString("memberPhone"));
+		memberDto.setMemberEmail(rs.getString("memberEmail"));
+		memberDto.setMemberAddr(rs.getString("memberAddr"));
+		memberDto.setRegiDate(rs.getDate("regiDate"));
+
+	}
+
+}
