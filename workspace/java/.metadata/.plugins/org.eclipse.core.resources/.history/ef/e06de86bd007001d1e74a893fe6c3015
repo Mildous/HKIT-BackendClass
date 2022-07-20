@@ -1,0 +1,14 @@
+package sungjuk.proc;
+
+import java.util.Scanner;
+
+public class Example {
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.println("성적관리 메뉴 선택..");
+		System.out.print("(1)목록 (2)상세 (3)추가 (4)수정 (5)삭제 => ");
+
+	}
+
+}

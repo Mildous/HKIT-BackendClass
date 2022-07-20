@@ -9,8 +9,6 @@
     <fullyQualifiedTypeName name="org.graalvm.compiler.nodes.extended.MembarNode"/>
     <fullyQualifiedTypeName name="java.lang.reflect.Member"/>
     <fullyQualifiedTypeName name="member.model.MemberDAO"/>
-    <fullyQualifiedTypeName name="sungjuk.model.SungjukDTO"/>
-    <fullyQualifiedTypeName name="sungjuk.model.SungjukDAO"/>
     <fullyQualifiedTypeName name="com.sun.net.httpserver.Authenticator.Result"/>
     <fullyQualifiedTypeName name="java.sql.Connection"/>
     <fullyQualifiedTypeName name="java.sql.ResultSet"/>
@@ -18,8 +16,10 @@
     <fullyQualifiedTypeName name="java.sql.PreparedStatement"/>
     <fullyQualifiedTypeName name="java.lang.Exception"/>
     <fullyQualifiedTypeName name="common.DB"/>
-    <fullyQualifiedTypeName name="java.util.Scanner"/>
-    <fullyQualifiedTypeName name="java.sql.Date"/>
     <fullyQualifiedTypeName name="product.model.ProductDTO"/>
     <fullyQualifiedTypeName name="member.model.MemberDTO"/>
+    <fullyQualifiedTypeName name="java.sql.Date"/>
+    <fullyQualifiedTypeName name="sungjuk.model.SungjukDTO"/>
+    <fullyQualifiedTypeName name="sungjuk.model.SungjukDAO"/>
+    <fullyQualifiedTypeName name="java.util.Scanner"/>
 </qualifiedTypeNameHistroy>

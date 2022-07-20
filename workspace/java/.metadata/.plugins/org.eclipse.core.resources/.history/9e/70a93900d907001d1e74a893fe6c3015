@@ -1,0 +1,39 @@
+package sungjuk.proc;
+
+import java.sql.Date;
+import java.util.ArrayList;
+
+import sungjuk.model.SungjukDAO;
+import sungjuk.model.SungjukDTO;
+
+public class ExampleList {
+
+	public static void main(String[] args) {
+		SungjukDAO dao = new SungjukDAO();
+		ArrayList<SungjukDTO> list = dao.getSelectAll();
+		
+		for(int i=0; i<list.size(); i++) {
+			SungjukDTO dto = list.get(i);
+			int no = dto.getNo();
+			String name = dto.getName();
+			//int kor = dto.getKor();
+			//int eng = dto.getEng();
+			//int math = dto.getMath();
+			int tot = dto.getTot();
+			double avg = dto.getAvg();
+			String grade = dto.getGrade();
+			Date regiDate = dto.getRegiDate();
+			
+			System.out.println("번호: ");
+			System.out.println("이름: ");
+			System.out.println("국어: ");
+			System.out.println("영어: ");
+			System.out.println("수학: ");
+			System.out.println("총점: ");
+			System.out.println("평균: ");
+			System.out.println("등급: ");
+			System.out.println("--------------------");
+		}
+	}
+
+}

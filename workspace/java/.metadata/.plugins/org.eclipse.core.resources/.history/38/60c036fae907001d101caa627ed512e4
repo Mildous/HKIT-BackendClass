@@ -1,0 +1,111 @@
+package member.model;
+
+import java.sql.Date;
+import java.util.Scanner;
+
+public class MemberDTO {
+	private int memberNo;
+	private String memberId;
+	private String memberPw;
+	private String memberName;
+	private String memberJumin;
+	private String memberPhone;
+	private String memberEmail;
+	private String memberAddr;
+	private Date regiDate;
+	
+	public void input(String div) {
+		Scanner sc = new Scanner(System.in);
+		
+		if(div.equals("detail") || div.equals("edit") || div.equals("delete")) {
+			
+		}
+		System.out.print("ID : ");
+		this.memberId = sc.nextLine();
+		System.out.print("Password : ");
+		this.memberPw = sc.nextLine();
+		System.out.print("Name : ");
+		this.memberName = sc.nextLine();
+		System.out.print("JuminNumber : ");
+		this.memberJumin = sc.nextLine();
+		System.out.print("Phone : ");
+		this.memberPhone = sc.nextLine();
+		System.out.print("Email : ");
+		this.memberEmail = sc.nextLine();
+		System.out.print("Address : ");
+		this.memberAddr = sc.nextLine();
+		sc.close();
+	
+	}
+	
+	public void display() {
+		String msg = "";
+		msg += memberNo + "\t";
+		msg += memberId + "\t";
+		msg += memberName + "\t";
+		msg += memberJumin + "\t";
+		msg += memberPhone + "\t";
+		msg += memberEmail + "\t";
+		msg += memberAddr + "\t";
+		msg += regiDate;
+		
+		System.out.println(msg);
+	}
+	
+	public int getMemberNo() {
+		return memberNo;
+	}
+	public void setMemberNo(int memberNo) {
+		this.memberNo = memberNo;
+	}
+	public String getMemberId() {
+		return memberId;
+	}
+	public void setMemberId(String memberId) {
+		this.memberId = memberId;
+	}
+	public String getMemberPw() {
+		return memberPw;
+	}
+	public void setMemberPw(String memberPw) {
+		this.memberPw = memberPw;
+	}
+	public String getMemberName() {
+		return memberName;
+	}
+	public void setMemberName(String memberName) {
+		this.memberName = memberName;
+	}
+	public String getMemberJumin() {
+		return memberJumin;
+	}
+	public void setMemberJumin(String memberJumin) {
+		this.memberJumin = memberJumin;
+	}
+	public String getMemberPhone() {
+		return memberPhone;
+	}
+	public void setMemberPhone(String memberPhone) {
+		this.memberPhone = memberPhone;
+	}
+	public String getMemberEmail() {
+		return memberEmail;
+	}
+	public void setMemberEmail(String memberEmail) {
+		this.memberEmail = memberEmail;
+	}
+	public String getMemberAddr() {
+		return memberAddr;
+	}
+	public void setMemberAddr(String memberAddr) {
+		this.memberAddr = memberAddr;
+	}
+	public Date getRegiDate() {
+		return regiDate;
+	}
+	public void setRegiDate(Date regiDate) {
+		this.regiDate = regiDate;
+	}
+	
+
+}

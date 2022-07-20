@@ -1,0 +1,57 @@
+package product.proc;
+
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+import product.model.ProductDAO;
+import product.model.ProductDTO;
+
+public class Example {
+
+	public static void main(String[] args) {
+		Scanner scanner = new Scanner(System.in);
+		
+		while(true) {
+			System.out.print("MENU (0: exit, 1: list, 2: view more, 3: input Data, 4: edit, 5: delete) ");
+			String menu = scanner.nextLine();
+			
+			if (menu.equals("1")) {
+				ProductDAO productDao = new ProductDAO();
+				ArrayList<ProductDTO> list = productDao.getSelectAll();
+				
+				for(int i=0; i<list.size(); i++) {
+					ProductDTO productDto = list.get(i);
+					productDto.display();
+				}
+			} else if (menu.equals("2")) {
+				System.out.print("Product Code is.. ");
+				int productCode = Integer.parseInt(scanner.nextLine());
+						
+				ProductDTO productDto = new ProductDTO();
+				productDto.setProductCode(productCode);
+						
+				ProductDAO productDao = new ProductDAO();
+				ProductDTO dto = productDao.getSelectOne(productDto); //argument
+				
+				dto.display();
+				
+			} else if (menu.equals("3")) {
+				ProductDTO productDto = new ProductDTO(); //가방
+				productDto.dataInput();
+				
+				ProductDAO productDao = new ProductDAO();
+				int result = productDao.setInsert(productDto);
+
+			} else if (menu.equals("4")) {
+				
+			} else if (menu.equals("5")) {
+				
+			} else {
+				break;
+			}
+		}
+
+	}
+
+}

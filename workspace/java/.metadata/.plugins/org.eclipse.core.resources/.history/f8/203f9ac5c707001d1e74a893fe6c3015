@@ -1,0 +1,17 @@
+package product.proc;
+
+import java.util.Scanner;
+
+public class Example {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		
+		while(true) {
+			System.out.println("MENU (0: exit, 1: list, 2: view more, 3: edit, 4: delete");
+			
+		}
+
+	}
+
+}
