@@ -1,0 +1,24 @@
+package member.model;
+
+public class MemberDAO {
+	public void getSelectAll() {
+		System.out.println("-- member list --");
+	}
+	
+	public void getSelectAll() {
+		System.out.println("-- member list --");
+	}
+	
+	public void getSelectAll() {
+		System.out.println("-- member list --");
+	}
+	
+	public void getSelectAll() {
+		System.out.println("-- member list --");
+	}
+	
+	public void getSelectAll() {
+		System.out.println("-- member list --");
+	}
+
+}

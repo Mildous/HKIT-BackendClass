@@ -19,7 +19,7 @@ public class MemberDAO {
 		try {
 			conn = DB.dbConn();
 			//-------------------------------------------------
-			String sql = "select memberNo, memberId, memberName, regiDate from member";
+			String sql = "select memberNo, memberId, memberName, memberAddr, regiDate from member";
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			
@@ -31,7 +31,7 @@ public class MemberDAO {
 				//String memberJumin = rs.getString("memberJumin");
 				//String memberPhone = rs.getString("memberPhone");
 				//String memberEmail = rs.getString("memberEmail");
-				//String memberAddr = rs.getString("memberAddr");
+				dto.setMemberAddr(rs.getString("memberAddr"));
 				dto.setRegiDate(rs.getDate("regiDate"));
 				
 				list.add(dto);
@@ -111,11 +111,12 @@ public class MemberDAO {
 		try {
 			conn = DB.dbConn();
 			//------------------------------------------
-			String sql = "update member set memberId = ?, memberName = ? where memberNo = ?";
+			String sql = "update member set memberPhone = ?, memberEmail = ?, memberAddr = ? where memberNo = ?";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, dto.getMemberId());	//DB의 인덱스는 1부터 시작
-			pstmt.setString(2, dto.getMemberName());
-			pstmt.setInt(3, dto.getMemberNo());
+			pstmt.setString(1, dto.getMemberPhone());	//DB의 인덱스는 1부터 시작
+			pstmt.setString(2, dto.getMemberEmail());
+			pstmt.setString(3, dto.getMemberAddr());
+			pstmt.setInt(4, dto.getMemberNo());
 			result = pstmt.executeUpdate();
 			//------------------------------------------
 			

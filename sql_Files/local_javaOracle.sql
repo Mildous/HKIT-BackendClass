@@ -81,3 +81,20 @@ create sequence seq_product start with 1 increment by 1 nomaxvalue nocache;
 select * from product;
 
 select count(*) from product;
+
+------------------------------------------------------
+
+create table guestBook (
+no number not null,
+writer varchar2(50) not null,
+subject varchar2(50) not null,
+content clob not null,
+passwd varchar2(50) not null,
+regiDate date not null,
+primary key (no)
+);
+
+create sequence seq_guestBook start with 1 increment by 1 nomaxvalue nocache;
+
+select * from guestBook;
+

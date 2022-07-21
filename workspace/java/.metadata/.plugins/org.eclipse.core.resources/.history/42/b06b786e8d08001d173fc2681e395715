@@ -1,0 +1,18 @@
+package guestbook.model;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
+public class GuestBookDAO {
+	
+	Connection conn = null;
+	PreparedStatement pstmt = null;
+	ResultSet rs = null;
+	
+	public ArrayList<GuestBookDTO> getSelectAll() {
+		ArrayList<GuestBookDTO> list = new ArrayList<>();
+		
+	}
+
+}

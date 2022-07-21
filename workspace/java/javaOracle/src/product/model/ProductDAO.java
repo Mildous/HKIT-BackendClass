@@ -18,7 +18,7 @@ public class ProductDAO {
 		ArrayList<ProductDTO> list = new ArrayList<>();
 		try {
 			conn = DB.dbConn();
-			String sql = "Select * from product order by productCode desc";
+			String sql = "Select productCode, productName, productPrice, regiDate from product order by productCode desc";
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
@@ -26,8 +26,8 @@ public class ProductDAO {
 				dto.setProductCode(rs.getInt("productCode"));
 				dto.setProductName(rs.getString("productName"));
 				dto.setProductPrice(rs.getInt("productPrice"));
-				dto.setProductContent(rs.getString("productContent"));
-				dto.setVendor(rs.getString("vendor"));
+				//dto.setProductContent(rs.getString("productContent"));
+				//dto.setVendor(rs.getString("vendor"));
 				dto.setRegiDate(rs.getDate("regiDate"));
 				
 				list.add(dto);

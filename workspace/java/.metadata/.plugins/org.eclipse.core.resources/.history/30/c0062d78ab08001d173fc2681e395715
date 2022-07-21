@@ -1,0 +1,178 @@
+package sungjuk.model;
+
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+
+import common.DB;
+
+public class SungjukDAO {
+	
+	Connection conn = null;
+	PreparedStatement pstmt = null;
+	ResultSet rs = null;
+	
+	public ArrayList<SungjukDTO> getSelectAll() {
+		ArrayList<SungjukDTO> list = new ArrayList<>();
+		try {
+			conn = DB.dbConn();
+			//------------------------------------
+			String sql = "select * from sungjuk";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				SungjukDTO dto = new SungjukDTO();
+				dto.setNo(rs.getInt("no"));
+				dto.setName(rs.getString("name"));
+				dto.setKor(rs.getInt("kor"));
+				dto.setEng(rs.getInt("eng"));
+				dto.setMath(rs.getInt("math"));
+				dto.setTot(rs.getInt("tot"));
+				dto.setAvg(rs.getDouble("avg"));
+				dto.setGrade(rs.getString("grade"));
+				dto.setRegiDate(rs.getDate("regiDate"));
+				
+				list.add(dto);
+			}
+			//------------------------------------
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DB.dbConnClose(rs, pstmt, conn);
+		}
+		return list;
+	}
+	
+	public SungjukDTO getSelectOne(SungjukDTO paramDTO) {
+		SungjukDTO dto = new SungjukDTO();
+		try {
+			conn = DB.dbConn();
+			//------------------------------------
+			String sql = "select * from sungjuk where no = ?";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				SungjukDTO dto = new SungjukDTO();
+				dto.setNo(rs.getInt("no"));
+				dto.setName(rs.getString("name"));
+				dto.setKor(rs.getInt("kor"));
+				dto.setEng(rs.getInt("eng"));
+				dto.setMath(rs.getInt("math"));
+				dto.setTot(rs.getInt("tot"));
+				dto.setAvg(rs.getDouble("avg"));
+				dto.setGrade(rs.getString("grade"));
+				dto.setRegiDate(rs.getDate("regiDate"));
+				
+				list.add(dto);
+			}
+			//------------------------------------
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DB.dbConnClose(rs, pstmt, conn);
+		}
+		return list;
+	}
+	
+	public void setInsert01(String name, int kor, int eng, int math, int tot, double avg, String grade) {
+		System.out.println("name : " + name);
+		System.out.println("kor : " + kor);
+		System.out.println("eng : " + eng);
+		System.out.println("math : " + math);
+		System.out.println("tot : " + tot);
+		System.out.println("avg : " + eng);
+		System.out.println("grade : " + grade);
+	}
+	
+	public void setInsert02(String str) {
+		//홍길동|90|80|70|240|80.0|B
+		String[] imsiArray = str.split("[|]");
+		
+		System.out.println("name : " + imsiArray[0]);
+		System.out.println("kor : " + imsiArray[1]);
+		System.out.println("eng : " + imsiArray[2]);
+		System.out.println("math : " + imsiArray[3]);
+		System.out.println("tot : " + imsiArray[4]);
+		System.out.println("avg : " + imsiArray[5]);
+		System.out.println("grade : " + imsiArray[6]);
+	}
+	
+	public void setInsert03(String[] sungjukArray) {
+		System.out.println("name : " + sungjukArray[0]);
+		System.out.println("kor : " + sungjukArray[1]);
+		System.out.println("eng : " + sungjukArray[2]);
+		System.out.println("math : " + sungjukArray[3]);
+		System.out.println("tot : " + sungjukArray[4]);
+		System.out.println("avg : " + sungjukArray[5]);
+		System.out.println("grade : " + sungjukArray[6]);
+	}
+	
+	public int setInsert04(SungjukDTO dto) {
+		int result = 0;
+		try {
+			conn = DB.dbConn();
+			//------------------------------------
+			String sql = "insert into sungjuk values (seq_sungjuk.nextval, ?, ?, ?, ?, ?, ?, ?, sysdate)";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, dto.getName());
+			pstmt.setInt(2, dto.getKor());
+			pstmt.setInt(3, dto.getEng());
+			pstmt.setInt(4, dto.getMath());
+			pstmt.setInt(5, dto.getTot());
+			pstmt.setDouble(6, dto.getAvg());
+			pstmt.setString(7, dto.getGrade());
+			result = pstmt.executeUpdate();
+			//------------------------------------
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DB.dbConnClose(rs, pstmt, conn);
+		}
+		return result;
+	}
+	
+	public int setUpdate(SungjukDTO dto) {
+		int result = 0;
+		try	{
+			conn = DB.dbConn();
+			//--------------------------------------
+			String sql = "update sungjuk set kor = ?, eng = ?, math = ?, tot = ?, avg = ?, grade = ? where no = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, dto.getKor());
+			pstmt.setInt(2, dto.getEng());
+			pstmt.setInt(3, dto.getMath());
+			pstmt.setInt(4, dto.getTot());
+			pstmt.setDouble(5, dto.getAvg());
+			pstmt.setString(6, dto.getGrade());
+			pstmt.setInt(7, dto.getNo());
+			
+			result = pstmt.executeUpdate();
+			//--------------------------------------
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DB.dbConnClose(rs, pstmt, conn);
+		}
+		return result;
+	}
+	
+	public int setDelete(SungjukDTO dto) {
+		int result = 0;
+		try {
+			conn = DB.dbConn();
+			//------------------------------------
+			String sql = "delete from sungjuk where no = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, dto.getNo());
+			result = pstmt.executeUpdate();
+			//------------------------------------
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DB.dbConnClose(rs, pstmt, conn);
+		}
+		return result;
+	}
+}

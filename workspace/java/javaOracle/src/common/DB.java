@@ -19,10 +19,9 @@ public class DB {
 			
 			Class.forName(dbDriver);
 			conn = DriverManager.getConnection(dbUrl, dbId, dbPw);
-			System.out.println("오라클 접속 성공..");
 			
 		} catch (Exception e) {
-			System.out.println("오라클 접속 실패..");
+			e.printStackTrace();
 		}
 		
 		return conn;
@@ -33,9 +32,8 @@ public class DB {
 			if (rs != null) { rs.close(); }
 			if (pstmt != null) { pstmt.close(); }
 			if (conn != null) { conn.close(); }
-			System.out.println("오라클 접속 해제 성공..");
 		} catch (Exception e) {
-			System.out.println("오라클 접속 해제 실패..");
+			e.printStackTrace();
 		}
 	}
 }

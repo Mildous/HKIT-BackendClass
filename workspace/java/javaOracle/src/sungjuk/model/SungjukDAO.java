@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 import common.DB;
 
@@ -13,26 +14,27 @@ public class SungjukDAO {
 	PreparedStatement pstmt = null;
 	ResultSet rs = null;
 	
-	public void getSelectAll() {
+	public ArrayList<SungjukDTO> getSelectAll() {
+		ArrayList<SungjukDTO> list = new ArrayList<>();
 		try {
 			conn = DB.dbConn();
 			//------------------------------------
-			String sql = "select * from sungjuk";
+			String sql = "select * from sungjuk order by no desc";
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
-				int no = rs.getInt("no");
-				String name = rs.getString("name");
-				int kor = rs.getInt("kor");
-				int eng = rs.getInt("eng");
-				int math = rs.getInt("math");
-				int tot = rs.getInt("tot");
-				double avg = rs.getDouble("avg");
-				String grade = rs.getString("grade");
-				Date regiDate = rs.getDate("regiDate");
+				SungjukDTO dto = new SungjukDTO();
+				dto.setNo(rs.getInt("no"));
+				dto.setName(rs.getString("name"));
+				//dto.setKor(rs.getInt("kor"));
+				//dto.setEng(rs.getInt("eng"));
+				//dto.setMath(rs.getInt("math"));
+				dto.setTot(rs.getInt("tot"));
+				dto.setAvg(rs.getDouble("avg"));
+				dto.setGrade(rs.getString("grade"));
+				dto.setRegiDate(rs.getDate("regiDate"));
 				
-				System.out.println(no + "\t" + name + "\t" + kor + "\t" + eng + 
-						"\t" + math + "\t" + tot + "\t" + avg + "\t" + grade + "\t" + regiDate);
+				list.add(dto);
 			}
 			//------------------------------------
 		} catch (Exception e) {
@@ -40,31 +42,29 @@ public class SungjukDAO {
 		} finally {
 			DB.dbConnClose(rs, pstmt, conn);
 		}
+		return list;
 	}
 	
-	public void getSelectOne(SungjukDTO dto) {
+	public SungjukDTO getSelectOne(SungjukDTO paramDto) {
+		SungjukDTO dto = new SungjukDTO();
 		try {
 			conn = DB.dbConn();
 			//------------------------------------
 			String sql = "select * from sungjuk where no = ?";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, dto.getNo());
+			pstmt.setInt(1, paramDto.getNo());
 			rs = pstmt.executeQuery();
-			if (rs.next()) {
-				int no = rs.getInt("no");
-				String name = rs.getString("name");
-				int kor = rs.getInt("kor");
-				int eng = rs.getInt("eng");
-				int math = rs.getInt("math");
-				int tot = rs.getInt("tot");
-				double avg = rs.getDouble("avg");
-				String grade = rs.getString("grade");
-				Date regiDate = rs.getDate("regiDate");
-				
-				System.out.println(no + "\t" + name + "\t" + kor + "\t" + eng + 
-						"\t" + math + "\t" + tot + "\t" + avg + "\t" + grade + "\t" + regiDate);
-			} else {
-				System.out.println("없는 번호입니다..");
+			if(rs.next()) {
+				dto.setNo(rs.getInt("no"));
+				dto.setName(rs.getString("name"));
+				dto.setKor(rs.getInt("kor"));
+				dto.setEng(rs.getInt("eng"));
+				dto.setMath(rs.getInt("math"));
+				dto.setTot(rs.getInt("tot"));
+				dto.setAvg(rs.getDouble("avg"));
+				dto.setGrade(rs.getString("grade"));
+				dto.setRegiDate(rs.getDate("regiDate"));
+
 			}
 			//------------------------------------
 		} catch (Exception e) {
@@ -72,6 +72,7 @@ public class SungjukDAO {
 		} finally {
 			DB.dbConnClose(rs, pstmt, conn);
 		}
+		return dto;
 	}
 	
 	public void setInsert01(String name, int kor, int eng, int math, int tot, double avg, String grade) {

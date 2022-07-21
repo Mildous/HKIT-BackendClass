@@ -1,0 +1,11 @@
+package member.proc;
+
+public class MemberExample {
+
+	public static void main(String[] args) {
+		
+		Scanner sc = new Scanner(System.in);
+
+	}
+
+}

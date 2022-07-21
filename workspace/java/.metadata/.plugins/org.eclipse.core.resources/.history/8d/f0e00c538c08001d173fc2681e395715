@@ -1,0 +1,15 @@
+package guestbook.model;
+
+import java.sql.Date;
+
+public class GuestBookDTO {
+	private int no;
+	private String writer;
+	private String subject;
+	private String content;
+	private String passwd;
+	private Date regiDate;
+	
+	
+
+}
