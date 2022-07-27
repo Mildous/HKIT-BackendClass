@@ -34,10 +34,28 @@ TRUNCATE table member; --자르기
 
 select * from member;
 
+select count(*) from member;
+
 update member set memberId = 'a', memberName = 'a' where memberNo = '7';
 
 delete from member where memberNo = '8';
 commit;
+
+
+--10000개의 임의 데이터 넣기--
+declare
+n number := 0;
+begin
+    loop
+        dbms_output.put_line(n);
+        n := n + 1;
+        insert into member values (seq_member.nextval, n, n, n, n, n, n, n, sysdate);
+        commit;
+        exit when n >= 10000;
+    end loop;
+end;
+-----------------------------
+
 
 ------------------------------------------------------
 
