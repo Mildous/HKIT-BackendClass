@@ -1,0 +1,26 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%
+	String[] subject = new String[5];	//{"", "", "", "", ""}
+	subject[0] = "국어";
+	subject[1] = "영어";
+	subject[2] = "수학";
+	subject[3] = "과학";
+	subject[4] = "역사";
+	
+	for(String i : subject) {
+		out.print(i + "<br>");
+		
+	}
+%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>test05.jsp</title>
+</head>
+<body>
+	<h2>test05.jsp</h2>
+	
+</body>
+</html>

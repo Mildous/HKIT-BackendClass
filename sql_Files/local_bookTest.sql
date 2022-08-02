@@ -146,3 +146,18 @@ from book_01 b1 right outer join book_02 b2 on b1.id = b2.author_id;
 select b2.id, b2.subject, b1.author, b2.created, b1.profile
 from book_01 b1 left outer join book_02 b2 on b1.id = b2.author_id;
 
+
+create table book_03 (
+id      number NOT NULL,
+comment VARCHAR2(100) NOT NULL,
+wdate DATE NOT NULL,
+author_id number NOT NULL
+);
+CREATE SEQUENCE seq_book_03 START WITH 1 INCREMENT BY 1 MINVALUE 1;
+ALTER TABLE book_03 ADD PRIMARY KEY (id);
+
+insert into book_03 values (seq_book_03.NEXTVAL, '좋다', sysdate, 1);
+insert into book_03 values (seq_book_03.NEXTVAL, '어렵다', sysdate, 1);
+insert into book_03 values (seq_book_03.NEXTVAL, '잘하네', sysdate, 2);
+insert into book_03 values (seq_book_03.NEXTVAL, '뭐니이거', sysdate, 1);
+commit;

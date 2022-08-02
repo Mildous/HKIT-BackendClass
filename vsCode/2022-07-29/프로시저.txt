@@ -1,0 +1,166 @@
+-- 프로시저 : 스토어드프로시저 (as, begin, end)
+select count(*) from employees;
+select count(*) from departments;
+select 107 + 27 from dual;
+
+select * from user_source;
+drop procedure p_counter;
+
+
+create or replace procedure p_counter
+as var1 int;
+   var2 int;
+begin
+   select count(*) into var1 from employees;
+   select count(*) into var2 from departments;
+   DBMS_OUTPUT.PUT_LINE(var1 + var2);
+end;
+
+
+SET SERVEROUTPUT ON;
+execute p_counter;
+
+-------------------------------------------------------------------------------
+-- begin과 end 사이에 실행문이 들어감
+-- 실행문은 하나만 들어가는것이 아니라 여러개 들어갈 수 있음
+-- as에는 변수선언을, 여러개 들어갈 수 있음
+-- as에서 선언한 변수를 begin에서 사용하기 때문에 선언하지 않은 변수는 사용할 수 없다
+
+create or replace procedure sp_salaryEname( --매개변수는 소괄호 안에
+    v_first_name in employees.first_name%type,  --employees 테이블의 first_name의 타입과 동일, varchar2()
+    v_last_name in employees.last_name%type
+) -- in은 값을 안으로 들여오는것, out은 바깥에서 쓰는, 내보내는것(return)
+as
+    v_salary employees.salary%type; --employees 테이블의 salary 타입과 동일
+begin
+    select salary into v_salary     --into: 담기
+    from employees
+    where first_name = v_first_name and last_name = v_last_name; --외부(employees)에서 받아옴
+    DBMS_OUTPUT.PUT_LINE(v_salary);
+end;
+
+SET SERVEROUTPUT ON;
+execute sp_salaryEname('Steven', 'King'); -- 매개변수 입력, 실행하면 결과가 나옴(24000)
+
+-- [Steven King의 급여는 24000입니다.]로 출력하기
+-- DBMS_OUTPUT.PUT_LINE(  v_first_name || ' ' || v_last_name || '의 급여는 ' || v_salary || '입니다.'  );
+-- 프로시저 내용이 바뀌었기 때문에 다시 실행해서 덮어씌워야 함
+
+create or replace procedure sp_salaryEname(
+    v_first_name in employees.first_name%type,
+    v_last_name in employees.last_name%type
+)
+as
+    v_salary employees.salary%type;
+begin
+    select salary into v_salary
+    from employees
+    where first_name = v_first_name and last_name = v_last_name;
+    DBMS_OUTPUT.PUT_LINE(  v_first_name || ' ' || v_last_name || '의 급여는 ' || v_salary || '입니다.'  );
+end;
+
+
+-----------------------------------------------------out
+-- 내보내는것이기 때문에 출력문 필요 x
+create or replace procedure sp_salaryEname2(
+    v_first_name in employees.first_name%type,
+    v_last_name in employees.last_name%type,
+    v_salary out employees.salary%type
+)
+as
+begin
+    select salary into v_salary --내보내는 변수 v_salary에 담음
+    from employees
+    where first_name = v_first_name and last_name = v_last_name;
+end;
+
+--out은 앞에 콜론을 붙임
+SET SERVEROUTPUT ON;
+variable v_salary varchar2(20);
+execute sp_salaryEname2('Steven', 'King', :v_salary);
+print v_salary;
+
+------------------------------------------------------
+
+create table testEmployees
+as select * from employees;
+
+select * from testEmployees;
+
+create or replace procedure sp_updateSalary(v_employee_id in number)
+as
+begin
+    update testEmployees set salary = salary * 1.1 where employee_id = v_employee_id;
+end;
+
+select * from testEmployees where employee_id = '200';
+execute sp_updateSalary(200);
+
+
+------------------------------------------------------
+
+-- 메모장
+
+create table testMemo(
+idx number primary key,
+writer varchar2(50) not null,
+memo varchar2(500) not null,
+wdate date default sysdate
+);
+
+create sequence seq_testMemo start with 1 increment by 1 nomaxvalue nocache;
+
+select * from testMemo;
+
+insert into testMemo(idx, writer, memo) values (seq_testMemo.nextval, 'hong', 'test001');
+insert into testMemo(idx, writer, memo) values (seq_testMemo.nextval, 'lee', 'test002');
+commit;
+
+
+create or replace procedure testMemoInsert(
+    v_writer in testMemo.writer%type,
+    v_memo in testMemo.memo%type
+)
+as
+begin
+    insert into testMemo(idx, writer, memo) values (seq_testMemo.nextval, v_writer, v_memo);
+    commit;
+end;
+
+execute testMemoInsert('hong', 'memo1');
+
+execute testMemoInsert('jang', 'memo2');
+
+-------------------------------------------------------------------------------
+
+create table testMember(
+id varchar2(50) not null,
+passwd varchar2(50) not null,
+name varchar2(50) not null,
+email varchar2(50) not null,
+addr varchar2(50) not null,
+primary key(id)
+);
+
+create or replace procedure sp_testMember(
+    v_id in testMember.id%type,
+    v_passwd in testMember.passwd%type,
+    v_name in testMember.name%type,
+    v_email in testMember.email%type,
+    v_addr in testMember.addr%type
+)
+as
+begin
+    insert into testMember values (v_id, v_passwd, v_name, v_email, v_addr);
+end;
+
+select * from testMember;
+
+exec sp_testMember('hong', '1234', '홍길동', 'hong@gmail.com', '대구');
+exec sp_testMember('lee', '0987', '이성순', 'lee@gmail.com', '서울');
+
+commit;
+
+-- 프로시저 삭제
+drop procedure sp_testMember;
+drop procedure sp_salaryEname;
