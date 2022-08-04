@@ -81,5 +81,6 @@
 			<td colspan="2"><button type="submit">확인</button></td>
 		</tr>
 	</table>
+	</form>
 </body>
 </html>
