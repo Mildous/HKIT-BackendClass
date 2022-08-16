@@ -1,0 +1,42 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="book.model.dto.BookDTO"%>
+<%@page import="book.model.dao.BookDAO"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    
+<%
+	BookDAO dao = new BookDAO();
+	ArrayList<BookDTO> list = dao.getSelectAll();
+
+%>
+
+<h2>도서목록</h2>
+
+<table border="1">
+	<tr>
+		<th>순번</th>
+		<th>제목</th>
+		<th>저자</th>
+		<th>발행일</th>
+		<th>분류</th>
+		<th>등록일</th>
+	</tr>
+	
+	
+	<tr>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+		<td></td>
+	</tr>
+	
+</table>
+
+<script>
+function move() {
+	
+}
+
+</script>

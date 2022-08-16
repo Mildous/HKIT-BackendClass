@@ -1,0 +1,28 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>_06_info.jsp</title>
+</head>
+<body>
+
+<h2>파일 정보</h2>
+
+<%
+	String attachPath = "C:/Users/HKIT/COY/attach";
+	String uploadPath = attachPath + "/testFile/aaa";
+	String uploadFile = uploadPath + "/test01.txt";
+	
+	if() {
+		
+	} else {
+		
+	}
+	
+	
+%>
+
+</body>
+</html>

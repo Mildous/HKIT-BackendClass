@@ -1,0 +1,24 @@
+package bookAuthor.model.dao;
+
+public class BookAuthorDAO {
+	
+	public void getSelectAll() {
+		
+	}
+	
+	public void getSelectOne() {
+		
+	}
+	
+	public void setInsert() {
+		
+	}
+	
+	public void setUpdate() {
+		
+	}
+	
+	public void setDelete() {
+		
+	}
+}

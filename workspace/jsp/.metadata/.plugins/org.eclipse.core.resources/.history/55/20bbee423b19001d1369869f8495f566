@@ -1,0 +1,64 @@
+package book.model.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
+import book.model.dto.BookDTO;
+import config.DB;
+
+public class BookDAO {
+	Connection conn = null;
+	PreparedStatement pstmt = null;
+	ResultSet rs = null;
+
+	public void getSelectAll() {
+		
+	}
+	
+	public void getSelectOne() {
+		
+	}
+	
+	public int setInsert(BookDTO paramDto) {
+		int result = 0;
+		conn = DB.dbConn();
+		try {
+			String sql = "insert into book values (seq_book.nextval, ?, ?, ?, ?, sysdate)";
+			pstmt = conn.prepareStatement(sql);
+			
+			
+		} catch(Exception e) {
+			//e.printStackTrace();
+		} finally {
+			DB.dbConnClose(rs, pstmt, conn);
+		}
+		return result;
+	}
+	
+	public int setUpdate() {
+		int result = 0;
+		conn = DB.dbConn();
+		try {
+			
+		} catch(Exception e) {
+			//e.printStackTrace();
+		} finally {
+			DB.dbConnClose(rs, pstmt, conn);
+		}
+		return result;
+	}
+	
+	public int setDelete() {
+		int result = 0;
+		conn = DB.dbConn();
+		try {
+			
+		} catch(Exception e) {
+			//e.printStackTrace();
+		} finally {
+			DB.dbConnClose(rs, pstmt, conn);
+		}
+		return result;
+	}
+}

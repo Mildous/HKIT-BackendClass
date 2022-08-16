@@ -1,0 +1,15 @@
+package config;
+
+public class Util {
+
+	public void numberCheck(String str) {
+		int result = 0;
+		try {
+			result = Integer.parseInt(str);
+		} catch(Exception e) {
+			//e.printStackTrace();
+			result = 0;
+		}
+		return result;
+	}
+}

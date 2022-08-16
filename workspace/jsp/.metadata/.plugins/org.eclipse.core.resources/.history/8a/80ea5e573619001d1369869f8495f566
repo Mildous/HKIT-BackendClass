@@ -1,0 +1,13 @@
+package book.model.dto;
+
+import java.sql.Date;
+
+public class BookDTO {
+	private int no;
+	private String subject;
+	private String author;
+	private Date created;
+	private String profile;
+	private Date regiDate;
+	
+}

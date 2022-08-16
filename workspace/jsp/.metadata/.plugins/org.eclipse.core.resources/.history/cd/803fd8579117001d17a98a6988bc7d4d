@@ -1,0 +1,19 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ include file = "_inc_fileInfo.jsp"%>
+
+<%
+	request.setCharacterEncoding("UTF-8");
+
+	String name = request.getParameter("name");
+	String kor_ = request.getParameter("kor");
+	String eng_ = request.getParameter("eng");
+	String mat_ = request.getParameter("mat");
+	String sci_ = request.getParameter("sci");
+	String his_ = request.getParameter("his");
+	
+	String msg = name + "," + kor_ + "," + eng_ + "," + mat_ + "," + sci_ + "," + his_;
+	
+	
+	
+%>

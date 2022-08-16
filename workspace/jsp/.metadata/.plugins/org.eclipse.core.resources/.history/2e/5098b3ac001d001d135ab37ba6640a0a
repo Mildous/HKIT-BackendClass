@@ -1,0 +1,35 @@
+package bookAuthor.model.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
+import config.DB;
+
+public class BookAuthorDAO {
+	
+	Connection conn = null;
+	PreparedStatement pstmt = null;
+	ResultSet rs = null;
+	
+	public void getSelectAll() {
+		
+	}
+	
+	public void getSelectOne() {
+		
+	}
+	
+	public int setInsert() {
+		conn = DB.dbConn();
+		
+	}
+	
+	public void setUpdate() {
+		
+	}
+	
+	public void setDelete() {
+		
+	}
+}

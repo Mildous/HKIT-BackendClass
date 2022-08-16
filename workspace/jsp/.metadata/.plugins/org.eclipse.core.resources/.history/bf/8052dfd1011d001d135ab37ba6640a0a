@@ -1,0 +1,81 @@
+package bookAuthor.model.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+
+import bookAuthor.model.dto.BookAuthorDTO;
+import config.DB;
+
+public class BookAuthorDAO {
+	
+	Connection conn = null;
+	PreparedStatement pstmt = null;
+	ResultSet rs = null;
+	
+	public ArrayList<BookAuthorDTO> getSelectAll() {
+		ArrayList<BookAuthorDTO> list = new ArrayList<BookAuthorDTO>();
+		conn = DB.dbConn();
+		try {
+			
+		} catch(Exception e) {
+			//e.printStackTrace();
+		} finally {
+			DB.dbConnClose(rs, pstmt, conn);
+		}
+		return list;
+	}
+	
+	public BookAuthorDTO getSelectOne() {
+		BookAuthorDTO resultDto = new BookAuthorDTO();
+		conn = DB.dbConn();
+		try {
+			
+		} catch(Exception e) {
+			//e.printStackTrace();
+		} finally {
+			DB.dbConnClose(rs, pstmt, conn);
+		}
+		return resultDto;
+	}
+	
+	public int setInsert() {
+		int result = 0;
+		conn = DB.dbConn();
+		try {
+			String sql = "insert into bookAuthor values(seq_bookAuthor.nextval, ?, sysdate)";
+		} catch(Exception e) {
+			//e.printStackTrace();
+		} finally {
+			DB.dbConnClose(rs, pstmt, conn);
+		}
+		return result;
+	}
+	
+	public int setUpdate() {
+		int result = 0;
+		conn = DB.dbConn();
+		try {
+			
+		} catch(Exception e) {
+			//e.printStackTrace();
+		} finally {
+			DB.dbConnClose(rs, pstmt, conn);
+		}
+		return result;
+	}
+	
+	public int setDelete() {
+		int result = 0;
+		conn = DB.dbConn();
+		try {
+			
+		} catch(Exception e) {
+			//e.printStackTrace();
+		} finally {
+			DB.dbConnClose(rs, pstmt, conn);
+		}
+		return result;
+	}
+}

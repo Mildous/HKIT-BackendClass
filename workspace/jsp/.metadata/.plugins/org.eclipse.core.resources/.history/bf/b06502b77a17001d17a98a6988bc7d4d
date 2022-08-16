@@ -1,0 +1,14 @@
+package config;
+
+public class Constants {
+	public static final String ATTACH_PATH = "C:/Users/HKIT/COY/attach";
+	public static final int MAX_UPLOAD = 1024 * 1024 * 10;	//용량
+}
+
+/*
+
+bit  <  byte  < kbyte  <  mbyte  <  gbyte <  tbyte
+8bit
+
+
+*/

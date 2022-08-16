@@ -1,0 +1,53 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
+<%@page import="java.util.Scanner"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%
+	String arg1 = request.getParameter("arg1");
+
+	if(arg1 == null || arg1.trim().equals("")) {
+		out.println("<script>");
+		out.println("alert('정상적인 접속이 아닙니다.');");
+		out.println("location.href = 'list.jsp';");
+		out.println("</script>");
+		return;
+	}
+
+	String attachPath = "C:/Users/HKIT/COY/attach";
+	String uploadPath = attachPath + "/testFile/jspTest";
+	String uploadFile = uploadPath + "/member.txt";
+	ArrayList<String> list = new ArrayList<>();
+			
+	try {
+		java.io.File f = new java.io.File(uploadFile);
+		Scanner sReader = new Scanner(f);
+					
+		while(sReader.hasNextLine()) {
+			String data = sReader.nextLine();
+			
+			String[] imsiArray = data.split(",");
+			String id = imsiArray[0];
+			String pw = imsiArray[1];
+			String name = imsiArray[2];
+			String tel = imsiArray[3];
+			String addr = imsiArray[4];
+			
+			String msg = id + "/" + pw + "/" + name + "/" + tel + "/" + addr;
+			list.add(msg);
+		}
+		
+	} catch(Exception e) {
+		e.printStackTrace();
+	}
+%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+</body>
+</html>
