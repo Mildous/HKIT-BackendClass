@@ -1,0 +1,5 @@
+package haksaMember.model.dao;
+
+public class HaksaMemberDAO {
+
+}

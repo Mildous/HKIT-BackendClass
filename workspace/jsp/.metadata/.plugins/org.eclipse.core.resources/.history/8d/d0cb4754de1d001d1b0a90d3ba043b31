@@ -1,0 +1,131 @@
+package haksaSihum.model.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+
+import config.DB;
+import haksaSihum.model.dto.HaksaSihumDTO;
+
+public class HaksaSihumDAO {
+
+	Connection conn = null;
+	PreparedStatement pstmt = null;
+	ResultSet rs = null;
+	String table_1 = "haksaSihum";
+	
+	public ArrayList<HaksaSihumDTO> getSelectAll() {
+		ArrayList<HaksaSihumDTO> list = new ArrayList<HaksaSihumDTO>();
+		conn = DB.dbConn();
+		try {
+			String sql = "select * from " + table_1 + " order by sihumNo desc";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				HaksaSihumDTO resultDto = new HaksaSihumDTO();
+				resultDto.setHakbun(rs.getInt("hakbun"));
+				resultDto.setName(rs.getString("name"));
+				resultDto.setPhone(rs.getString("phone"));
+				resultDto.setParentPhone(rs.getString("parentPhone"));
+				resultDto.setAddr1(rs.getString("addr1"));
+				resultDto.setAddr2(rs.getString("addr2"));
+				resultDto.setAddr3(rs.getString("addr3"));
+				resultDto.setAddr4(rs.getString("addr4"));
+				resultDto.setRegiDate(rs.getDate("regiDate"));
+				list.add(resultDto);
+			}
+		} catch(Exception e) {
+			//e.printStackTrace();
+		} finally {
+			DB.dbConnClose(rs, pstmt, conn);
+		}
+		return list;
+	}
+	
+	public HaksaSihumDTO getSelectOne(HaksaSihumDTO paramDto) {
+		HaksaSihumDTO resultDto = new HaksaSihumDTO();
+		conn = DB.dbConn();
+		try {
+			String sql = "select * from " + table_1 + " where hakbun = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, paramDto.getHakbun());
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				resultDto.setHakbun(rs.getInt("hakbun"));
+				resultDto.setName(rs.getString("name"));
+				resultDto.setPhone(rs.getString("phone"));
+				resultDto.setParentPhone(rs.getString("parentPhone"));
+				resultDto.setAddr1(rs.getString("addr1"));
+				resultDto.setAddr2(rs.getString("addr2"));
+				resultDto.setAddr3(rs.getString("addr3"));
+				resultDto.setAddr4(rs.getString("addr4"));
+			}
+		} catch(Exception e) {
+			//e.printStackTrace();
+		} finally {
+			DB.dbConnClose(rs, pstmt, conn);
+		}
+		return resultDto;
+	}
+	
+	public int setInsert(HaksaSihumDTO paramDto) {
+		int result = 0;
+		conn = DB.dbConn();
+		try {
+			String sql = "insert into " + table_1 + " values(seq_haksaMember.nextval, ?, ?, ?, ?, ?, ?, ?, sysdate)";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, paramDto.getName());
+			pstmt.setString(2, paramDto.getPhone());
+			pstmt.setString(3, paramDto.getParentPhone());
+			pstmt.setString(4, paramDto.getAddr1());
+			pstmt.setString(5, paramDto.getAddr2());
+			pstmt.setString(6, paramDto.getAddr3());
+			pstmt.setString(7, paramDto.getAddr4());
+			result = pstmt.executeUpdate();
+		} catch(Exception e) {
+			//e.printStackTrace();
+		} finally {
+			DB.dbConnClose(rs, pstmt, conn);
+		}
+		return result;
+	}
+	
+	public int setUpdate(HaksaSihumDTO paramDto) {
+		int result = 0;
+		conn = DB.dbConn();
+		try {
+			String sql = "update " + table_1 + " set phone = ?, parentPhone = ?, addr1 = ?, addr2 = ?, addr3 = ?, addr4 = ? where hakbun = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, paramDto.getPhone());
+			pstmt.setString(2, paramDto.getParentPhone());
+			pstmt.setString(3, paramDto.getAddr1());
+			pstmt.setString(4, paramDto.getAddr2());
+			pstmt.setString(5, paramDto.getAddr3());
+			pstmt.setString(6, paramDto.getAddr4());
+			pstmt.setInt(7, paramDto.getHakbun());
+			result = pstmt.executeUpdate();
+		} catch(Exception e) {
+			//e.printStackTrace();
+		} finally {
+			DB.dbConnClose(rs, pstmt, conn);
+		}
+		return result;
+	}
+	
+	public int setDelete(HaksaSihumDTO paramDto) {
+		int result = 0;
+		conn = DB.dbConn();
+		try {
+			String sql = "delete from " + table_1 + " where hakbun = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, paramDto.getHakbun());
+			result = pstmt.executeUpdate();
+		} catch(Exception e) {
+			//e.printStackTrace();
+		} finally {
+			DB.dbConnClose(rs, pstmt, conn);
+		}
+		return result;
+	}
+}

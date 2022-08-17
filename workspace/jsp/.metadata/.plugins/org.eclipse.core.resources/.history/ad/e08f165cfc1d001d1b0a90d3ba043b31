@@ -1,0 +1,174 @@
+package haksaSungjuk.model.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Map;
+
+import config.DB;
+import haksaSungjuk.model.dto.HaksaSungjukDTO;
+
+public class HaksaSungjukDAO {
+
+	Connection conn = null;
+	PreparedStatement pstmt = null;
+	ResultSet rs = null;
+	Statement stmt = null;
+	String table_1 = "haksaSungjuk";
+	
+	// 검색 조건에 맞는 게시물의 개수를 반환한다.
+	public int selectCount(Map<String, Object> map) {
+		int totalCount = 0;	// 결과(게시물 수)를 담을 변수
+			
+		// 게시물 수를 얻어오는 쿼리문 작성
+		String query = "select count(*) from board";
+		if(map.get("searchWord") != null) {
+			query += " where " + map.get("searchField") + " "
+					+ " like '%" + map.get("searchWord") + "%'";
+		}
+			
+		try {
+			stmt = conn.createStatement();	// 쿼리문 실행
+			rs = pstmt.executeQuery(query);	// 쿼리 실행
+			rs.next();	// 커서를 첫 번째 행으로 이동
+			totalCount = rs.getInt(1);	// 첫 번째 컬럼 값을 가져옴
+		} catch(Exception e) {
+			System.out.println("게시물 수를 구하는 중 예외 발생");
+			e.printStackTrace();
+		}
+		return totalCount;
+	}
+	
+	public ArrayList<HaksaSungjukDTO> getSelectAll() {
+		ArrayList<HaksaSungjukDTO> list = new ArrayList<HaksaSungjukDTO>();
+		conn = DB.dbConn();
+		try {
+			String sql = "select sungjuk.sungjukNo, (";
+			sql += " select name from haksaMember m where m.hakbun = sungjuk.hakbun";
+			sql += " ) name, (";
+			sql += "select sihumName from haksaSihum sihum where sihum.sihumNo = sungjuk.sihumNo";
+			sql += " ) sihumName, sungjuk.tot, sungjuk.avg, sungjuk.grade, sungjuk.regiDate";
+			sql += " from " + table_1 + " sungjuk";
+			sql += " order by sungjukNo desc";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				HaksaSungjukDTO resultDto = new HaksaSungjukDTO();
+				resultDto.setSungjukNo(rs.getInt("sungjukNo"));
+				resultDto.setName(rs.getString("name"));
+				resultDto.setSihumName(rs.getString("sihumName"));
+				resultDto.setTot(rs.getInt("tot"));
+				resultDto.setAvg(rs.getDouble("avg"));
+				resultDto.setGrade(rs.getString("grade"));
+				resultDto.setRegiDate(rs.getDate("regiDate"));
+				list.add(resultDto);
+			}
+		} catch(Exception e) {
+			//e.printStackTrace();
+		} finally {
+			DB.dbConnClose(rs, pstmt, conn);
+		}
+		return list;
+	}
+	
+	public HaksaSungjukDTO getSelectOne(HaksaSungjukDTO paramDto) {
+		HaksaSungjukDTO resultDto = new HaksaSungjukDTO();
+		conn = DB.dbConn();
+		try {
+			String sql = "select sungjuk.*, (";
+			sql += " select name from haksaMember m where m.hakbun = sungjuk.hakbun";
+			sql += " ) name, (";
+			sql += "select sihumName from haksaSihum sihum where sihum.sihumNo = sungjuk.sihumNo";
+			sql += " ) sihumName";
+			sql += " from " + table_1 + " sungjuk where sungjukNo = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, paramDto.getSungjukNo());
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				resultDto.setSungjukNo(rs.getInt("sungjukNo"));
+				resultDto.setName(rs.getString("name"));
+				resultDto.setSihumName(rs.getString("sihumName"));
+				resultDto.setKor(rs.getInt("kor"));
+				resultDto.setEng(rs.getInt("eng"));
+				resultDto.setMat(rs.getInt("mat"));
+				resultDto.setSci(rs.getInt("sci"));
+				resultDto.setHis(rs.getInt("his"));
+				resultDto.setTot(rs.getInt("tot"));
+				resultDto.setAvg(rs.getDouble("avg"));
+				resultDto.setGrade(rs.getString("grade"));
+			}
+		} catch(Exception e) {
+			//e.printStackTrace();
+		} finally {
+			DB.dbConnClose(rs, pstmt, conn);
+		}
+		return resultDto;
+	}
+	
+	public int setInsert(HaksaSungjukDTO paramDto) {
+		int result = 0;
+		conn = DB.dbConn();
+		try {
+			String sql = "insert into " + table_1 + " values(seq_haksaSungjuk.nextval, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, sysdate)";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, paramDto.getKor());
+			pstmt.setInt(2, paramDto.getEng());
+			pstmt.setInt(3, paramDto.getMat());
+			pstmt.setInt(4, paramDto.getSci());
+			pstmt.setInt(5, paramDto.getHis());
+			pstmt.setInt(6, paramDto.getTot());
+			pstmt.setDouble(7, paramDto.getAvg());
+			pstmt.setString(8, paramDto.getGrade());
+			pstmt.setInt(9, paramDto.getHakbun());
+			pstmt.setInt(10, paramDto.getSihumNo());
+			result = pstmt.executeUpdate();
+		} catch(Exception e) {
+			//e.printStackTrace();
+		} finally {
+			DB.dbConnClose(rs, pstmt, conn);
+		}
+		return result;
+	}
+	
+	public int setUpdate(HaksaSungjukDTO paramDto) {
+		int result = 0;
+		conn = DB.dbConn();
+		try {
+			String sql = "update " + table_1 + " set kor = ?, eng = ?, mat = ?, sci = ?, his = ?, tot = ?, avg = ?, grade = ? where sungjukNo = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, paramDto.getKor());
+			pstmt.setInt(2, paramDto.getEng());
+			pstmt.setInt(3, paramDto.getMat());
+			pstmt.setInt(4, paramDto.getSci());
+			pstmt.setInt(5, paramDto.getHis());
+			pstmt.setInt(6, paramDto.getTot());
+			pstmt.setDouble(7, paramDto.getAvg());
+			pstmt.setString(8, paramDto.getGrade());
+			pstmt.setInt(9, paramDto.getSungjukNo());
+			result = pstmt.executeUpdate();
+		} catch(Exception e) {
+			//e.printStackTrace();
+		} finally {
+			DB.dbConnClose(rs, pstmt, conn);
+		}
+		return result;
+	}
+	
+	public int setDelete(HaksaSungjukDTO paramDto) {
+		int result = 0;
+		conn = DB.dbConn();
+		try {
+			String sql = "delete from " + table_1 + " where sungjukNo = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, paramDto.getSungjukNo());
+			result = pstmt.executeUpdate();
+		} catch(Exception e) {
+			//e.printStackTrace();
+		} finally {
+			DB.dbConnClose(rs, pstmt, conn);
+		}
+		return result;
+	}
+}

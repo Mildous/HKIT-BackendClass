@@ -18,6 +18,10 @@
 	|
 	<a href="../memberBasic/list.jsp">회원관리(basic)</a>
 	|
+	
+	<br>
+	
+	|
 	<a href="../Book/list.jsp">도서관리(Book)</a>
 	|
 	<a href="../BookAuthor/list.jsp">저자관리(Book)</a>
@@ -25,6 +29,16 @@
 	<a href="../BookProfile/list.jsp">분류관리(Book)</a>
 	|
 	<a href="../BookInfo/list.jsp">도서정보관리(Book)</a>
+	|
+	
+	<br>
+	
+	|
+	<a href="../haksaMember/list.jsp">학사관리(Member)</a>
+	|
+	<a href="../haksaSihum/list.jsp">학사관리(Sihum)</a>
+	|
+	<a href="../haksaSungjuk/list.jsp">학사관리(Sungjuk)</a>
 	|
 </body>
 </html>

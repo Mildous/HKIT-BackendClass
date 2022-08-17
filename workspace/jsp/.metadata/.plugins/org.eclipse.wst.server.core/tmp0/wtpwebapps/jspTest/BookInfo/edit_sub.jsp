@@ -1,3 +1,8 @@
+<%@page import="bookProfile.model.dto.BookProfileDTO"%>
+<%@page import="bookProfile.model.dao.BookProfileDAO"%>
+<%@page import="bookAuthor.model.dto.BookAuthorDTO"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="bookAuthor.model.dao.BookAuthorDAO"%>
 <%@page import="bookInfo.model.dao.BookInfoDAO"%>
 <%@page import="bookInfo.model.dto.BookInfoDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -24,7 +29,28 @@
 	</tr>
 	<tr>
 		<th>저자</th>
-		<td><input type="text" name="authorNo" id="authorNo" value="<%= resultDto.getAuthorNo() %>"></td>
+		<td>
+		<%
+				BookAuthorDAO authorDao = new BookAuthorDAO();
+				ArrayList<BookAuthorDTO> aList = authorDao.getSelectAll();
+		%>
+		<select name="authorNo">
+			<option value="<%= resultDto.getAuthorNo() %>" selected><%= resultDto.getAuthor() %></option>
+			<%
+					for(int i=0; i<aList.size(); i++) {
+						BookAuthorDTO dto = aList.get(i);
+						
+						String selectedValue = "";
+						if(dto.getAuthorNo() == 0) {
+							selectedValue = "selected";
+						}
+			%>
+			<option value="<%= dto.getAuthorNo() %>"><%= dto.getAuthor() %></option>
+			<%
+				}
+			%>
+		</select>
+		</td>
 	</tr>
 	<tr>
 		<th>출판일</th>
@@ -32,7 +58,23 @@
 	</tr>
 	<tr>
 		<th>분류</th>
-		<td><input type="text" name="profileNo" id="profileNo" value="<%= resultDto.getProfileNo() %>"></td>
+		<td>
+		<%
+			BookProfileDAO profileDao = new BookProfileDAO();
+			ArrayList<BookProfileDTO> pList = profileDao.getSelectAll();
+		%>
+		<select name="profileNo">
+			<option value="<%= resultDto.getProfileNo() %>" selected><%= resultDto.getProfile() %></option>
+			<%
+				for(int i=0; i<pList.size(); i++) {
+					BookProfileDTO dto = pList.get(i);
+			%>
+			<option value="<%= dto.getProfileNo() %>"><%= dto.getProfile() %></option>
+			<%
+				}
+			%>
+		</select>
+		</td>
 	</tr>
 	<tr>
 		<td colspan="2" align="center">

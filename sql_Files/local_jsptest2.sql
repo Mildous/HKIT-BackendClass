@@ -91,6 +91,8 @@ insert into bookProfile values (seq_bookProfile.nextval, '프로그래밍', sysd
 
 commit;
 
+truncate table bookInfo;
+
 insert into bookInfo values (seq_bookInfo.nextval, '자바는 왜 배울까?', '2022-08-01', 3, 3, sysdate);
 insert into bookInfo values (seq_bookInfo.nextval, '해진이와 함께하는 JSP', '2022-08-05', 2, 3, sysdate);
 insert into bookInfo values (seq_bookInfo.nextval, '파이썬', '2022-01-01', 1, 2, sysdate);
@@ -110,3 +112,99 @@ select i.infoNo, i.subject, i.created, (
     select profile from bookProfile p where p.profileNo = i.profileNo
 ) profile, i.regiDate from bookInfo i;
 
+
+-- ----------------------------------------------------------------------
+
+select bi.infoNo, bi.subject, bi.created, (
+    select author from bookAuthor ba where ba.authorNo = bi.authorNo
+) author, (
+    select profile from bookProfile bp where bp.profileNo = bi.profileNo
+) profile, bi.regiDate from bookInfo bi;
+
+
+select * from bookInfo;
+
+-- -----------------------------------------------------------------------
+-- 학사관리
+
+-- haksaMember
+학번 hakbun
+이름 name
+연락처 phone
+부모연락처 parentPhone
+주소 addr1 addr2 addr3 addr4
+등록일 regiDate
+
+create table haksaMember (
+hakbun number not null,
+name varchar2(50) not null,
+phone varchar2(50) not null,
+parentPhone varchar2(50) not null,
+addr1 varchar2(50) not null,
+addr2 varchar2(50) not null,
+addr3 varchar2(50) not null,
+addr4 varchar2(50) not null,
+regiDate date default sysdate not null,
+primary key(hakbun)
+);
+create sequence seq_haksaMember start with 1 increment by 1 nomaxvalue nocache;
+
+-- haksaSihum
+시험번호 sihumNo
+시험종류 sihumName
+시험일 sihumDate
+등록일 regiDate
+
+create table haksasihum (
+sihumNo number not null,
+sihumName varchar2(50) not null,
+sihumDate date not null,
+regiDate date default sysdate not null,
+primary key (sihumNo)
+);
+create sequence seq_haksaSihum start with 1 increment by 1 nomaxvalue nocache;
+
+-- haksaSungjuk
+성적번호 sungjukNo
+국어 kor
+영어 eng
+수학 mat
+과학 sci
+역사 his
+총점 tot
+평균 avg
+등급 grade
+학번 hakbun
+시험번호 sihumNo
+등록일 regiDate
+
+create table haksaSungjuk (
+sungjukNo number not null,
+kor number not null,
+eng number not null,
+mat number not null,
+sci number not null,
+his number not null,
+tot number not null,
+avg number not null,
+grade varchar2(50) not null,
+hakbun number not null,
+sihumNo number not null,
+regiDate date default sysdate not null,
+primary key (sungjukNo),
+foreign key(hakbun) references haksaMember(hakbun),
+foreign key(sihumNo) references haksaSihum(sihumNo)
+);
+
+create sequence seq_haksaSungjuk start with 1 increment by 1 nomaxvalue nocache;
+
+select * from haksaSungjuk;
+select * from haksaMember;
+select * from haksaSihum;
+
+select sungjuk.sungjukNo, (
+    select name from haksaMember m where m.hakbun = sungjuk.hakbun
+    ) name, (
+    select sihumName from haksaSihum sihum where sihum.sihumNo = sungjuk.sihumNo
+    ) sihumName, sungjuk.tot, sungjuk.avg, sungjuk.grade, sungjuk.regiDate
+from haksaSungjuk sungjuk;

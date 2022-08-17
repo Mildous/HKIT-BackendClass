@@ -1,0 +1,5 @@
+package haksaSihum.model.dto;
+
+public class HaksaSihumDTO {
+
+}

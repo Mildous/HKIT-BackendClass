@@ -197,3 +197,10 @@
 0:0:0:0:0:0:0:1 - - [16/Aug/2022:17:17:44 +0900] "POST /jspTest/BookInfo/insertProc.jsp HTTP/1.1" 500 2570
 0:0:0:0:0:0:0:1 - - [16/Aug/2022:17:18:24 +0900] "POST /jspTest/BookInfo/insertProc.jsp HTTP/1.1" 500 2570
 0:0:0:0:0:0:0:1 - - [16/Aug/2022:17:20:01 +0900] "POST /jspTest/BookInfo/insertProc.jsp HTTP/1.1" 500 2570
+0:0:0:0:0:0:0:1 - - [16/Aug/2022:17:27:30 +0900] "GET /jspTest/BookInfo/insert.jsp?infoNo= HTTP/1.1" 200 2582
+0:0:0:0:0:0:0:1 - - [16/Aug/2022:17:27:31 +0900] "GET /jspTest/BookInfo/list.jsp HTTP/1.1" 200 2583
+0:0:0:0:0:0:0:1 - - [16/Aug/2022:17:27:32 +0900] "GET /jspTest/BookInfo/insert.jsp?infoNo= HTTP/1.1" 200 2582
+0:0:0:0:0:0:0:1 - - [16/Aug/2022:17:27:40 +0900] "POST /jspTest/BookInfo/insertProc.jsp HTTP/1.1" 200 56
+0:0:0:0:0:0:0:1 - - [16/Aug/2022:17:27:40 +0900] "GET /jspTest/BookInfo/list.jsp HTTP/1.1" 200 2791
+0:0:0:0:0:0:0:1 - - [16/Aug/2022:17:27:44 +0900] "GET /jspTest/BookInfo/view.jsp?infoNo=10 HTTP/1.1" 200 1979
+0:0:0:0:0:0:0:1 - - [16/Aug/2022:17:30:56 +0900] "GET /jspTest/BookInfo/view.jsp?infoNo=10 HTTP/1.1" 200 1966

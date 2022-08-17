@@ -1,0 +1,81 @@
+<%@page import="haksaSungjuk.model.dto.HaksaSungjukDTO"%>
+<%@page import="haksaSungjuk.model.dao.HaksaSungjukDAO"%>
+<%@page import="java.util.ArrayList"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%
+	String sungjukNo_ = request.getParameter("sungjukNo");
+	int sungjukNo = Integer.parseInt(sungjukNo_);
+	
+	HaksaSungjukDTO arguDto = new HaksaSungjukDTO();
+	arguDto.setSungjukNo(sungjukNo);
+	
+	HaksaSungjukDAO dao = new HaksaSungjukDAO();
+	HaksaSungjukDTO resultDto = dao.getSelectOne(arguDto);
+%>
+
+<h2>성적수정</h2>
+<form name="DirForm">
+<input type="hidden" name="sungjukNo" id="sungjukNo" value="<%= resultDto.getSungjukNo() %>">
+<table border="1" width="50%" align="center">
+	<tr>		
+		<th>이름</th>
+		<td><%= resultDto.getName() %></td>
+	</tr>
+	<tr>
+		<th>시험명</th>
+		<td><%= resultDto.getSihumName() %></td>
+	</tr>
+	<tr>
+		<th>국어점수</th>
+		<td><input type="text" name="kor" id="kor" value="<%= resultDto.getKor() %>"></td>
+	</tr>
+	<tr>
+		<th>영어점수</th>
+		<td><%= resultDto.getEng() %></td>
+	</tr>
+	<tr>
+		<th>수학점수</th>
+		<td><%= resultDto.getMat() %></td>
+	</tr>
+	<tr>
+		<th>과학점수</th>
+		<td><%= resultDto.getSci() %></td>
+	</tr>
+	<tr>
+		<th>역사점수</th>
+		<td><%= resultDto.getHis() %></td>
+	</tr>
+	<tr>
+		<th>총점</th>
+		<td><%= resultDto.getTot() %></td>
+	</tr>
+	<tr>
+		<th>평균</th>
+		<td><%= resultDto.getAvg() %></td>
+	</tr>
+	<tr>
+		<th>등급</th>
+		<td><%= resultDto.getGrade() %></td>
+	</tr>	
+</table>
+
+<div style="border: 0px solid blue; width: 80%; margin: 10px, 0px;" align="right">
+|
+<a href="#" onClick="move('list.jsp', '');">목록</a>
+|
+<a href="#" onClick="move('insert.jsp', '');">등록</a>
+|
+<a href="#" onClick="move('edit.jsp', '<%= sungjukNo %>');">수정</a>
+|
+<a href="#" onClick="move('delete.jsp', '<%= sungjukNo %>');">삭제</a>
+|
+</div>
+
+</form>
+
+<script>
+function move(value1, value2) {
+	location.href = value1 + '?sungjukNo=' + value2;
+}
+</script>

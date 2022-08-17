@@ -1,0 +1,14 @@
+<%@page import="haksaMember.model.dao.HaksaMemberDAO"%>
+<%@page import="haksaMember.model.dto.HaksaMemberDTO"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%
+	String hakbun_ = request.getParameter("hakbun");
+	int hakbun = Integer.parseInt(hakbun_);
+	
+	HaksaMemberDTO arguDto = new HaksaMemberDTO();
+	arguDto.setHakbun(hakbun);
+	
+	HaksaMemberDAO dao = new HaksaMemberDAO();
+	HaksaMemberDTO resultDto = dao.getSelectOne(arguDto);
+%>

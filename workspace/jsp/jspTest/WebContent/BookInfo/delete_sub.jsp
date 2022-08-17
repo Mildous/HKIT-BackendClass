@@ -25,7 +25,7 @@
 	</tr>
 	<tr>
 		<th>저자</th>
-		<td><%= resultDto.getAuthorNo() %></td>
+		<td><%= resultDto.getAuthor() %></td>
 	</tr>
 	<tr>
 		<th>발행일</th>
@@ -33,7 +33,7 @@
 	</tr>
 	<tr>
 		<th>분류</th>
-		<td><%= resultDto.getProfileNo() %></td>
+		<td><%= resultDto.getProfile() %></td>
 	</tr>
 	
 	<tr>

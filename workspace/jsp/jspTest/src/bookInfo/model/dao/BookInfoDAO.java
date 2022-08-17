@@ -47,7 +47,10 @@ public class BookInfoDAO {
 		BookInfoDTO resultDto = new BookInfoDTO();
 		conn = DB.dbConn();
 		try {
-			String sql = "select * from " + tableName_1 + " where infoNo = ?";
+			String sql = "select i.infoNo, i.subject, i.created, i.authorNo, (";
+			sql += " select author from bookAuthor a where a.authorNo = i.authorNo) author, i.profileNo, (";
+			sql += " select profile from bookProfile p where p.profileNo = i.profileNo) profile ";
+			sql += " from " + tableName_1 + " i where infoNo = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, paramDto.getInfoNo());
 			rs = pstmt.executeQuery();
@@ -56,8 +59,9 @@ public class BookInfoDAO {
 				resultDto.setSubject(rs.getString("subject"));
 				resultDto.setCreated(rs.getDate("created"));
 				resultDto.setAuthorNo(rs.getInt("authorNo"));
+				resultDto.setAuthor(rs.getString("author"));
+				resultDto.setProfile(rs.getString("profile"));
 				resultDto.setProfileNo(rs.getInt("profileNo"));
-				resultDto.setRegiDate(rs.getDate("regiDate"));
 			}
 		} catch(Exception e) {
 			//e.printStackTrace();

@@ -11,6 +11,8 @@
 	String created_ = request.getParameter("created");
 	String profileNo_ = request.getParameter("profileNo");
 	
+	
+	
 	int authorNo = Integer.parseInt(authorNo_);
 	Date created = Date.valueOf(created_);
 	int profileNo = Integer.parseInt(profileNo_);

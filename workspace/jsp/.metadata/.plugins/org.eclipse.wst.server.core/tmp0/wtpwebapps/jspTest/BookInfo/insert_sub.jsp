@@ -19,13 +19,13 @@
 		<td>
 			<%
 				BookAuthorDAO authorDao = new BookAuthorDAO();
-				ArrayList<BookAuthorDTO> authorList = authorDao.getSelectAll();
+				ArrayList<BookAuthorDTO> aList = authorDao.getSelectAll();
 			%>
 			<select name="authorNo">
 				<option value="" selected>-- 선택하세요 --</option>
 				<%
-					for(int i=0; i<authorList.size(); i++) {
-						BookAuthorDTO dto = authorList.get(i);
+					for(int i=0; i<aList.size(); i++) {
+						BookAuthorDTO dto = aList.get(i);
 						
 						String selectedValue = "";
 						if(dto.getAuthorNo() == 0) {
@@ -48,13 +48,13 @@
 		<td>
 			<%
 				BookProfileDAO profileDao = new BookProfileDAO();
-				ArrayList<BookProfileDTO> profileList = profileDao.getSelectAll();
+				ArrayList<BookProfileDTO> pList = profileDao.getSelectAll();
 			%>
 			<select name="profileNo">
 				<option value="" selected>-- 선택하세요 --</option>
 				<%
-					for(int i=0; i<profileList.size(); i++) {
-						BookProfileDTO dto = profileList.get(i);
+					for(int i=0; i<pList.size(); i++) {
+						BookProfileDTO dto = pList.get(i);
 				%>
 				<option value="<%= dto.getProfileNo() %>"><%= dto.getProfile() %></option>
 				<%

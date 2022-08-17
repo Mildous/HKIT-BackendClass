@@ -1,0 +1,23 @@
+package haksaSungjuk.model.dto;
+
+import java.sql.Date;
+
+public class HaksaSungjukDTO {
+	
+	int sungjukNo;
+	int kor;
+	int eng;
+	int mat;
+	int sci;
+	int his;
+	int tot;
+	int avg;
+	String grade;
+	int hakbun;
+	int name;
+	int sihumNo;
+	String sihumName;
+	Date regiDate;
+	
+	
+}

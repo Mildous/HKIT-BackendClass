@@ -34,7 +34,7 @@
 
 <script>
 function formSubmit() {
-	if(confirm('삭제할까요?')) {
+	if(confirm('정말 삭제하시겠습니까?')) {
 		document.DirForm.action = "deleteProc.jsp";
 		document.DirForm.method = "post";
 		document.DirForm.submit();
