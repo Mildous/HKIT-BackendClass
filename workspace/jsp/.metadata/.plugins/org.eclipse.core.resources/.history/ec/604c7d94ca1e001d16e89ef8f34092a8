@@ -1,0 +1,22 @@
+<%@page import="member.model.dao.MemberDAO"%>
+<%@page import="member.model.dto.MemberDTO"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy" %>
+<%@ page import="com.oreilly.servlet.MultipartRequest" %>
+<%
+	request.setCharacterEncoding("utf-8");
+
+	String attachPath = "C:/Users/HKIT/COY/attach";
+	String uploadPath = attachPath + request.getContextPath() + "/member";	// "/jspPortfolioModel1/member";
+	int maxUpload = 1024 * 1024 * 100;	// 업로드 할 수 있는 최대 용량: 100mb
+	String encoding = "utf-8";
+	
+	// MultipartRequest 인스턴스 생성 - WEB-INF/lib에 cos.jar 추가
+	MultipartRequest multi = new MultipartRequest();
+		request,
+		uploadPath,
+		encoding,
+		new DefaultFileRenamePolicy()
+		);
+%>

@@ -25,16 +25,14 @@ public class HaksaSungjukDAO {
 		int totalCount = 0;	// 결과(게시물 수)를 담을 변수
 			
 		// 게시물 수를 얻어오는 쿼리문 작성
-		String sql = "select count(*) from " + table_1;
+		String sql = "select count(*) from " + table_1 + " sungjuk ";
 		if(map.get("searchWord") != null) {
-			if(map.get("serchWord").equals("name")) {
-				sql += " where (select name from " + table_2 + " m "
-						+ " where m.hakbun = sungjuk.hakbun) "+ map.get("searchField") + " from " + table_1 + " sungjuk "
-						+ " like '%" + map.get("searchWord") + "%'";
-			} else if(map.get("serchWord").equals("sihumName")) {
-				sql += " where (select sihumName from " + table_3 + " sihum "
-						+ " where sihum.sihumNo = sungjuk.sihumNo) " + map.get("searchField") + " from " + table_1 + " sungjuk "
-						+ " like '%" + map.get("searchWord") + "%'";
+			if(map.get("searchField").equals("name")) {
+				sql += " , " + table_2 + " m where m.hakbun = sungjuk.hakbun and m." + map.get("searchField") + " "
+						+ " like '%" + map.get("searchWord") + "%' ";
+			} else if(map.get("searchField").equals("sihumName")) {
+				sql += " , " + table_3 + " sihum where sihum.sihumNo = sungjuk.sihumNo and sihum." + map.get("searchField") + " "
+						+ " like '%" + map.get("searchWord") + "%' ";
 			}
 		}
 			
@@ -61,20 +59,13 @@ public class HaksaSungjukDAO {
 			sql += " ) sihumName, sungjuk.tot, sungjuk.avg, sungjuk.grade, sungjuk.regiDate";
 			sql += " from " + table_1 + " sungjuk";
 			if(map.get("searchWord") != null) {
-				/*
-				 if(map.get("serchWord").equals("name")) {
-				
-					sql += " where (select name from " + table_2 + " m "
-							+ " where m.hakbun = sungjuk.hakbun) "+ map.get("searchField") + " from " + table_1 + " sungjuk "
-							+ " like '%" + map.get("searchWord") + "%'";
-				} else if(map.get("serchWord").equals("sihumName")) {
-					sql += " where (select sihumName from " + table_3 + " sihum "
-							+ " where sihum.sihumNo = sungjuk.sihumNo) " + map.get("searchField") + " from " + table_1 + " sungjuk "
-							+ " like '%" + map.get("searchWord") + "%'";
+				if(map.get("searchField").equals("name")) {
+					sql += " , " + table_2 + " m where m.hakbun = sungjuk.hakbun and m." + map.get("searchField") + " "
+							+ " like '%" + map.get("searchWord") + "%' ";
+				} else if(map.get("searchField").equals("sihumName")) {
+					sql += " , " + table_3 + " sihum where sihum.sihumNo = sungjuk.sihumNo and sihum." + map.get("searchField") + " "
+							+ " like '%" + map.get("searchWord") + "%' ";
 				}
-				*/
-				sql += " where " + map.get("searchField") + " "
-						+ " like '%" + map.get("searchWord") + "%' ";
 			}
 			sql += " order by sungjukNo desc";
 			pstmt = conn.prepareStatement(sql);

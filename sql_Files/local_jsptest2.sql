@@ -208,3 +208,23 @@ select sungjuk.sungjukNo, (
     select sihumName from haksaSihum sihum where sihum.sihumNo = sungjuk.sihumNo
     ) sihumName, sungjuk.tot, sungjuk.avg, sungjuk.grade, sungjuk.regiDate
 from haksaSungjuk sungjuk;
+
+select sungjuk.*, (
+select name from haksaMember m where m.hakbun = sungjuk.hakbun
+) name, (
+select sihumName from haksaSihum sihum where sihum.sihumNo = sungjuk.sihumNo
+) sihumName
+from haksaSungjuk sungjuk where sungjukNo = '';
+
+-- -----------------------------------------------------
+select sungjuk.sungjukNo,
+(select name from haksaMember m where m.hakbun = sungjuk.hakbun) name,
+(select sihumName from haksaSihum sihum where sihum.sihumNo = sungjuk.sihumNo) sihumName,
+sungjuk.tot, sungjuk.avg, sungjuk.grade, sungjuk.regiDate
+from haksaSungjuk sungjuk, haksaMember m
+where m.hakbun = sungjuk.hakbun and m.name like '%홍%';
+
+select count(*) from haksaSungjuk sungjuk
+ , haksaMember m where m.hakbun = sungjuk.hakbun and m.name
+ like '%홍%';
+ 

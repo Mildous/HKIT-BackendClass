@@ -6,7 +6,7 @@
 
 <script>
 function move() {
-	location.href = './main/main.jsp?menuGubun=member_List';
+	location.href = './main/main.jsp?menuGubun=member_list';
 }
 
 move();

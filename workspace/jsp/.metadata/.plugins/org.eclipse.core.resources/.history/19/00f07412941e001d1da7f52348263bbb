@@ -1,0 +1,34 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ include file="../_include/inc_header.jsp" %>
+
+<table align="center" width="80%">
+	<tr>
+		<td colspan="10" align="right" style="padding: 0px 10px 0px 10px;">
+			000님 환영합니다.
+		</td>
+	</tr>
+	<tr>
+		<td align="center" style="padding: 10px;">
+			<a href="<%= path %>">Home</a>
+		</td>
+		<td align="center" style="padding: 10px;">
+			회원관리
+		</td>
+		<td align="center" style="padding: 10px;">
+			메모장
+		</td>
+		<td align="center" style="padding: 10px;">
+			메뉴2
+		</td>
+		<td align="center" style="padding: 10px;">
+			메뉴3
+		</td>
+		<td align="center" style="padding: 10px;">
+			메뉴4
+		</td>
+		<td align="center" style="padding: 10px;">
+			메뉴5
+		</td>
+	</tr>
+</table>

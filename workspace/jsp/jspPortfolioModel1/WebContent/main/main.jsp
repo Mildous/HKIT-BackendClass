@@ -1,24 +1,32 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%
-	String menuGubun = request.getParameter("menuGubun");
+<%@ include file="../_include/inc_header.jsp" %>
 
-	if(menuGubun == null || menuGubun.equals("")) {
-		menuGubun = "member_list";
-	}
-	
-%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>main</title>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 
-main.jsp<br><br>
-
-<%= menuGubun %>
-
+<table border="1" width="80%" align="center">
+	<tr>
+		<td height="100px;" align="center">
+			<jsp:include page="../_include/inc_menu.jsp" flush="true" />
+		</td>
+	</tr>
+	<tr>
+		<td align="center" style="padding: 30px 0px 30px 0px;">
+			<jsp:include page="<%= includePage %>" flush="true" />
+		</td>
+	</tr>
+	<tr>
+		<td height="100px;" align="center">
+			<jsp:include page="../_include/inc_copyright.jsp" flush="true" />
+		</td>
+	</tr>
+</table>
 </body>
 </html>
