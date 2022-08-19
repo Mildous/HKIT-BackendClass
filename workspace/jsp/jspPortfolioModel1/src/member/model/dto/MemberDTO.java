@@ -4,19 +4,20 @@ import java.sql.Date;
 
 public class MemberDTO {
 
-	int no;
-	String id;
-	String passwd;
-	String name;
-	String phone;
-	String email;
-	String jumin;
-	String juso1;
-	String juso2;
-	String juso3;
-	String juso4;
-	String grade;
-	Date regiDate;
+	private int no;
+	private String id;
+	private String passwd;
+	private String name;
+	private String phone;
+	private String email;
+	private String jumin;
+	private String juso1;
+	private String juso2;
+	private String juso3;
+	private String juso4;
+	private String grade;
+	private Date regiDate;
+	private String attachInfo;
 	
 	public int getNo() {
 		return no;
@@ -96,5 +97,10 @@ public class MemberDTO {
 	public void setRegiDate(Date regiDate) {
 		this.regiDate = regiDate;
 	}
-
+	public String getAttachInfo() {
+		return attachInfo;
+	}
+	public void setAttachInfo(String attachInfo) {
+		this.attachInfo = attachInfo;
+	}
 }

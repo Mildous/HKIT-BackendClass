@@ -26,6 +26,8 @@
 		juso4 = "-";
 	}
 	
+	String attachInfo = "-";
+	
 	MemberDTO arguDto = new MemberDTO();
 	arguDto.setId(id);
 	arguDto.setPasswd(passwd);
@@ -38,6 +40,7 @@
 	arguDto.setJuso3(juso3);
 	arguDto.setJuso4(juso4);
 	arguDto.setGrade(grade);
+	arguDto.setAttachInfo(attachInfo);
 	
 	MemberDAO dao = new MemberDAO();
 	int result = dao.setInsert(arguDto);

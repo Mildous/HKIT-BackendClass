@@ -1,0 +1,85 @@
+<%@page import="member.model.dao.MemberDAO"%>
+<%@page import="member.model.dto.MemberDTO"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+
+<%
+	String no_ = request.getParameter("no");
+	int no = Integer.parseInt(no_);
+	
+	MemberDTO arguDto = new MemberDTO();
+	arguDto.setNo(no);
+	
+	MemberDAO dao = new MemberDAO();
+	MemberDTO dto = dao.getSelectOne(arguDto);
+%>
+
+<h2>회원수정</h2>
+<form name="editForm">
+<table border="1" align="center">
+	<tr>
+		<td>아이디</td>
+		<td><input type="text" name="id" value="<%= dto.getId() %>"></td>
+	</tr>
+	<tr>
+		<td>비밀번호</td>
+		<td><input type="password" name="passwd"></td>
+	</tr>
+	<tr>
+		<td>이름</td>
+		<td><input type="text" name="name" value="<%= dto.getName() %>"></td>
+	</tr>
+	<tr>
+		<td>연락처</td>
+		<td><input type="text" name="phone" value="<%= dto.getPhone() %>"></td>
+	</tr>
+	<tr>
+		<td>이메일</td>
+		<td><input type="text" name="email" value="<%= dto.getEmail() %>"></td>
+	</tr>
+	<tr>
+		<td>주민번호</td>
+		<td><input type="text" name="jumin" value="<%= dto.getJumin() %>"></td>
+	</tr>
+	<tr>
+		<td>주소</td>
+		<td>
+			<input type="text" id="sample6_postcode" placeholder="우편번호" name="juso1" readonly>
+			<input type="button" onclick="sample6_execDaumPostcode()" value="우편번호 찾기"><br>
+			<input type="text" id="sample6_address" placeholder="주소" name="juso2" readonly><br>
+			<input type="text" id="sample6_detailAddress" placeholder="상세주소" name="juso3">
+			<input type="text" id="sample6_extraAddress" placeholder="참고항목" name="juso4" readonly>
+		</td>
+	</tr>
+	<tr>
+		<td>회원등급</td>
+		<td>
+		<% if(dto.getGrade().equals("최우수회원")) { %>
+		<% } else if(dto.getGrade().equals("우수회원")) { %>
+		<% } else if(dto.getGrade().equals("일반회원")) { %>
+		<% } %>
+			<input type="radio" name="grade" value="최우수회원">최우수회원 &nbsp;
+			<input type="radio" name="grade" value="우수회원">우수회원 &nbsp;
+			<input type="radio" name="grade" value="일반회원" checked>일반회원 &nbsp;
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2" align="center">
+			<button type="button" onClick="edit();">수정하기</button>
+			<button type="button" onClick="location.href='main.jsp?menuGubun=member_list';">목록으로</button>
+		</td>
+	</tr>
+</table>
+</form>
+
+<script>
+function edit() {
+	if(confirm('수정할까요?')) {
+		document.editForm.action = "mainProc.jsp?menuGubun=member_insertProc";
+		document.editForm.method = "post";
+		document.editForm.submit();
+	}
+}
+</script>
+
+<%@ include file="_inc_daumApi.jsp" %>

@@ -1,0 +1,65 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ include file="../_include/inc_header.jsp" %>
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+<table border="1" width="80%" align="center">
+	<tr>
+		<td height="100px;" align="center">
+			<jsp:include page="../_include/inc_menu.jsp" flush="true" />
+		</td>
+	</tr>
+	<tr>
+		<td align="center" style="padding: 30px 0px 30px 0px;">
+			<% if(menuGubun.equals("member_list")) { %>
+				<jsp:include page="../member/list.jsp" flush="true" />
+			<% } else if(menuGubun.equals("member_view")) { %>
+				<jsp:include page="../member/view.jsp" flush="true" />
+			<% } else if(menuGubun.equals("member_insert")) { %>
+				<jsp:include page="../member/insert.jsp" flush="true" />
+			<% } else if(menuGubun.equals("member_edit")) { %>
+				<jsp:include page="../member/edit.jsp" flush="true" />
+			<% } else if(menuGubun.equals("member_delete")) { %>
+				<jsp:include page="../member/delete.jsp" flush="true" />
+			
+			<% } else if(menuGubun.equals("memo_list")) { %>
+				<jsp:include page="../memo/list.jsp" flush="true" />
+			<% } else if(menuGubun.equals("memo_view")) { %>
+				<jsp:include page="../memo/view.jsp" flush="true" />
+			<% } else if(menuGubun.equals("memo_insert")) { %>
+				<jsp:include page="../memo/insert.jsp" flush="true" />
+			<% } else if(menuGubun.equals("memo_edit")) { %>
+				<jsp:include page="../memo/edit.jsp" flush="true" />
+			<% } else if(menuGubun.equals("memo_delete")) { %>
+				<jsp:include page="../memo/delete.jsp" flush="true" />
+			
+			
+			<% } else if(menuGubun.equals("product_list")) { %>
+				상품목록
+			<% } else if(menuGubun.equals("product_view")) { %>
+				상품상세보기
+			<% } else if(menuGubun.equals("product_insert")) { %>
+				상품등록
+			<% } else if(menuGubun.equals("product_edit")) { %>
+				상품수정
+			<% } else if(menuGubun.equals("product_delete")) { %>
+				상품삭제
+			<% } %>
+			
+		</td>
+	</tr>
+	<tr>
+		<td height="100px;" align="center">
+			<jsp:include page="../_include/inc_copyright.jsp" flush="true" />
+		</td>
+	</tr>
+</table>
+</body>
+</html>

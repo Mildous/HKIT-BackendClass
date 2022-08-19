@@ -1,0 +1,64 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%
+	String menuGubun = request.getParameter("menuGubun");
+
+	if(menuGubun == null || menuGubun.equals("")) {
+		//menuGubun = "member_list";
+
+/*		out.println("<script>");
+		out.println("location.href='error.jsp?errorCode=001';");
+		out.println("</script>");
+*/
+	}
+	
+%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+
+<table border="1" width="80%" align="center">
+	<tr>
+		<td height="100px;" align="center">
+		상단 메뉴
+		</td>
+	</tr>
+	<tr>
+		<td align="center" style="padding: 30px 0px 30px 0px;">
+			<% if(menuGubun.equals("member_list")) { %>
+				회원목록
+			<% } else if(menuGubun.equals("member_view")) { %>
+				회원상세보기
+			<% } else if(menuGubun.equals("member_insert")) { %>
+				회원등록
+			<% } else if(menuGubun.equals("member_edit")) { %>
+				회원수정
+			<% } else if(menuGubun.equals("member_delete")) { %>
+				회원삭제
+				
+			<% } else if(menuGubun.equals("product_list")) { %>
+				상품목록
+			<% } else if(menuGubun.equals("product_view")) { %>
+				상품상세보기
+			<% } else if(menuGubun.equals("product_insert")) { %>
+				상품등록
+			<% } else if(menuGubun.equals("product_edit")) { %>
+				상품수정
+			<% } else if(menuGubun.equals("product_delete")) { %>
+				상품삭제
+			<% } %>
+			
+		</td>
+	</tr>
+	<tr>
+		<td height="100px;" align="center">
+		하단 내용
+		</td>
+	</tr>
+</table>
+</body>
+</html>

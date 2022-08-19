@@ -1,0 +1,8 @@
+package bookInfo.model.dto;
+
+import java.sql.Date;
+
+public class BookInfoDTO {
+	
+	
+}

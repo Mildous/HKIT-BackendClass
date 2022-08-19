@@ -1,0 +1,44 @@
+package employees;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
+import util.DB;
+
+public class EmployeesDAO {
+	
+	Connection conn = null;
+	PreparedStatement pstmt = null;
+	ResultSet rs = null;
+	
+	public MemberBasicDTO getSelectOne(MemberBasicDTO paramDto) {
+		MemberBasicDTO dto = new MemberBasicDTO();
+		Connection conn = DB.dbConn();
+		try {
+			String sql = "select * from memberBasic where no = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, paramDto.getNo());
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				dto.setNo(rs.getInt("no"));
+				dto.setId(rs.getString("id"));
+				dto.setPasswd(rs.getString("passwd"));
+				dto.setName(rs.getString("name"));
+				dto.setPhone(rs.getString("phone"));
+				dto.setEmail(rs.getString("email"));
+				dto.setJumin(rs.getString("jumin"));
+				dto.setJuso1(rs.getString("juso1"));
+				dto.setJuso2(rs.getString("juso2"));
+				dto.setJuso3(rs.getString("juso3"));
+				dto.setJuso4(rs.getString("juso4"));
+				dto.setRegiDate(rs.getDate("regiDate"));
+			}
+		} catch(Exception e) {
+			//e.printStackTrace();
+		} finally {
+			DB.dbConnClose(rs, pstmt, conn);
+		}
+		return dto;
+	}
+}

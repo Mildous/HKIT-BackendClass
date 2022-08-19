@@ -49,6 +49,32 @@
 		<td>회원등급</td>
 		<td><%= dto.getGrade() %></td>
 	</tr>
+	<tr>
+		<td>첨부파일</td>
+		<td>
+			<%
+				if(dto.getAttachInfo() == null || dto.getAttachInfo().equals("-")) {
+					out.println("&nbsp;");
+				} else {
+					String[] imsiArray = dto.getAttachInfo().split(",");
+					for(int j=0; j<imsiArray.length; j++) {
+						String[] imsiArray2 = imsiArray[j].split("[|]");
+							
+						String imsiImgPath = "";
+						imsiImgPath += request.getContextPath();
+						imsiImgPath += "/attach";
+						imsiImgPath += request.getContextPath();
+						imsiImgPath += "/member/";
+						imsiImgPath += imsiArray2[1];
+						
+							
+						out.println("<img src='" + imsiImgPath + "' width='50' height='50'><br>" + imsiArray2[0] + "<hr>");
+						
+					}
+				}
+			%>
+		</td>
+	</tr>
 </table>
 
 <div style="padding-top: 20px; width: 80%; " align="right">

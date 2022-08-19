@@ -1,0 +1,109 @@
+package haksaMember.model.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+
+import config.DB;
+import haksaMember.model.dto.HaksaMemberDTO;
+
+public class HaksaMemberDAO {
+
+	Connection conn = null;
+	PreparedStatement pstmt = null;
+	ResultSet rs = null;
+	String table_1 = "haksaMember";
+	
+	public ArrayList<HaksaMemberDTO> getSelectAll() {
+		ArrayList<HaksaMemberDTO> list = new ArrayList<HaksaMemberDTO>();
+		conn = DB.dbConn();
+		try {
+			String sql = "select * from " + table_1 + " order by authorNo desc";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				HaksaMemberDTO resultDto = new HaksaMemberDTO();
+				resultDto.setAuthorNo(rs.getInt("authorNo"));
+				resultDto.setAuthor(rs.getString("author"));
+				resultDto.setRegiDate(rs.getDate("regiDate"));
+				list.add(resultDto);
+			}
+		} catch(Exception e) {
+			//e.printStackTrace();
+		} finally {
+			DB.dbConnClose(rs, pstmt, conn);
+		}
+		return list;
+	}
+	
+	public HaksaMemberDTO getSelectOne(HaksaMemberDTO paramDto) {
+		HaksaMemberDTO resultDto = new HaksaMemberDTO();
+		conn = DB.dbConn();
+		try {
+			String sql = "select * from " + table_1 + " where authorNo = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, paramDto.getAuthorNo());
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				resultDto.setAuthorNo(rs.getInt("authorNo"));
+				resultDto.setAuthor(rs.getString("author"));
+				resultDto.setRegiDate(rs.getDate("regiDate"));
+			}
+		} catch(Exception e) {
+			//e.printStackTrace();
+		} finally {
+			DB.dbConnClose(rs, pstmt, conn);
+		}
+		return resultDto;
+	}
+	
+	public int setInsert(HaksaMemberDTO paramDto) {
+		int result = 0;
+		conn = DB.dbConn();
+		try {
+			String sql = "insert into " + table_1 + " values(seq_bookAuthor.nextval, ?, sysdate)";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, paramDto.getAuthor());
+			result = pstmt.executeUpdate();
+		} catch(Exception e) {
+			//e.printStackTrace();
+		} finally {
+			DB.dbConnClose(rs, pstmt, conn);
+		}
+		return result;
+	}
+	
+	public int setUpdate(HaksaMemberDTO paramDto) {
+		int result = 0;
+		conn = DB.dbConn();
+		try {
+			String sql = "update " + table_1 + " set author = ? where authorNo = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, paramDto.getAuthor());
+			pstmt.setInt(2, paramDto.getAuthorNo());
+			result = pstmt.executeUpdate();
+		} catch(Exception e) {
+			//e.printStackTrace();
+		} finally {
+			DB.dbConnClose(rs, pstmt, conn);
+		}
+		return result;
+	}
+	
+	public int setDelete(HaksaMemberDTO paramDto) {
+		int result = 0;
+		conn = DB.dbConn();
+		try {
+			String sql = "delete from " + table_1 + " where authorNo = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, paramDto.getAuthorNo());
+			result = pstmt.executeUpdate();
+		} catch(Exception e) {
+			//e.printStackTrace();
+		} finally {
+			DB.dbConnClose(rs, pstmt, conn);
+		}
+		return result;
+	}
+}

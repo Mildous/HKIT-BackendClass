@@ -20,24 +20,48 @@
 		<th>주민번호</th>
 		<th>등급</th>
 		<th>등록일</th>
+		<th>첨부사진</th>
 	</tr>
 	<%
+		int totalCount = list.size();
 		for(int i=0; i<list.size(); i++) {
-			MemberDTO dto = list.get(i);		
+			MemberDTO dto = list.get(i);
 	%>
 		<tr>
-			<td><%= dto.getNo() %></td>
+			<td><%= totalCount %></td>
 			<td><a href="#" onClick="move('member_view', '<%= dto.getNo() %>');"><%= dto.getId() %></a></td>
 			<td><%= dto.getName() %></td>
 			<td><%= dto.getPhone() %></td>
 			<td><%= dto.getJumin().substring(0, 8) %>******</td>
 			<td><%= dto.getGrade() %></td>
 			<td><%= dto.getRegiDate() %></td>
+			<td>
+				<%
+					if(dto.getAttachInfo() == null || dto.getAttachInfo().equals("-")) {
+						out.println("&nbsp;");
+					} else {
+						String[] imsiArray = dto.getAttachInfo().split(",");
+						for(int j=0; j<imsiArray.length; j++) {
+							String[] imsiArray2 = imsiArray[j].split("[|]");
+							
+							String imsiImgPath = "";
+							imsiImgPath += request.getContextPath();
+							imsiImgPath += "/attach";
+							imsiImgPath += request.getContextPath();
+							imsiImgPath += "/member/";
+							imsiImgPath += imsiArray2[1];
+							
+							out.println("<img src='" + imsiImgPath + "' width='50' height='50'>");
+						}
+					}
+				totalCount--;
+				%>
+			</td>
 		</tr>
-	<%		
-		}
+	<%
+		
+	}
 	%>
-
 </table>
 
 <div style="padding-top: 20px; width: 80%; " align="right">

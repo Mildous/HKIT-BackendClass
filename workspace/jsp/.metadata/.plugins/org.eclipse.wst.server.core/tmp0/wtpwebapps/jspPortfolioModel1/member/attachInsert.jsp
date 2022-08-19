@@ -55,7 +55,7 @@
 		</td>
 	</tr>
 	<tr>
-		<td>첨부파일</td>
+		<td>사진첨부</td>
 		<td>
 			<input type="file" name="file1"><br>
 			<input type="file" name="file2"><br>

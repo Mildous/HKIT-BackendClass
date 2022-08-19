@@ -1,0 +1,5 @@
+package bookAuthor.model.dto;
+
+public class BookAuthor {
+
+}

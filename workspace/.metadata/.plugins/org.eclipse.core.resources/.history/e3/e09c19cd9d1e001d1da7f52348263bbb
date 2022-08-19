@@ -1,0 +1,20 @@
+package member.model.dto;
+
+import java.sql.Date;
+
+public class MemberDTO {
+
+	int no;
+	String id;
+	String passwd;
+	String name;
+	String phone;
+	String email;
+	String jumin;
+	String juso1;
+	String juso2;
+	String juso3;
+	String juso4;
+	String grade;
+	Date regiDate;
+}

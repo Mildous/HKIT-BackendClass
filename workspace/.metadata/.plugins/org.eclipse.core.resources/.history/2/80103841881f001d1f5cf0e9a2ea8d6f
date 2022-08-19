@@ -1,0 +1,47 @@
+<%@page import="employees.EmployeesDAO"%>
+<%@page import="employees.EmployeesDTO"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%
+	EmployeesDTO dto = new EmployeesDTO();
+	EmployeesDAO dao = new EmployeesDAO();
+	EmployeesDTO result = dao.viewStevenKing(dto);
+%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Steven King의 정보 출력</title>
+</head>
+<body>
+
+<h2>Steven King의 정보</h2>
+	<table border="1" width="80%">
+		<tr>
+			<td>employee_id</td>
+			<td><%= result.getEmployee_id() %></td>
+		</tr>
+		<tr>
+			<td>first_name</td>
+			<td><%= result.get %></td>
+		</tr>
+		<tr>
+			<td>last_name</td>
+			<td><%= result.get %></td>
+		</tr>
+		<tr>
+			<td>email</td>
+			<td><%= result.get %></td>
+		</tr>
+		<tr>
+			<td>phone_number</td>
+			<td><%= result.get %></td>
+		</tr>
+		<tr>
+			<td>hire_date</td>
+			<td></td>
+		</tr>
+
+	</table>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.PreparedStatement"%>
+<%@page import="java.sql.Connection"%>
+<%@page import="employees.EmployeesDAO"%>
+<%@page import="employees.EmployeesDTO"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%
+	EmployeesDTO dto = new EmployeesDTO();
+	dto.setFirst_name(first_name);
+	dto.setLast_name(last_name);
+		
+	Connection conn = null;
+	PreparedStatement pstmt = null;
+	ResultSet rs = null;
+	
+	public EmployeesDTO viewStevenKing(param) {
+		  
+	    EmployeesDTO dto = new EmployeesDTO();
+		
+		try {
+			String dbDriver = "oracle.jdbc.driver.OracleDriver";
+		    String dbUrl = "jdbc:oracle:thin:@localhost:1521/xe";
+		    String dbId = "hr";
+		    String dbPw = "1234";
+		      
+		    Class.forName(dbDriver);
+		    conn = DriverManager.getConnection(dbUrl, dbId, dbPw);
+		    System.out.println("오라클 접속 성공..");
+		      
+			String sql = "select * from employees where first_name = ? and last_name = ?";
+			pstmt.setString(1, first_name);
+			pstmt.setString(1, last_name);
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				dto.setEmployee_id(rs.getInt("employee_id"));
+				dto.setFirst_name(rs.getString("first_name"));
+				dto.setLast_name(rs.getString("last_name"));
+				dto.setEmail(rs.getString("email"));
+				dto.setPhone_number(rs.getString("phone_number"));
+				dto.setHire_date(rs.getDate("hire_date"));
+				dto.setJob_id(rs.getString("job_id"));
+				dto.setSalary(rs.getInt("salary"));
+				dto.setCommission_pct(rs.getDouble("commission_pct"));
+				dto.setManager_id(rs.getInt("manager_id"));
+				dto.setDepartment_id(rs.getInt("department_id"));
+			}
+		} catch(Exception e) {
+			//e.printStackTrace();
+		} finally {
+			if (rs != null) { rs.close(); }
+		    if (pstmt != null) { pstmt.close(); }
+		    if (conn != null) { conn.close(); }
+		    System.out.println("오라클 접속 해제..");
+		}
+		return dto;
+	}
+	EmployeesDTO result = viewStevenKing(param);
+	
+	
+%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Steven King의 정보 출력</title>
+</head>
+<body>
+
+<h2>Steven King의 정보</h2>
+	<table border="1" width="80%">
+		<tr>
+			<th>employee_id</th>
+			<th>name</th>
+			<th>email</th>
+			<th>phone_number</th>
+			<th>hire_date</th>
+			<th>job_id</th>
+			<th>salary</th>
+			<th>commission_pct</th>
+			<th>manager_id</th>
+			<th>department_id</th>
+		</tr>
+		<tr>
+			<td><%= result.getEmployee_id() %></td>
+			<td><%= result.getFirst_name() %> <%= result.getLast_name() %></td>
+			<td><%= result.getEmail() %></td>
+			<td><%= result.getPhone_number() %></td>
+			<td><%= result.getHire_date() %></td>
+			<td><%= result.getJob_id() %></td>
+			<td><%= result.getSalary() %></td>
+			<td><%= result.getCommission_pct() %></td>
+			<td><%= result.getManager_id() %></td>
+			<td><%= result.getDepartment_id() %></td>
+		</tr>
+	</table>
+</body>
+</html>
