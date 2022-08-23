@@ -1,0 +1,10 @@
+package config;
+
+public class Util {
+
+	public String getCheckString(String str) {
+		String result = "";
+		
+		return result;
+	}
+}

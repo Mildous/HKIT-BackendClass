@@ -228,3 +228,23 @@ select count(*) from haksaSungjuk sungjuk
  , haksaMember m where m.hakbun = sungjuk.hakbun and m.name
  like '%홍%';
  
+ 
+select Tb.sungjukNo,
+(select name from haksaMember m where m.hakbun = sungjuk.hakbun) name,
+(select sihumName from haksaSihum sihum where sihum.sihumNo = sungjuk.sihumNo) sihumName,
+Tb.tot, Tb.avg, Tb.grade, Tb.regiDate
+from (select Tb.*, rownum rNum from (
+        select * from haksaSungjuk sungjuk, haksaMember m where m.hakbun = sungjuk.hakbun and m.name like '%홍%'
+        order by sungjukNo desc) Tb
+    ) where rNum between 1 and 10;
+
+
+select i.infoNo, i.subject, i.created, i.regiDate, (
+        select authorName from bookAuthor a where a.authorNo = i.authorNo) author, (
+        select profileName from bookProfile p where p.profileNo = i.profileNo) profile
+from bookInfo i, (
+    select Tb.*, rownum rNum from (
+        select * from bookInfo i where subject like '%세%' order by infoNo desc 
+        ) Tb 
+    ) where rNum between 1 and 10;
+

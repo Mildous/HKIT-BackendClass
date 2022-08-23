@@ -7,6 +7,8 @@
 <%
 	MemberDAO dao = new MemberDAO();
 	ArrayList<MemberDTO> list = dao.getSelectAll();
+	
+	int totalCount = list.size();
 %>
 
 <h2>회원목록</h2>
@@ -22,13 +24,18 @@
 		<th>등록일</th>
 		<th>첨부사진</th>
 	</tr>
+	<% if(totalCount == 0) { %>
+	<tr>
+		<td colspan="8" height="200px" align="center">등록된 내용이 없습니다..</td>
+	</tr>
+	<% } %>
 	<%
-		int totalCount = list.size();
+		int num = totalCount;
 		for(int i=0; i<list.size(); i++) {
 			MemberDTO dto = list.get(i);
 	%>
 		<tr>
-			<td><%= totalCount %></td>
+			<td><%= num %></td>
 			<td><a href="#" onClick="move('member_view', '<%= dto.getNo() %>');"><%= dto.getId() %></a></td>
 			<td><%= dto.getName() %></td>
 			<td><%= dto.getPhone() %></td>
@@ -54,7 +61,7 @@
 							out.println("<img src='" + imsiImgPath + "' width='50' height='50'>");
 						}
 					}
-				totalCount--;
+				num--;
 				%>
 			</td>
 		</tr>

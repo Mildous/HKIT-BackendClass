@@ -1,0 +1,20 @@
+<%@page import="memo.model.dao.MemoDAO"%>
+<%@page import="memo.model.dto.MemoDTO"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%
+	request.setCharacterEncoding("UTF-8");
+
+	String no_ = request.getParameter("no");
+	int no = Integer.parseInt(no_);
+	
+	String content = request.getParameter("content");
+	
+	MemoDTO arguDto = new MemoDTO();
+	MemoDAO dao = new MemoDAO();
+	
+	arguDto.setNo(no);
+	arguDto.setContent(content);
+	
+	int result = dao.setUpdate(arguDto);
+%>

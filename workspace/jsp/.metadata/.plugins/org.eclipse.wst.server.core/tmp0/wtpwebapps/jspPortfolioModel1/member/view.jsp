@@ -67,8 +67,7 @@
 						imsiImgPath += "/member/";
 						imsiImgPath += imsiArray2[1];
 						
-							
-						out.println("<img src='" + imsiImgPath + "' width='50' height='50'><br>" + imsiArray2[0] + "<hr>");
+						out.println("<img src='" + imsiImgPath + "' width='50' height='50'><br>" + imsiArray2[0] + " (" + imsiArray2[3] + ")<br>");
 						
 					}
 				}
@@ -84,6 +83,8 @@
 	<a href="#" onClick="move('member_insert', '');">등록</a>
 	|
 	<a href="#" onClick="move('member_edit', '<%= no %>');">수정</a>
+	|
+	<a href="#" onClick="move('member_attachEdit', '<%= no %>');">수정(attach)</a>
 	|
 	<a href="#" onClick="move('member_delete', '<%= no %>');">삭제</a>
 	|

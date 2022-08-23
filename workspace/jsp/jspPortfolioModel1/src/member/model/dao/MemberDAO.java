@@ -41,6 +41,8 @@ public class MemberDAO {
 			}
 		} catch(Exception e) {
 			//e.printStackTrace();
+		} finally {
+			DB.dbConnClose(rs, pstmt, conn);
 		}
 		return list;
 	}

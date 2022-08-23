@@ -81,6 +81,37 @@
 		</td>
 	</tr>
 	<tr>
+		<td>첨부파일</td>
+		<td>
+			<%
+				if(dto.getAttachInfo() == null || dto.getAttachInfo().equals("-")) {
+					out.println("&nbsp;");
+				} else {
+					String[] imsiArray = dto.getAttachInfo().split(",");
+					for(int j=0; j<imsiArray.length; j++) {
+						String[] imsiArray2 = imsiArray[j].split("[|]");
+							
+						String imsiImgPath = "";
+						imsiImgPath += request.getContextPath();
+						imsiImgPath += "/attach";
+						imsiImgPath += request.getContextPath();
+						imsiImgPath += "/member/";
+						imsiImgPath += imsiArray2[1];
+							
+						out.println("<img src='" + imsiImgPath + "' width='50' height='50'><br>" + imsiArray2[0] + " (" + imsiArray2[3] + ")<br>");
+					}
+				}
+			%>
+		</td>
+	</tr>
+	<tr>
+		<td>111 : </td>
+		<td>
+			<imput type="text" id="aaa"><br>
+			<a href="#" onClick="aaa('0');">0</a>
+		</td>
+	</tr>
+	<tr>
 		<td colspan="2" align="center">
 			<button type="button" onClick="edit();">수정하기</button>
 			<button type="button" onClick="location.href='main.jsp?menuGubun=member_list';">목록으로</button>
@@ -96,6 +127,10 @@ function edit() {
 		document.editForm.method = "post";
 		document.editForm.submit();
 	}
+}
+
+function aaa(value1) {
+	var aaaBoxValue = $("#")
 }
 </script>
 

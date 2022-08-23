@@ -1,0 +1,41 @@
+<%@page import="memo.model.dao.MemoDAO"%>
+<%@page import="memo.model.dto.MemoDTO"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%
+	request.setCharacterEncoding("UTF-8");
+	
+	String writer = request.getParameter("writer");
+	String content = request.getParameter("content");
+	
+	//DB에 저장할때만, 불러올때는 상관 없음
+	writer = writer.replace("<", "&lt;");
+	writer = writer.replace(">", "&gt;");
+	writer = writer.replace("&", "&amp;");
+	writer = writer.replace("\"", "&quot;");
+	writer = writer.replace("'", "&apos;");
+	
+	content = content.replace("<", "&lt;");
+	content = content.replace(">", "&gt;");
+	content = content.replace("&", "&amp;");
+	content = content.replace("\"", "&quot;");
+	content = content.replace("'", "&apos;");
+	
+	
+	MemoDTO arguDto = new MemoDTO();
+	MemoDAO dao = new MemoDAO();
+	
+	arguDto.setWriter(writer);
+	arguDto.setContent(content);
+	
+	int result = dao.setInsert(arguDto);
+	
+	if(result > 0) {
+		out.println("<script>location.href='main.jsp?menuGubun=memo_list';</script>");
+	} else {
+		out.println("<script>");
+		out.println("alert('등록 중 오류가 발생했습니다.');");
+		out.println("location.href='main.jsp?menuGubun=memo_insert';)");
+		out.println("</script>");
+	}
+%>

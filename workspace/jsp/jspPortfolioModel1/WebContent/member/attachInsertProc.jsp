@@ -69,6 +69,34 @@
 	            fileSize = String.valueOf(fileObj.length());
 	            fileExtName = fileSavedName.substring(fileSavedName.lastIndexOf(".")+1);
 	            
+	            // 이미지 파일이 아닌 경우
+	            int errorImgCounter = 0;
+	            if(fileExtName.toLowerCase().equals("png")) {
+	            	
+	            } else if(fileExtName.toLowerCase().equals("jpg")) {
+	            	
+	            } else if(fileExtName.toLowerCase().equals("jpeg")) {
+	            	
+	            } else if(fileExtName.toLowerCase().equals("gif")) {
+	            	
+	            } else {
+	            	errorImgCounter++;
+	            }
+	            
+	            // 파일 삭제
+	            if(errorImgCounter > 0) {
+	            	String deleteFilePath = uploadPath + "/" + fileSavedName;
+	            	java.io.File f = new java.io.File(deleteFilePath);
+	    			f.delete();
+	    			
+	    			// 변수값 초기화
+	    			fileOriginName = "";
+	    			fileSavedName = "";
+	    			fileType = "";
+	    			fileSize = "";
+	            }
+	            
+	            
 	            imsiResult="비정상적인 파일..";
 	            if(fileExtName.toLowerCase().equals("jpg") || fileExtName.toLowerCase().equals("png") || fileExtName.toLowerCase().equals("jpeg") || fileExtName.toLowerCase().equals("gif")) {
 	               imsiResult="정상적인 파일";

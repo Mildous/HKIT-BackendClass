@@ -1,0 +1,32 @@
+package memo.model.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+
+import config.DB;
+import memo.model.dto.MemoDTO;
+
+public class MemoDAO {
+	
+	Connection conn = null;
+	PreparedStatement pstmt = null;
+	ResultSet rs = null;
+	
+	public ArrayList<MemoDTO> getSelectAll() {
+		ArrayList<MemoDTO> list = new ArrayList<>();
+		conn = DB.dbConn();
+		try {
+			String sql = "select * from memo order by no desc";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return list;
+	}
+
+}

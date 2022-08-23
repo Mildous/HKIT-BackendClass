@@ -1,0 +1,12 @@
+package memo.model.dto;
+
+import java.sql.Date;
+
+public class MemoDTO {
+	
+	private int no;
+	private String writer;
+	private String content;
+	private Date regiDate;
+
+}

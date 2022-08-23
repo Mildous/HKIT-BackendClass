@@ -1,0 +1,5 @@
+package guestbook.model.dto;
+
+public class GuestBookDTO {
+
+}
