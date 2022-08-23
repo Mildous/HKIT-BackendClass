@@ -3,6 +3,9 @@
 <%@page import="config.Util"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
+<%@ include file="../_include/inc_sessionChk.jsp" %>
+
 <%
 	request.setCharacterEncoding("UTF-8");
 	
@@ -31,6 +34,7 @@
 	arguDto.setEmail(email);
 	arguDto.setPasswd(passwd);
 	arguDto.setContent(content);
+	arguDto.setMemberNo(sessionNo);
 	
 	int result = dao.setInsert(arguDto);
 	

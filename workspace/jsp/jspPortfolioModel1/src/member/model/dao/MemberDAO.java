@@ -14,12 +14,41 @@ public class MemberDAO {
 	PreparedStatement pstmt = null;
 	ResultSet rs = null;
 
-	public ArrayList<MemberDTO> getSelectAll() {
+	public ArrayList<MemberDTO> getSelectAll(String searchGubun, String searchData) {
 		ArrayList<MemberDTO> list = new ArrayList<>();
 		conn = DB.dbConn();
 		try {
-			String sql = "select * from member order by no desc";
+			String sql = "select * from member where 1 = 1";
+			
+			if(searchGubun.equals("id")) {
+				sql += " and id like ? ";
+			} else if(searchGubun.equals("name")) {
+				sql += " and name like ? ";
+			} else if(searchGubun.equals("phone")) {
+				sql += " and phone like ? ";
+			} else if(searchGubun.equals("jumin")) {
+				sql += " and jumin like ? ";
+			} else if(searchGubun.equals("all")) {
+				sql += " and (id like ? or name like ? or phone like ? or jumin like ?) ";
+			}
+			sql += " order by no desc";
 			pstmt = conn.prepareStatement(sql);
+			
+			if(searchGubun.equals("id")) {
+				pstmt.setString(1, '%' + searchData + '%');
+			} else if(searchGubun.equals("name")) {
+				pstmt.setString(1, '%' + searchData + '%');
+			} else if(searchGubun.equals("phone")) {
+				pstmt.setString(1, '%' + searchData + '%');
+			} else if(searchGubun.equals("jumin")) {
+				pstmt.setString(1, '%' + searchData + '%');
+			} else if(searchGubun.equals("all")) {
+				pstmt.setString(1, '%' + searchData + '%');
+				pstmt.setString(2, '%' + searchData + '%');
+				pstmt.setString(3, '%' + searchData + '%');
+				pstmt.setString(4, '%' + searchData + '%');
+			}
+			
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				MemberDTO dto = new MemberDTO();
@@ -72,6 +101,28 @@ public class MemberDAO {
 			}
 		} catch(Exception e) {
 			//e.printStackTrace();
+		} finally {
+			DB.dbConnClose(rs, pstmt, conn);
+		}
+		return dto;
+	}
+	
+	public MemberDTO getLogin(MemberDTO paramDto) {
+		MemberDTO dto = new MemberDTO();
+		conn = DB.dbConn();
+		try {
+			String sql = "select no, name, grade from member where id = ? and passwd = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, paramDto.getId());
+			pstmt.setString(2, paramDto.getPasswd());
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				dto.setNo(rs.getInt("no"));
+				dto.setName(rs.getString("name"));
+				dto.setGrade(rs.getString("grade"));
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
 		} finally {
 			DB.dbConnClose(rs, pstmt, conn);
 		}

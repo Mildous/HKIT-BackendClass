@@ -1,9 +1,0 @@
-package member.proc;
-
-public class ExampleChuga {
-
-	public static void main(String[] args) {
-
-	}
-
-}

@@ -1,0 +1,21 @@
+<%@page import="config.Util"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+
+<%
+	request.setCharacterEncoding("utf-8");
+	
+	String searchOption = request.getParameter("searchOption");
+	String searchData = request.getParameter("searchData");
+	
+	Util util = new Util();
+	searchOption = util.getNullBlankCheck(searchOption, "");
+	searchData = util.getNullBlankCheck(searchData, "");
+	
+	if(searchOption.equals("") || searchData.equals("")) {
+		searchOption = "";
+		searchData = "";
+	}
+	
+	
+%>

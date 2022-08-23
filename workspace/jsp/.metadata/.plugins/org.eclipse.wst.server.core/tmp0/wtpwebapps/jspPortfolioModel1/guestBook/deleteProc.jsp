@@ -15,6 +15,16 @@
 	arguDto.setNo(no);
 	arguDto.setPasswd(passwd);
 	
+	GuestBookDTO returnDto = dao.getSelectOne(arguDto);
+	if(!returnDto.getPasswd().equals(passwd)) {
+		String moveUrl = "main.jsp?menuGubun=guestBook_edit&no=" + no;
+		out.println("<script>");
+		out.println("alert('비밀번호가 다릅니다.');");
+		out.println("location.href='" + moveUrl + "';");
+		out.println("</script>");
+		return;
+	}
+	
 	int result = dao.setDelete(arguDto);
 	
 	if(result > 0) {

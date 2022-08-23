@@ -1,12 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ include file="../_include/inc_sessionChk.jsp" %>
 
 <h2>방명록작성</h2>
 <form name="insertForm">
 <table border="1" align="center" width="50%">
 	<tr>
 		<td>이름</td>
-		<td><input type="text" name="name"></td>
+		<td><input type="text" name="name" value="<%= sessionName %>"></td>
 	</tr>
 	<tr>
 		<td>이메일</td>

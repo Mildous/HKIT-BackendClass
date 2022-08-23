@@ -14,12 +14,31 @@ public class MemoDAO {
 	PreparedStatement pstmt = null;
 	ResultSet rs = null;
 	
-	public ArrayList<MemoDTO> getSelectAll() {
+	public ArrayList<MemoDTO> getSelectAll(String searchGubun, String searchData) {
 		ArrayList<MemoDTO> list = new ArrayList<>();
 		conn = DB.dbConn();
 		try {
-			String sql = "select * from memo order by no desc";
+			String sql = "select * from memo where 1 = 1";
+			
+			if(searchGubun.equals("writer")) {
+				sql += " and writer like ? ";
+			} else if(searchGubun.equals("content")) {
+				sql += " and content like ? ";
+			} else if(searchGubun.equals("writer_content")) {
+				sql += " and (writer like ? or content like ?) ";
+			}
+			
+			sql += " order by no desc";
 			pstmt = conn.prepareStatement(sql);
+			
+			if(searchGubun.equals("writer")) {
+				pstmt.setString(1, '%' + searchData + '%');
+			} else if(searchGubun.equals("content")) {
+				pstmt.setString(1, '%' + searchData + '%');
+			} else if(searchGubun.equals("writer_content")) {
+				pstmt.setString(1, '%' + searchData + '%');
+				pstmt.setString(2, '%' + searchData + '%');
+			}
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				MemoDTO dto = new MemoDTO();

@@ -1,0 +1,121 @@
+<%@page import="config.Util"%>
+<%@page import="member.model.dto.MemberDTO"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="member.model.dao.MemberDAO"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    
+<%
+	String searchGubun = request.getParameter("searchGubun");
+	String searchData = request.getParameter("searchData");
+	
+	Util util = new Util();
+	
+	searchGubun = util.getNullBlankCheck(searchGubun, "");
+	searchData = util.getNullBlankCheck(searchData, "");
+	
+	if(searchGubun.equals("") || searchData.equals("")) {
+		searchGubun = "";
+		searchData = "";
+	}
+
+	MemberDAO dao = new MemberDAO();
+	ArrayList<MemberDTO> list = dao.getSelectAll();
+	
+	int totalCount = list.size();
+%>
+
+<h2>회원목록</h2>
+
+<table border="1" width="80%">
+	<tr>
+		<th>순번</th>
+		<th>아이디</th>
+		<th>이름</th>
+		<th>연락처</th>
+		<th>주민번호</th>
+		<th>등급</th>
+		<th>등록일</th>
+		<th>첨부사진</th>
+	</tr>
+	<% if(totalCount == 0) { %>
+	<tr>
+		<td colspan="8" height="200px" align="center">등록된 내용이 없습니다..</td>
+	</tr>
+	<% } %>
+	<%
+		int num = totalCount;
+		for(int i=0; i<list.size(); i++) {
+			MemberDTO dto = list.get(i);
+	%>
+		<tr>
+			<td><%= num %></td>
+			<td><a href="#" onClick="move('member_view', '<%= dto.getNo() %>');"><%= dto.getId() %></a></td>
+			<td><%= dto.getName() %></td>
+			<td><%= dto.getPhone() %></td>
+			<td><%= dto.getJumin().substring(0, 8) %>******</td>
+			<td><%= dto.getGrade() %></td>
+			<td><%= dto.getRegiDate() %></td>
+			<td>
+				<%
+					if(dto.getAttachInfo() == null || dto.getAttachInfo().equals("-")) {
+						out.println("&nbsp;");
+					} else {
+						String[] imsiArray = dto.getAttachInfo().split(",");
+						for(int j=0; j<imsiArray.length; j++) {
+							String[] imsiArray2 = imsiArray[j].split("[|]");
+							
+							String imsiImgPath = "";
+							imsiImgPath += request.getContextPath();
+							imsiImgPath += "/attach";
+							imsiImgPath += request.getContextPath();
+							imsiImgPath += "/member/";
+							imsiImgPath += imsiArray2[1];
+							
+							out.println("<img src='" + imsiImgPath + "' width='50' height='50'>");
+						}
+					}
+				num--;
+				%>
+			</td>
+		</tr>
+	<%
+		
+	}
+	%>
+	
+	<tr>
+		<td colspan="8" align="center" style="padding: 20px 0px;">
+			<form name="searchForm">
+			<select name="searchGubun">
+				<option value="" <% if(searchGubun.equals("")) { out.println("selected"); } %>>-- 선택 --</option>
+				<option value="id" <% if(searchGubun.equals("id")) { out.println("selected"); } %>>아이디</option>
+				<option value="name" <% if(searchGubun.equals("name")) { out.println("selected"); } %>>이름</option>
+				<option value="phone" <% if(searchGubun.equals("phone")) { out.println("selected"); } %>>연락처</option>
+				<option value="jumin" <% if(searchGubun.equals("jumin")) { out.println("selected"); } %>>주민번호</option>
+				<option value="all" <% if(searchGubun.equals("all")) { out.println("selected"); } %>>ALL</option>
+			</select>
+			&nbsp;
+			<input type="text" name="searchData" value="<%= searchData %>">
+			&nbsp;
+			<button type="button" onClick="search();">검색하기</button>
+			</form>
+		</td>
+	</tr>
+</table>
+
+<div style="padding-top: 20px; width: 80%; " align="right">
+	|
+	<a href="#" onClick="move('member_list', '');">목록</a>
+	|
+	<a href="#" onClick="move('member_insert', '');">등록</a>
+	|
+	<a href="#" onClick="move('member_attachInsert', '');">등록(attach)</a>
+	|
+</div>
+
+<script>
+function move(value1, value2) {
+	location.href='main.jsp?menuGubun=' + value1 + '&no=' + value2;
+}
+</script>

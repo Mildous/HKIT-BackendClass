@@ -1,0 +1,13 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+
+<div style="border: 1px solid red; width: 60%">
+	<font style="font-size: 100px; font-weight: bold;">Here<br>We<br>Go</font>
+	
+	<div style="padding: 20px 0px;">
+		<form name="loginForm">
+		아이디 : <input type="text" name="id" style="width: 80px;"> &nbsp;
+		비밀번호 : <input type="text" name="id" style="width: 80px;"> &nbsp;
+		</form>
+	</div>
+</div>

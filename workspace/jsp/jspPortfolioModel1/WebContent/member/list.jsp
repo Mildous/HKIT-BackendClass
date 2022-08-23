@@ -1,3 +1,4 @@
+<%@page import="config.Util"%>
 <%@page import="member.model.dto.MemberDTO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="member.model.dao.MemberDAO"%>
@@ -5,14 +6,33 @@
     pageEncoding="UTF-8"%>
     
 <%
+	String searchGubun = request.getParameter("searchGubun");
+	String searchData = request.getParameter("searchData");
+	
+	Util util = new Util();
+	
+	searchGubun = util.getNullBlankCheck(searchGubun, "");
+	searchData = util.getNullBlankCheck(searchData, "");
+	
+	if(searchGubun.equals("") || searchData.equals("")) {
+		searchGubun = "";
+		searchData = "";
+	}
+
 	MemberDAO dao = new MemberDAO();
-	ArrayList<MemberDTO> list = dao.getSelectAll();
+	ArrayList<MemberDTO> list = dao.getSelectAll(searchGubun, searchData);
 	
 	int totalCount = list.size();
 %>
 
 <h2>회원목록</h2>
-
+<div style="border: 0px solid red; padding: 0px 0px; width: 80%;" align="left">
+<%	if(searchGubun.equals("") || searchData.equals("")) { %>
+		*전체목록 (<%= list.size() %>건)
+<%	} else { %>
+		*검색어 "<%= searchData %>"으/로 검색된 목록 (<%= list.size() %>건)
+<%	} %>
+</div>
 <table border="1" width="80%">
 	<tr>
 		<th>순번</th>
@@ -69,6 +89,25 @@
 		
 	}
 	%>
+	
+	<tr>
+		<td colspan="8" align="center" style="padding: 20px 0px;">
+			<form name="searchForm">
+			<select name="searchGubun">
+				<option value="" <% if(searchGubun.equals("")) { out.println("selected"); } %>>-- 선택 --</option>
+				<option value="id" <% if(searchGubun.equals("id")) { out.println("selected"); } %>>아이디</option>
+				<option value="name" <% if(searchGubun.equals("name")) { out.println("selected"); } %>>이름</option>
+				<option value="phone" <% if(searchGubun.equals("phone")) { out.println("selected"); } %>>연락처</option>
+				<option value="jumin" <% if(searchGubun.equals("jumin")) { out.println("selected"); } %>>주민번호</option>
+				<option value="all" <% if(searchGubun.equals("all")) { out.println("selected"); } %>>ALL</option>
+			</select>
+			&nbsp;
+			<input type="text" name="searchData" value="<%= searchData %>">
+			&nbsp;
+			<button type="button" onClick="search();">검색하기</button>
+			</form>
+		</td>
+	</tr>
 </table>
 
 <div style="padding-top: 20px; width: 80%; " align="right">
@@ -84,5 +123,11 @@
 <script>
 function move(value1, value2) {
 	location.href='main.jsp?menuGubun=' + value1 + '&no=' + value2;
+}
+
+function search() {
+	document.searchForm.action = "mainProc.jsp?menuGubun=member_listSearch";
+	document.searchForm.method = "post";
+	document.searchForm.submit();
 }
 </script>

@@ -31,7 +31,13 @@
 	</tr>
 	<tr>
 		<th>내용</th>
-		<td><%= dto.getContent() %></td>
+		<td>
+		<%
+			String content = dto.getContent();
+			content = content.replace("\n", "<br>");
+			out.println(content);
+		%>
+		</td>
 	</tr>
 </table>
 

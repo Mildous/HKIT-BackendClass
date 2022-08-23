@@ -1,11 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../_include/inc_header.jsp" %>
+<%@ include file="../_include/inc_sessionChk.jsp" %>
 
 <table align="center" width="80%">
 	<tr>
-		<td colspan="7" align="right" style="padding: 0px 10px 0px 10px;">
-			000님 환영합니다.
+		<td colspan="7" align="right" style="padding: 0px 10px 0px 0px;">
+		
+		<%	if(sessionNo == 0) { %>
+				<a href="main.jsp?menuGubun=noLogin_login">[로그인]</a>
+		<%	} else { %>
+				<%= sessionGrade %> <%= sessionName %>님 환영합니다. 
+				<a href="main.jsp?menuGubun=noLogin_logout">[로그아웃]</a>
+		<%	}  %>
+			
 		</td>
 	</tr>
 	<tr>
@@ -22,7 +30,7 @@
 			<a href="<%= path %>/main/main.jsp?menuGubun=guestBook_list">방명록</a>
 		</td>
 		<td align="center" style="padding: 10px;" id="menu2">
-			메뉴3
+			<a href="<%= path %>/main/main.jsp?menuGubun=boardBasic_list">게시판(B)</a>
 		</td>
 		<td align="center" style="padding: 10px;" id="menu3">
 			메뉴4

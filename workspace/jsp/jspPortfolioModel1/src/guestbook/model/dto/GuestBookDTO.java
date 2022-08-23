@@ -10,6 +10,7 @@ public class GuestBookDTO {
 	private String passwd;
 	private String content;
 	private Date regiDate;
+	private int memberNo;
 	
 	public int getNo() {
 		return no;
@@ -46,6 +47,12 @@ public class GuestBookDTO {
 	}
 	public void setRegiDate(Date regiDate) {
 		this.regiDate = regiDate;
+	}
+	public int getMemberNo() {
+		return memberNo;
+	}
+	public void setMemberNo(int memberNo) {
+		this.memberNo = memberNo;
 	}
 	
 }
