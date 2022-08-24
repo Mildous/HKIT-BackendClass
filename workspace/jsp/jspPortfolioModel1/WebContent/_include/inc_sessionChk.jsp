@@ -6,12 +6,14 @@
 	String sessionId = "";
 	String sessionName = "";
 	String sessionGrade = "";
+	String sessionEmail = "";
 	
 	if(session.getAttribute("sessionNo") != null) {
 		sessionNo = (Integer) session.getAttribute("sessionNo");
 		sessionId = (String) session.getAttribute("sessionId");
 		sessionName = (String) session.getAttribute("sessionName");
 		sessionGrade = (String) session.getAttribute("sessionGrade");
+		sessionEmail = (String) session.getAttribute("sessionEmail");
 	}
 	
 %>

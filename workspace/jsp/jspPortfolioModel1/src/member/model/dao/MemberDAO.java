@@ -111,7 +111,7 @@ public class MemberDAO {
 		MemberDTO dto = new MemberDTO();
 		conn = DB.dbConn();
 		try {
-			String sql = "select no, name, grade from member where id = ? and passwd = ?";
+			String sql = "select no, name, grade, email from member where id = ? and passwd = ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, paramDto.getId());
 			pstmt.setString(2, paramDto.getPasswd());
@@ -120,6 +120,7 @@ public class MemberDAO {
 				dto.setNo(rs.getInt("no"));
 				dto.setName(rs.getString("name"));
 				dto.setGrade(rs.getString("grade"));
+				dto.setEmail(rs.getString("email"));
 			}
 		} catch(Exception e) {
 			e.printStackTrace();
