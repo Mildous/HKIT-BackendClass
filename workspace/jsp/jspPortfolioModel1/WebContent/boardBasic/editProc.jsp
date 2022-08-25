@@ -1,3 +1,4 @@
+<%@page import="config.Util"%>
 <%@page import="boardBasic.model.dao.BoardBasicDAO"%>
 <%@page import="boardBasic.model.dto.BoardBasicDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -5,14 +6,21 @@
 <%@ include file="_inc_top.jsp" %>
 
 <%
+	Util util = new Util();
 	request.setCharacterEncoding("utf-8");
 
 	String no_ = request.getParameter("no");
 	int no = Integer.parseInt(no_);
 	
 	String subject = request.getParameter("subject");
+	subject = util.getNullBlankCheck(subject, "");
+	subject = util.getCheckString(subject);
+	
 	//String writer = request.getParameter("writer");
 	String content = request.getParameter("content");
+	content = util.getNullBlankCheck(content, "");
+	content = util.getCheckString(content);
+	
 	String email = request.getParameter("email");
 	String passwd = request.getParameter("passwd");
 	

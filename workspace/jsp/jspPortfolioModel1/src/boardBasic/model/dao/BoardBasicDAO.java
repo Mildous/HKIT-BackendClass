@@ -31,7 +31,7 @@ public class BoardBasicDAO {
 			} else if(searchGubun.equals("all")) {
 				sql += " and (writer like ? or subject like ? or content like ? or email like ?) ";
 			}
-			sql += " order by no desc";
+			sql += " order by refNo desc, levelNo asc";
 			pstmt = conn.prepareStatement(sql);
 			
 			if(searchGubun.equals("writer")) {
@@ -120,6 +120,39 @@ public class BoardBasicDAO {
 			DB.dbConnClose(rs, pstmt, conn);
 		}
 		return result;
+	}
+	
+	public int getMaxRef() {
+		int result = 0;
+		conn = DB.dbConn();
+		try {
+			String sql = "select nvl(max(refNo), 0) maxRef from boardBasic";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				result = rs.getInt("maxRef");
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			DB.dbConnClose(rs, pstmt, conn);
+		}
+		return result;
+	}
+	
+	public void updateLevelNo(int refNo, int levelNo) {
+		conn = DB.dbConn();
+		try {
+			String sql = "update boardBasic set levelNo = levelNo + 1 where refNo = ? and levelNo > ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, refNo);
+			pstmt.setInt(2, levelNo);
+			pstmt.executeUpdate();
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			DB.dbConnClose(rs, pstmt, conn);
+		}
 	}
 	
 	public void updateHit(int no) {

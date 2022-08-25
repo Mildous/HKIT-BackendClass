@@ -27,7 +27,7 @@ td {
 	padding-left: 5px;
 }
 </style>
-<h2>회원상세보기</h2>
+<h2>상세보기</h2>
 <table border="1" align="center" width="80%">
 	<tr>
 		<th>번호</th>
@@ -51,6 +51,11 @@ td {
 		<th>내용</th>
 		<td colspan="3" height="100">
 			<%= dto.getContent().replace("\n", "<br>") %>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="4" align="center">
+			<button type="button" onClick="move('boardBasic_insert', '<%= no %>');">답글달기</button>
 		</td>
 	</tr>
 </table>

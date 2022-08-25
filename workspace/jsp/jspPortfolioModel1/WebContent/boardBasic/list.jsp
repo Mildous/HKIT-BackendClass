@@ -23,6 +23,9 @@
 	ArrayList<BoardBasicDTO> list = dao.getSelectAll(searchGubun, searchData);
 	
 	int totalCount = list.size();
+	
+	String second = "&nbsp;&nbsp;";
+	String thrid = "&nbsp;&nbsp;&nbsp;&nbsp;";
 %>
 
 <h2>게시글목록</h2>
@@ -53,7 +56,13 @@
 	%>
 		<tr>
 			<td align="center"><%= num %></td>
+	<%	if(dto.getStepNo() == 2) { %>
+			<td><%= second %><a href="#" onClick="move('boardBasic_view', '<%= dto.getNo() %>');" style="padding-left: 5px;"><%= dto.getSubject() %></a></td>
+	<%	} else if(dto.getStepNo() == 3) { %>
+			<td><%= thrid %><a href="#" onClick="move('boardBasic_view', '<%= dto.getNo() %>');" style="padding-left: 5px;"><%= dto.getSubject() %></a></td>
+	<%	} else { %>
 			<td><a href="#" onClick="move('boardBasic_view', '<%= dto.getNo() %>');" style="padding-left: 5px;"><%= dto.getSubject() %></a></td>
+	<%	} %>
 			<td align="center"><%= dto.getWriter() %></td>
 			<td align="center"><%= dto.getRegiDate() %></td>
 			<td align="center"><%= dto.getHit() %></td>

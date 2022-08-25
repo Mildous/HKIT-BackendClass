@@ -1,3 +1,4 @@
+<%@page import="config.Util"%>
 <%@page import="boardBasic.model.dao.BoardBasicDAO"%>
 <%@page import="boardBasic.model.dto.BoardBasicDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -6,19 +7,52 @@
 
 <%
 	request.setCharacterEncoding("utf-8");
+	
+	Util util = new Util();
+	
 	BoardBasicDTO arguDto = new BoardBasicDTO();
 	BoardBasicDAO dao = new BoardBasicDAO();
 	
 	String writer = request.getParameter("writer");
+	writer = util.getNullBlankCheck(writer, "");
+	writer = util.getCheckString(writer);
+	
 	String subject = request.getParameter("subject");
+	subject = util.getNullBlankCheck(subject, "");
+	subject = util.getCheckString(subject);
+	
 	String content = request.getParameter("content");
+	content = util.getNullBlankCheck(content, "");
+	content = util.getCheckString(content);
+	
 	String email = request.getParameter("email");
+	email = util.getNullBlankCheck(email, "");
+	email = util.getCheckString(email);
+	
 	String passwd = request.getParameter("passwd");
+	
+	String no_ = request.getParameter("no");
+	int no = Integer.parseInt(no_);
+	
 	int num = dao.getMaxNum() + 1;
+	int hit = 0;
 	int refNo = 0;
 	int stepNo = 0;
 	int levelNo = 0;
-	int hit = 0;
+	
+	if(no > 0) {	//답글일때	
+		BoardBasicDTO dto = new BoardBasicDTO();
+		dto.setNo(no);
+		BoardBasicDTO resultDto = dao.getSelectOne(dto);
+		refNo = resultDto.getRefNo();
+		stepNo = resultDto.getStepNo() + 1;
+		dao.updateLevelNo(refNo, resultDto.getLevelNo());
+		levelNo =  resultDto.getLevelNo()+1;
+	} else {
+		refNo = dao.getMaxRef() + 1;
+		stepNo = 1;
+		levelNo = 1;
+	}
 	
 	arguDto.setNum(num);
 	arguDto.setWriter(writer);

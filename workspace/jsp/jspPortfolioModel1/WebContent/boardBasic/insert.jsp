@@ -2,8 +2,21 @@
     pageEncoding="UTF-8"%>
 <%@ include file="_inc_top.jsp" %>
 
-<h2>게시글 등록</h2>
+<%	
+	String no_ = request.getParameter("no");
+	int no = 0;
+	if(no_ == null || no_.equals("")) {
+		no_ = "0";
+%>
+		<h2>게시글 등록</h2>
+<%	} else if(no_ != null || !no_.equals("")) { 
+		no = Integer.parseInt(no_);
+%>
+		<h2>답글 등록</h2>
+<%	} %>
+
 <form name="insertForm">
+<input type="hidden" name="no" value="<%= no %>">
 <table border="1" align="center">
 	<tr>
 		<td>작성자</td>
