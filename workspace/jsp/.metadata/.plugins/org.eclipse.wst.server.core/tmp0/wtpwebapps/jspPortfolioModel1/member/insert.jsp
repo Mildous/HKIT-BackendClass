@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ include file="_inc_top.jsp" %>
 
 <h2>회원등록</h2>
 <form name="insertForm">
@@ -67,6 +68,7 @@
 function join() {
 	if(confirm('등록할까요?')) {
 		document.insertForm.action = "mainProc.jsp?menuGubun=member_insertProc";
+		document.insertForm.action = "insertProc.jsp";
 		document.insertForm.method = "post";
 		document.insertForm.submit();
 	}

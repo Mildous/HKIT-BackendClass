@@ -24,7 +24,7 @@
 		</td>
 	</tr>
 	<tr>
-		<td align="center" style="padding: 30px 0px 30px 0px; background-color: #FFF;">
+		<td height="300px;" align="center" style="padding: 30px 0px 30px 0px; background-color: #FFF;">
 			<jsp:include page="<%= includePage %>" flush="true" />
 		</td>
 	</tr>

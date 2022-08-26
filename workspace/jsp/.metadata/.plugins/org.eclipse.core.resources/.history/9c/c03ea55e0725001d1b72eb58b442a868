@@ -1,0 +1,15 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ include file="_inc_top.jsp" %>
+
+<%
+	String writer = request.getParameter("writer");
+	String email = request.getParameter("email");
+	String passwd = request.getParameter("passwd");
+	String subject = request.getParameter("subject");
+	String content = request.getParameter("content");
+	String noticeGubun = request.getParameter("noticeGubun");
+	String secretGubun = request.getParameter("secretGubun");
+	
+	
+%>

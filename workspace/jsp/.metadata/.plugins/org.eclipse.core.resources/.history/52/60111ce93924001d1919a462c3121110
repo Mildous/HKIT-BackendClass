@@ -1,0 +1,37 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%
+	request.setCharacterEncoding("utf-8");
+	String empNo_ = request.getParameter("emp_no");
+	
+	String empName = request.getParameter("emp_name");
+	String depName = request.getParameter("dep_name");
+	String salary_ = request.getParameter("salary");
+	String depManager = request.getParameter("dep_manager");
+
+	int empNo = Integer.parseInt(empNo_);
+	int salary = Integer.parseInt(salary_);
+%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>문제5</title>
+</head>
+<body>
+<table border="1" width="180px;">
+	<tr>
+		<th>이름</th>
+		<td><%= name %></td>
+	</tr>
+	<tr>
+		<th>주소</th>
+		<td><%= age %></td>
+	</tr>
+	<tr>
+		<th>나이</th>
+		<td><%= addr %></td>
+	</tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,21 @@
+package boardBasic.model.dto;
+
+import java.sql.Date;
+
+public class BoardBasicDTO {
+	
+	private int no;
+	private int num;
+	private String writer;
+	private String subjec;
+	private String content;
+	private String email;
+	private String passwd;
+	private int refNo;
+	private int stepNo;
+	private int levelNo;
+	private int hit;
+	private Date regiDate;
+	
+	
+}

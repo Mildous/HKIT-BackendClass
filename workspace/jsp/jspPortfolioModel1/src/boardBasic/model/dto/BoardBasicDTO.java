@@ -16,6 +16,9 @@ public class BoardBasicDTO {
 	private int levelNo;
 	private int hit;
 	private Date regiDate;
+	private int parentNo;
+	//private int memberNo;
+	//private String ip;
 	
 	public int getNo() {
 		return no;
@@ -89,5 +92,10 @@ public class BoardBasicDTO {
 	public void setRegiDate(Date regiDate) {
 		this.regiDate = regiDate;
 	}
-	
+	public int getParentNo() {
+		return parentNo;
+	}
+	public void setParentNo(int parentNo) {
+		this.parentNo = parentNo;
+	}
 }

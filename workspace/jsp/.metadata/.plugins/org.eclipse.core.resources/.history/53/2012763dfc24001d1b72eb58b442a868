@@ -1,0 +1,87 @@
+package board.model.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+
+import board.model.dto.BoardDTO;
+import config.DB;
+
+public class BoardDAO {
+	
+	Connection conn = null;
+	PreparedStatement pstmt = null;
+	ResultSet rs = null;
+	
+	public ArrayList<BoardDTO> getSelectAll() {
+		ArrayList<BoardDTO> list = new ArrayList<>();
+		conn = DB.dbConn();
+		try {
+			String query = "";
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			DB.dbConnClose(rs, pstmt, conn);
+			
+		}
+		return list;
+	}
+	
+	public BoardDTO getSelectOne() {
+		BoardDTO dto = new BoardDTO();
+		conn = DB.dbConn();
+		try {
+			String query = "";
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			DB.dbConnClose(rs, pstmt, conn);
+			
+		}
+		return dto;
+	}
+	
+	public int setInsert() {
+		int result = 0;
+		conn = DB.dbConn();
+		try {
+			String query = "";
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			DB.dbConnClose(rs, pstmt, conn);
+			
+		}
+		return result;
+	}
+	
+	public int setUpdate() {
+		int result = 0;
+		conn = DB.dbConn();
+		try {
+			String query = "";
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			DB.dbConnClose(rs, pstmt, conn);
+			
+		}
+		return result;
+	}
+	
+	public int setDelete() {
+		int result = 0;
+		conn = DB.dbConn();
+		try {
+			String query = "";
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			DB.dbConnClose(rs, pstmt, conn);
+			
+		}
+		return result;
+	}
+
+}

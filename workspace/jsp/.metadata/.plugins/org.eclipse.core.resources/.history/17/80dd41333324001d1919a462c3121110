@@ -1,0 +1,15 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%
+	int total = 0;
+	for(int i=1; i<100; i++) {
+		if(i % 3 == 0) {
+			total += i;
+		} else {
+			continue;
+		}
+		out.println("3의 배수: " + i + ", 합: " + total + "<br>");
+	}
+	out.println("1부터 100까지의 3의 배수의 합: " + total);
+
+%>

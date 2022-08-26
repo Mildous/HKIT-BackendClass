@@ -21,6 +21,7 @@
 		session.setAttribute("sessionId", id);	//회원 아이디
 		session.setAttribute("sessionName",  returnDto.getName());	//회원 이름
 		session.setAttribute("sessionGrade",  returnDto.getGrade());	//회원 등급
+		session.setAttribute("sessionEmail", returnDto.getEmail());
 		
 		out.println("<script>");
 		out.println("alert('로그인 성공');");

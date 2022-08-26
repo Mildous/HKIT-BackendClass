@@ -1,0 +1,251 @@
+package boardBasic.model.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+
+import config.DB;
+import boardBasic.model.dto.BoardBasicDTO;
+
+public class BoardBasicDAO {
+	
+	Connection conn = null;
+	PreparedStatement pstmt = null;
+	ResultSet rs = null;
+
+	public ArrayList<BoardBasicDTO> getSelectAll(String searchGubun, String searchData) {
+		ArrayList<BoardBasicDTO> list = new ArrayList<>();
+		conn = DB.dbConn();
+		try {
+			String sql = "select * from boardBasic where 1 = 1";
+			
+			if(searchGubun.equals("writer")) {
+				sql += " and writer like ? ";
+			} else if(searchGubun.equals("subject")) {
+				sql += " and subject like ? ";
+			} else if(searchGubun.equals("content")) {
+				sql += " and content like ? ";
+			} else if(searchGubun.equals("email")) {
+				sql += " and email like ? ";
+			} else if(searchGubun.equals("all")) {
+				sql += " and (writer like ? or subject like ? or content like ? or email like ?) ";
+			}
+			sql += " order by refNo desc, levelNo asc";
+			pstmt = conn.prepareStatement(sql);
+			
+			if(searchGubun.equals("writer")) {
+				pstmt.setString(1, '%' + searchData + '%');
+			} else if(searchGubun.equals("subject")) {
+				pstmt.setString(1, '%' + searchData + '%');
+			} else if(searchGubun.equals("content")) {
+				pstmt.setString(1, '%' + searchData + '%');
+			} else if(searchGubun.equals("email")) {
+				pstmt.setString(1, '%' + searchData + '%');
+			} else if(searchGubun.equals("all")) {
+				pstmt.setString(1, '%' + searchData + '%');
+				pstmt.setString(2, '%' + searchData + '%');
+				pstmt.setString(3, '%' + searchData + '%');
+				pstmt.setString(4, '%' + searchData + '%');
+			}
+			
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				BoardBasicDTO dto = new BoardBasicDTO();
+				dto.setNo(rs.getInt("no"));
+				dto.setNum(rs.getInt("num"));
+				dto.setWriter(rs.getString("writer"));
+				dto.setSubject(rs.getString("subject"));
+				dto.setContent(rs.getString("content"));
+				dto.setEmail(rs.getString("email"));
+				//dto.setPasswd(rs.getString("passwd"));
+				dto.setRefNo(rs.getInt("refNo"));
+				dto.setStepNo(rs.getInt("stepNo"));
+				dto.setLevelNo(rs.getInt("levelNo"));
+				dto.setHit(rs.getInt("hit"));
+				dto.setRegiDate(rs.getDate("regiDate"));
+				dto.setParentNo(rs.getInt("parentNo"));
+				//dto.setMemberNo(rs.getInt("memberNo"));
+				//dto.setIp(rs.getString("ip"));
+				list.add(dto);
+			}
+		} catch(Exception e) {
+			//e.printStackTrace();
+		} finally {
+			DB.dbConnClose(rs, pstmt, conn);
+		}
+		return list;
+	}
+	
+	public BoardBasicDTO getSelectOne(BoardBasicDTO paramDto) {
+		BoardBasicDTO dto = new BoardBasicDTO();
+		conn = DB.dbConn();
+		try {
+			String sql = "select * from boardBasic where no = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, paramDto.getNo());
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				dto.setNo(rs.getInt("no"));
+				dto.setNum(rs.getInt("num"));
+				dto.setWriter(rs.getString("writer"));
+				dto.setSubject(rs.getString("subject"));
+				dto.setContent(rs.getString("content"));
+				dto.setEmail(rs.getString("email"));
+				//dto.setPasswd(rs.getString("passwd"));
+				dto.setRefNo(rs.getInt("refNo"));
+				dto.setStepNo(rs.getInt("stepNo"));
+				dto.setLevelNo(rs.getInt("levelNo"));
+				dto.setHit(rs.getInt("hit"));
+				dto.setRegiDate(rs.getDate("regiDate"));
+				//dto.setMemberNo(rs.getInt("memberNo"));
+				//dto.setIp(rs.getString("ip"));
+				dto.setParentNo(rs.getInt("parentNo"));
+			}
+		} catch(Exception e) {
+			//e.printStackTrace();
+		} finally {
+			DB.dbConnClose(rs, pstmt, conn);
+		}
+		return dto;
+	}
+	
+	public int getMaxNum() {
+		int result = 0;
+		conn = DB.dbConn();
+		try {
+			String sql = "select nvl(max(num), 0) maxValue from boardBasic";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				result = rs.getInt("maxValue");
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			DB.dbConnClose(rs, pstmt, conn);
+		}
+		return result;
+	}
+	
+	public int getMaxRef() {
+		int result = 0;
+		conn = DB.dbConn();
+		try {
+			String sql = "select nvl(max(refNo), 0) maxRef from boardBasic";
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				result = rs.getInt("maxRef");
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			DB.dbConnClose(rs, pstmt, conn);
+		}
+		return result;
+	}
+	
+	public void updateLevelNo(int refNo, int levelNo) {
+		conn = DB.dbConn();
+		try {
+			String sql = "update boardBasic set levelNo = levelNo + 1 where refNo = ? and levelNo > ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, refNo);
+			pstmt.setInt(2, levelNo);
+			pstmt.executeUpdate();
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			DB.dbConnClose(rs, pstmt, conn);
+		}
+	}
+	
+	public void updateHit(int no) {
+		conn = DB.dbConn();
+		try {
+			String sql = "update boardBasic set hit = hit+1 where no = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, no);
+			pstmt.executeQuery();
+		} catch(Exception e) {
+			System.out.println("게시물 조회수 증가 중 예외 발생");
+			e.printStackTrace();
+		} finally {
+			DB.dbConnClose(rs, pstmt, conn);
+		}
+	}
+	
+	public int setInsert(BoardBasicDTO paramDto) {
+		int result = 0;
+		conn = DB.dbConn();
+		try {
+			String sql = "insert into boardBasic values (seq_boardBasic.nextval, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, sysdate)";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, paramDto.getNum());
+			pstmt.setString(2, paramDto.getWriter());
+			pstmt.setString(3, paramDto.getSubject());
+			pstmt.setString(4, paramDto.getContent());
+			pstmt.setString(5, paramDto.getEmail());
+			pstmt.setString(6, paramDto.getPasswd());
+			pstmt.setInt(7,  paramDto.getRefNo());
+			pstmt.setInt(8, paramDto.getStepNo());
+			pstmt.setInt(9, paramDto.getLevelNo());
+			pstmt.setInt(10, paramDto.getHit());
+			//pstmt.setInt(11, paramDto.getMemberNo());
+			//pstmt.setString(12, paramDto.getIp());
+			pstmt.setInt(11, paramDto.getParentNo());
+			result = pstmt.executeUpdate();
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			DB.dbConnClose(rs, pstmt, conn);
+		}
+		return result;
+	}
+	
+	public int setUpdate(BoardBasicDTO paramDto) {
+		int result = 0;
+		conn = DB.dbConn();
+		try {
+			String sql = "update boardBasic set subject = ?, content = ?, email = ? where no = ? and passwd = ?";
+			pstmt = conn.prepareStatement(sql);
+			//pstmt.setInt(1, paramDto.getNum());
+			//pstmt.setString(2, paramDto.getWriter());
+			pstmt.setString(1, paramDto.getSubject());
+			pstmt.setString(2, paramDto.getContent());
+			pstmt.setString(3, paramDto.getEmail());
+			pstmt.setInt(4, paramDto.getNo());
+			pstmt.setString(5, paramDto.getPasswd());
+			//pstmt.setInt(7, paramDto.getRefNo());
+			//pstmt.setInt(8, paramDto.getStepNo());
+			//pstmt.setInt(9, paramDto.getLevelNo());
+			//pstmt.setInt(10, paramDto.getHit());
+			
+			result = pstmt.executeUpdate();
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			DB.dbConnClose(rs, pstmt, conn);
+		}
+		return result;
+	}
+	
+	public int setDelete(BoardBasicDTO paramDto) {
+		int result = 0;
+		conn = DB.dbConn();
+		try {
+			String sql = "delete from boardBasic where no =? and passwd = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, paramDto.getNo());
+			pstmt.setString(2, paramDto.getPasswd());
+			
+			result = pstmt.executeUpdate();
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			DB.dbConnClose(rs, pstmt, conn);
+		}
+		return result;
+	}
+}

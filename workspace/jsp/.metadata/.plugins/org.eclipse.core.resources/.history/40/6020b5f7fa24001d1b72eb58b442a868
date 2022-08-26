@@ -1,0 +1,27 @@
+package board.model.dto;
+
+import java.sql.Date;
+
+public class BoardDTO {
+
+	private int no;
+	private int num;
+	private String tbl;
+	private String writer;
+	private String subject;
+	private String content;
+	private String email;
+	private String passwd;
+	private int refNo;
+	private int stepNo;
+	private int levelNo;
+	private int parentNo;
+	private int hit;
+	private String ip;
+	private int memberNo;
+	private int noticeNo;
+	private String secretGubun;
+	private Date regiDate;
+	private String attachInfo;
+	
+}

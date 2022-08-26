@@ -3,7 +3,8 @@
 <%@ include file="../_include/inc_sessionChk.jsp" %>
 
 <div style="border: 0px solid red; width: 60%">
-	<font style="font-size: 100px; font-weight: bold;">Here<br>We<br>Go</font>
+	<h2 id="main_title">Hello world!</h2>
+	<img src="../img/251.png" id="main_img" width="200px;">
 	<% if(sessionNo == 0) { %>
 		<div style="padding: 20px 0px;">
 			<form name="loginForm">

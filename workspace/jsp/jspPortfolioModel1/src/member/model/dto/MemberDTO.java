@@ -18,7 +18,7 @@ public class MemberDTO {
 	private String grade;
 	private Date regiDate;
 	private String attachInfo;
-	
+
 	public int getNo() {
 		return no;
 	}

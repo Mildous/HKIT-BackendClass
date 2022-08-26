@@ -7,6 +7,7 @@
     pageEncoding="UTF-8"%>
 <%@ page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy" %>
 <%@ page import="com.oreilly.servlet.MultipartRequest" %>
+<%@ include file="_inc_top.jsp" %>
 <%
 	request.setCharacterEncoding("utf-8");
 

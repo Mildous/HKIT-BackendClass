@@ -33,7 +33,7 @@ a:active {
 		<td colspan="7" align="right" style="padding: 0px 10px 10px 0px;">
 		
 		<%	if(sessionNo == 0) { %>
-				<a href="main.jsp?menuGubun=noLogin_login">[로그인]</a>
+				<a href="main.jsp?menuGubun=dashBoard_list">[로그인]</a>
 		<%	} else { %>
 				<%= sessionGrade %> <%= sessionName %>님 환영합니다. 
 				<a href="main.jsp?menuGubun=noLogin_logout">[로그아웃]</a>
@@ -57,8 +57,8 @@ a:active {
 		<td align="center" style="padding: 10px;" id="boardBasic" class="bgHover">
 			<a href="<%= path %>/main/main.jsp?menuGubun=boardBasic_list" >게시판(B)</a>
 		</td>
-		<td align="center" style="padding: 10px;" id="menu3">
-			메뉴4
+		<td align="center" style="padding: 10px;" id="board" class="bgHover">
+			<a href="<%= path %>/main/main.jsp?menuGubun=board_list" >게시판</a>
 		</td>
 		<td align="center" style="padding: 10px;" id="menu4">
 			메뉴5

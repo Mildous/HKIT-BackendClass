@@ -155,7 +155,7 @@
       <Context docBase="C:\Users\HKIT\COY\workspace\jsp\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\ROOT" path="" reloadable="false"/><Context docBase="C:\Users\HKIT\COY\workspace\jsp\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\jspTest" path="/jspTest" reloadable="true" source="org.eclipse.jst.jee.server:jspTest"/>
       <Context docBase="C:\Users\HKIT\COY\workspace\jsp\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\jspPortfolioModel1" path="/jspPortfolioModel1" reloadable="true" source="org.eclipse.jst.jee.server:jspPortfolioModel1"/>
       <Context docBase="C:/Users/HKIT/COY/attach" path="jspPortfolioModel1/attach" reloadable="true"/>
-      <Context docBase="C:\Users\HKIT\COY\workspace\jsp\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\sqlTest" path="/sqlTest" reloadable="true" source="org.eclipse.jst.jee.server:sqlTest"/></Host>
+      <Context docBase="C:\Users\HKIT\COY\workspace\jsp\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\sqlTest" path="/sqlTest" reloadable="true" source="org.eclipse.jst.jee.server:sqlTest"/><Context docBase="C:\Users\HKIT\COY\workspace\jsp\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\jspExam" path="/jspExam" reloadable="true" source="org.eclipse.jst.jee.server:jspExam"/></Host>
     </Engine>
   </Service>
 </Server>

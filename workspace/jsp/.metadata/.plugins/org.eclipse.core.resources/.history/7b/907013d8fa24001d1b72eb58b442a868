@@ -1,0 +1,24 @@
+package board.model.dto;
+
+public class BoardDTO {
+
+	int no number not null,
+	int num number not null,
+	String tbl varchar2(50) not null,
+	String writer varchar2(50) not null,
+	String subject varchar2(50) not null,
+	content clob not null,
+	String email varchar2(50) not null,
+	String passwd varchar2(50) not null,
+	int refNo number not null,
+	int stepNo number not null,
+	int levelNo number not null,
+	int parentNo number not null,
+	int hit number not null,
+	String ip varchar2(50) not null,
+	int memberNo number not null,
+	int noticeNo number not null,
+	String secretGubun varchar2(1) not null check (secretGubun in ('T', 'F')),
+	regiDate date not null,
+	String attachInfo clob not null,
+}

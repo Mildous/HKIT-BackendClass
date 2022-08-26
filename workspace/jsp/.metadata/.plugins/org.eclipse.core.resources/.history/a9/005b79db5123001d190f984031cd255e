@@ -1,0 +1,5 @@
+package boardBasic.model.dto;
+
+public class BoardBasicDTO {
+
+}

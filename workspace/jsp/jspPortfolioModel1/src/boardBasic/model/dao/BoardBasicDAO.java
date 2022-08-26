@@ -63,7 +63,10 @@ public class BoardBasicDAO {
 				dto.setStepNo(rs.getInt("stepNo"));
 				dto.setLevelNo(rs.getInt("levelNo"));
 				dto.setHit(rs.getInt("hit"));
+				dto.setParentNo(rs.getInt("parentNo"));
 				dto.setRegiDate(rs.getDate("regiDate"));
+				//dto.setMemberNo(rs.getInt("memberNo"));
+				//dto.setIp(rs.getString("ip"));
 				list.add(dto);
 			}
 		} catch(Exception e) {
@@ -94,7 +97,11 @@ public class BoardBasicDAO {
 				dto.setStepNo(rs.getInt("stepNo"));
 				dto.setLevelNo(rs.getInt("levelNo"));
 				dto.setHit(rs.getInt("hit"));
+				dto.setParentNo(rs.getInt("parentNo"));
 				dto.setRegiDate(rs.getDate("regiDate"));
+				//dto.setMemberNo(rs.getInt("memberNo"));
+				//dto.setIp(rs.getString("ip"));
+				
 			}
 		} catch(Exception e) {
 			//e.printStackTrace();
@@ -170,11 +177,13 @@ public class BoardBasicDAO {
 		}
 	}
 	
+	//pstmt.setInt(11, paramDto.getMemberNo());
+	//pstmt.setString(12, paramDto.getIp());
 	public int setInsert(BoardBasicDTO paramDto) {
 		int result = 0;
 		conn = DB.dbConn();
 		try {
-			String sql = "insert into boardBasic values (seq_boardBasic.nextval, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, sysdate)";
+			String sql = "insert into boardBasic values (seq_boardBasic.nextval, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, sysdate, ?)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, paramDto.getNum());
 			pstmt.setString(2, paramDto.getWriter());
@@ -186,6 +195,8 @@ public class BoardBasicDAO {
 			pstmt.setInt(8, paramDto.getStepNo());
 			pstmt.setInt(9, paramDto.getLevelNo());
 			pstmt.setInt(10, paramDto.getHit());
+			pstmt.setInt(11, paramDto.getParentNo());
+
 			result = pstmt.executeUpdate();
 		} catch(Exception e) {
 			e.printStackTrace();

@@ -1,0 +1,38 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<table border="1">
+<tr>
+	<th>3의 배수</th>
+	<th>3의 배수의 합</th>
+</tr>
+<%
+	int total = 0;
+	for(int i=3; i<=100; i++) {
+		if(i % 3 == 0) {
+			total += i;
+		} else {
+			continue;
+		}
+%>
+<tr>
+	<td align="center"><%= i %></td>
+	<td align="center"><%= total %></td>
+</tr>
+<%		
+	}
+%>
+<tr>
+	<th colspan="2" align="center">
+		1부터 100까지의 3의 배수의 합: <%= total %>
+	</th>
+</tr>
+</table>
+</body>
+</html>

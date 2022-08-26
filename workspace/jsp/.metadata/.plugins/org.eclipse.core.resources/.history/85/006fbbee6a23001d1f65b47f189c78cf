@@ -1,0 +1,46 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<%
+/*
+	int sum = 0;
+	for(int i=1; i<=100; i++) {
+		if(i % 5 == 0) {
+			sum += i;
+		} else {
+			continue;
+		}
+		//1050
+	}
+	out.println(sum + "<br>");
+*/
+%>
+
+<%
+	int sum = 0;
+	int i = 1;
+	int even = 0;
+	int odd = 0;
+	
+	while(i <= 100) {
+		sum += i;
+		if(i % 2 == 0) {
+			even += i;
+			out.println("짝수 합 : " + sum);
+		} else {
+			odd += i;
+			out.println("홀수 합 : " + sum);
+		}
+	}
+//odd
+//even
+
+%>
+</body>
+</html>
