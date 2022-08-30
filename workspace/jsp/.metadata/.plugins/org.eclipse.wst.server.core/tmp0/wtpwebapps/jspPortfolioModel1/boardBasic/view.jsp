@@ -11,7 +11,6 @@
 	BoardBasicDTO arguDto = new BoardBasicDTO();
 	BoardBasicDAO dao = new BoardBasicDAO();
 	arguDto.setNo(no);
-	dao.updateHit(no);
 	
 	BoardBasicDTO dto = dao.getSelectOne(arguDto);
 	

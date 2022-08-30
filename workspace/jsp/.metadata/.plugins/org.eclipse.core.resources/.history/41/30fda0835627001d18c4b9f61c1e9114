@@ -1,0 +1,31 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="config.Util"%>
+<%@page import="board.model.dao.BoardDAO"%>
+<%@page import="board.model.dto.BoardDTO"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ include file="../_include/inc_header.jsp" %>
+<%@ include file="../_include/inc_sessionChk.jsp" %>
+
+<%
+	BoardDTO dto = null;
+	BoardDAO dao = null;
+	int no = 0;
+	
+	if( fileName.equals("write") || fileName.equals("view") || fileName.equals("edit") || fileName.equals("editProc") || fileName.equals("delete") || fileName.equals("deleteProc")) {
+		String no_ = request.getParameter("no");
+		if(no_ == null || no_.trim().equals("")) {
+			no_ = "0";
+		}
+		no = Integer.parseInt(no_);
+		
+		BoardDTO arguDto = new BoardDTO();
+		arguDto.setNo(no);
+		
+		dao = new BoardDAO();
+		dto = dao.getSelectOne(arguDto);
+		
+		
+	}
+	
+%>

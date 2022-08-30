@@ -14,12 +14,64 @@ public class BoardDAO {
 	PreparedStatement pstmt = null;
 	ResultSet rs = null;
 	
-	public ArrayList<BoardDTO> getSelectAll() {
-		ArrayList<BoardDTO> list = new ArrayList<>();
+	// 전체 게시글 수 카운트
+	public int getTotalRecord(String searchField, String searchWord) {
+		int result = 0;
+		String searchValue = "";
+		if(!searchField.trim().equals("") || !searchWord.trim().equals("")) {
+			searchValue = "O";
+		}
 		conn = DB.dbConn();
 		try {
-			String query = "selest * from board order by no desc";
+			String query = "select count(*) recordCounter from board ";
+			if(searchValue.equals("O")) {
+				if(searchField.equals("all")) {
+					query += " where subject like '%" + searchWord + "%' or "
+						   + "			writer like '%" + searchWord + "%' or "
+						   + "			content like '%" + searchWord + "%' ";
+				} else {
+					query += " where " + searchField + " like '%" + searchWord + "%' ";
+				}
+			}
+			query += " order by noticeNo desc, refNo desc, levelNo asc ";
 			pstmt = conn.prepareStatement(query);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				result = rs.getInt("recordCounter");
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			DB.dbConnClose(rs, pstmt, conn);
+		}
+		return result;
+	}
+	
+	public ArrayList<BoardDTO> getSelectAll(String searchField, String searchWord, int startRecord, int lastRecord) {
+		ArrayList<BoardDTO> list = new ArrayList<>();
+		String searchValue = "";
+		if(!searchField.trim().equals("") || !searchWord.trim().equals("")) {
+			searchValue = "O";
+		}
+		conn = DB.dbConn();
+		try {
+			String query = "select * from ( "
+						 + "	select A.*, rownum rNum from ( "
+						 + "		select * from board ";
+			if(searchValue.equals("O")) {
+				if(searchField.equals("all")) {
+					query += " where subject like '%" + searchWord + "%' or "
+						   + "		writer like '%" + searchWord + "%' or "
+						   + "		content like '%" + searchWord + "%' ";
+				} else {
+					query += " where " + searchField + " like '%" + searchWord + "%' ";
+				}
+			}
+			query += "	order by noticeNo desc, refNo desc, levelNo asc ) A ";
+			query += ") where rNum between ? and ? ";
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, startRecord);
+			pstmt.setInt(2, lastRecord);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				BoardDTO dto = new BoardDTO();
@@ -42,12 +94,12 @@ public class BoardDAO {
 				dto.setSecretGubun(rs.getString("secretGubun"));
 				dto.setRegiDate(rs.getDate("regiDate"));
 				dto.setAttachInfo(rs.getString("attachInfo"));
+				list.add(dto);
 			}
 		} catch(Exception e) {
 			e.printStackTrace();
 		} finally {
 			DB.dbConnClose(rs, pstmt, conn);
-			
 		}
 		return list;
 	}
@@ -56,7 +108,7 @@ public class BoardDAO {
 		BoardDTO dto = new BoardDTO();
 		conn = DB.dbConn();
 		try {
-			String query = "selest * from board where no = ?";
+			String query = "select * from board where no = ?";
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, param.getNo());
 			rs = pstmt.executeQuery();
@@ -85,7 +137,6 @@ public class BoardDAO {
 			e.printStackTrace();
 		} finally {
 			DB.dbConnClose(rs, pstmt, conn);
-			
 		}
 		return dto;
 	}
@@ -158,7 +209,7 @@ public class BoardDAO {
 		int result = 0;
 		conn = DB.dbConn();
 		try {
-			String query = "delete from board where no = ?, passwd = ?";
+			String query = "delete from board where no = ? and passwd = ?";
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, param.getNo());
 			pstmt.setString(2, param.getPasswd());
@@ -169,6 +220,53 @@ public class BoardDAO {
 			DB.dbConnClose(rs, pstmt, conn);
 		}
 		return result;
+	}
+	
+	public int getMaxNumRefNo(String gubun) {
+		int result = 0;
+		conn = DB.dbConn();
+		try {
+			String query = "select nvl(max(" + gubun + "), 0) maxValue from board";
+			pstmt = conn.prepareStatement(query);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				result = rs.getInt("maxValue");
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			DB.dbConnClose(rs, pstmt, conn);
+		}
+		return result;
+	}
+	
+	public void setUpdateRelevel(BoardDTO param) {
+		conn = DB.dbConn();
+		try {
+			String query = "update board set levelNo = (levelNo + 1) where refNo = ? and levelNo > ?";
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, param.getRefNo());
+			pstmt.setInt(2, param.getLevelNo());
+			pstmt.executeUpdate();
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			DB.dbConnClose(rs, pstmt, conn);
+		}
+	}
+	
+	public void setUpdateHit(BoardDTO param) {
+		conn = DB.dbConn();
+		try {
+			String query = "update board set hit = (hit + 1) where no = ?";
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, param.getNo());
+			pstmt.executeUpdate();
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			DB.dbConnClose(rs, pstmt, conn);
+		}
 	}
 
 }

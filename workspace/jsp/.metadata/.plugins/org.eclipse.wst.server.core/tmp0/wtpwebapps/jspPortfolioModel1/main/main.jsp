@@ -17,7 +17,7 @@
 </head>
 <body>
 
-<table border="1" width="80%" align="center">
+<table border="1" width="80%" align="center" style="margin-top: 50px;">
 	<tr>
 		<td height="100px;" align="center" style="background-color: #90AACB;">
 			<jsp:include page="../_include/inc_menu.jsp" flush="true" />

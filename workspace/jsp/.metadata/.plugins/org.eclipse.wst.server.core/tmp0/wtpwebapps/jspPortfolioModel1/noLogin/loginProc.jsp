@@ -5,8 +5,8 @@
 <%
 	request.setCharacterEncoding("utf-8");
 	
-	String id = request.getParameter("id");
-	String passwd = request.getParameter("passwd");
+	String id = request.getParameter("user_id");
+	String passwd = request.getParameter("user_pw");
 	
 	MemberDTO arguDto = new MemberDTO();
 	arguDto.setId(id);

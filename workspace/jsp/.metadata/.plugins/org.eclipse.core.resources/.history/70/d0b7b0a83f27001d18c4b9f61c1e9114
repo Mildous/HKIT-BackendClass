@@ -1,0 +1,30 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="board.model.dao.BoardDAO"%>
+<%@page import="board.model.dto.BoardDTO"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ include file="../_include/inc_header.jsp" %>
+<%@ include file="../_include/inc_sessionChk.jsp" %>
+<%
+	BoardDTO dto = new BoardDTO();
+	int no = 0;
+	
+	if(fileName.equals("view")) {
+		String no_ = request.getParameter("no");
+		no = Integer.parseInt(no_);
+		
+		BoardDTO arguDto = new BoardDTO();
+		arguDto.setNo(no);
+		
+		BoardDAO dao = new BoardDAO();
+		dto = dao.getSelectOne(arguDto);
+		
+		if(dto.getNo() <= 0) {
+			out.println("<script>alert('존재하지 않는 회원입니다.'); location.href='main.jsp?menuGubun=boardBasic_list';</script>");
+			return;
+		}
+	}
+	
+	
+	
+%>

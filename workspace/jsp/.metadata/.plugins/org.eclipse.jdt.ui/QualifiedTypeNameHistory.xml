@@ -22,7 +22,7 @@
     <fullyQualifiedTypeName name="java.sql.PreparedStatement"/>
     <fullyQualifiedTypeName name="java.sql.ResultSet"/>
     <fullyQualifiedTypeName name="java.util.ArrayList"/>
+    <fullyQualifiedTypeName name="board.model.dto.BoardDTO"/>
     <fullyQualifiedTypeName name="java.lang.Exception"/>
     <fullyQualifiedTypeName name="config.DB"/>
-    <fullyQualifiedTypeName name="board.model.dto.BoardDTO"/>
 </qualifiedTypeNameHistroy>

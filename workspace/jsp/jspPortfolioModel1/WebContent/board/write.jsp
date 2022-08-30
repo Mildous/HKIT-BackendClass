@@ -2,8 +2,10 @@
     pageEncoding="UTF-8"%>
 <%@ include file="_inc_top.jsp" %>
 
-<h2>글쓰기</h2>
+<h2>게시글 작성</h2>
+
 <form name="WriteForm">
+<input type="hidden" name="no" id="no" value="<%= dto.getNo() %>">
 <table border="1">
 	<tr>
 		<th>작성자</th>
@@ -19,11 +21,11 @@
 	</tr>
 	<tr>
 		<th>제목</th>
-		<td><input type="text" name="title" id="title" value=""></td>
+		<td><input type="text" name="subject" id="subject" value="<%= pageSubject %>"></td>
 	</tr>
 	<tr>
 		<th>내용</th>
-		<td><textarea name="content" id="content" style="width:300px; height: 100px;"></textarea></td>
+		<td><textarea name="content" id="content" style="width:300px; height: 100px;"><%= pageContent %></textarea></td>
 	</tr>
 	<tr>
 		<th>공지글</th>
