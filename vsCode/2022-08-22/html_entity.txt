@@ -1,0 +1,46 @@
+소스는 다음과 같습니다.
+<script>
+alert('hahaha');
+location.href='https://naver.com';
+</script>
+
+작성자: test000
+내용:
+소스는 다음과 같습니다.
+&lt;script&gt;
+alert(&apos;hahaha&apos;);
+location.href=&apos;https://naver.com&apos;;
+&lt;/script&gt;
+
+
+html entity
+    
+    &nbsp;
+<   &lt;
+>   &gt;
+&   &amp;
+"   &quot;
+'   &apos;
+
+String write = request.getParameter("write");
+1. null, blank 처리
+2. html entity 처리
+
+String content = request.getParameter("content");
+1. null, blank 처리
+2. html entity 처리
+
+    //DB에 저장할때만, 불러올때는 상관 없음
+	writer = writer.replace("<", "&lt;");
+	writer = writer.replace(">", "&gt;");
+	writer = writer.replace("&", "&amp;");
+	writer = writer.replace("\"", "&quot;");
+	writer = writer.replace("'", "&apos;");
+	
+	content = content.replace("<", "&lt;");
+	content = content.replace(">", "&gt;");
+	content = content.replace("&", "&amp;");
+	content = content.replace("\"", "&quot;");
+	content = content.replace("'", "&apos;");
+
+모듈: (서로 다른 모듈)결합도는 낮게, (하나의 모듈 안에서)응집도는 높게..

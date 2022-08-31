@@ -1,4 +1,3 @@
-<%@page import="config.Pagenation"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="_inc_top.jsp" %>
@@ -20,7 +19,7 @@
 		searchWord = "";
 	}
 	
-	dao = new BoardDAO();
+	dao = new VendorDAO();
 	
 	// ---------------- 페이징 처리 ----------------
 	String pageNumber_ = request.getParameter("pageNumber");
@@ -42,86 +41,54 @@
 	int startRecord = pageSize * (pageNumber - 1) + 1;
 	int lastRecord = pageSize * pageNumber;
 	
-	ArrayList<BoardDTO> list = dao.getSelectAll(searchField, searchWord, startRecord, lastRecord);
+	ArrayList<VendorDTO> list = dao.getSelectAll(searchField, searchWord, startRecord, lastRecord);
 	
 %>
 
-<h2>게시글 목록</h2>
-<div style="padding: 0px 0px; width: 80%;" align="left">
+<h2>제조사 목록</h2>
+<div style="padding: 0px 0px; width: 50%;" align="left">
 <%	if(searchField.equals("") || searchWord.equals("")) { %>
 	* 전체목록 (<%= totalRecord %>건)
 <%	} else { %>
 	* 검색어 "<%= searchWord %>"으/로 검색된 목록 (<%= totalRecord %>건)
 <%	} %>
 </div>
-<table border="1" width="80%">
+<table border="1" width="50%">
 	<tr>
 		<th>순번</th>
-		<th>제목</th>
-		<th>작성자</th>
-		<th>작성일</th>
-		<th>조회수</th>
-		<th>ip</th>
-		<th>공지글</th>
-		<th>비밀글</th>
+		<th>제조사명</th>
+		<th>등록일</th>
+		<th>비고</th>
 	</tr>
 <% if(totalRecord == 0) { %>
 	<tr>
-		<td colspan="8" height="200px" align="center">등록된 게시글이 없습니다..</td>
+		<td colspan="8" height="150px" align="center">등록된 제조사가 없습니다..</td>
 	</tr>
 <% } %>
 <%
 	for(int i=0; i<list.size(); i++) {
-		BoardDTO indexDto = list.get(i);
+		VendorDTO indexDto = list.get(i);
 %>
 	<tr>
-		<td>
-		<%
-			if(indexDto.getNoticeNo() >= 1) {
-				out.println("공지");
-			} else {
-			 	out.println(jj-i);
-			}
-		%>
+		<td align="center"><%= totalRecord %></td>
+		<td><%= indexDto.getVendorName() %></td>
+		<td align="center"><%= indexDto.getRegiDate() %></td>
+		<td align="center">
+			<a href="#" onClick="move('shopVendor_edit', '<%= indexDto.getVendorCode() %>', '', '');">[수정]</a>
+			&nbsp;
+			<a href="#" onClick="move('shopVendor_drop', '<%= indexDto.getVendorCode() %>', '', '');">[삭제]</a>
 		</td>
-		<td>
-		<%	
-			String blankValue = "";
-			for(int j=2; j<=indexDto.getStepNo(); j++) {
-				blankValue += "&nbsp;&nbsp;";
-			}
-			
-			String imsiSubject = "";
-			if(indexDto.getStepNo() >= 2) {
-				blankValue += "[Re]";
-			}
-			imsiSubject += indexDto.getSubject();
-			if(imsiSubject.length() > 10) {
-				imsiSubject = imsiSubject.substring(0, 10) + "..";
-			}
-		%>
-			<%= blankValue %><a href="#" onClick="move('board_view', '<%= indexDto.getNo() %>', '<%= searchField %>', '<%= searchWord %>');" style="padding-left: 5px;"><%= imsiSubject %></a>
-		</td>
-		<td><%= indexDto.getWriter() %></td>
-		<td><%= indexDto.getRegiDate() %></td>
-		<td><%= indexDto.getHit() %></td>
-
-		<td><%= indexDto.getIp().substring(0, 7) %></td>
-		<td><%= indexDto.getNoticeNo() %></td>
-		<td><%= indexDto.getSecretGubun() %></td>
 	</tr>
 <%
+		totalRecord--;
 	}
 %>
 	<tr>
 		<td colspan="8" align="center" style="padding: 20px 0px;">
-		<form name="searchForm" method="post" action="main.jsp?menuGubun=board_list">
+		<form name="searchForm" method="post" action="main.jsp?menuGubun=shopVendor_list">
 			<select name="searchField">
 				<option value="">-- 선택 --</option>
-				<option value="subject" <% if(searchField.equals("subject")) { out.println("selected"); } %>>제목</option>
-				<option value="writer" <% if(searchField.equals("writer")) { out.println("selected"); } %>>작성자</option>
-				<option value="content" <% if(searchField.equals("content")) { out.println("selected"); } %>>내용</option>
-				<option value="all" <% if(searchField.equals("all")) { out.println("selected"); } %>>전체</option>
+				<option value="vendorName" <% if(searchField.equals("vendorName")) { out.println("selected"); } %>>제조사명</option>
 			</select>
 			<input type="text" name="searchWord" value="<%= searchWord %>">
 			<button type="button" onClick="submit()">검색</button>
@@ -130,7 +97,7 @@
 	</tr>
 </table>
 
-<div style="padding-top: 20px; width: 80%;" align="center">
+<div style="padding-top: 20px; width: 50%;" align="center">
 <%
 	int totalBlock = totalPage / blockSize;
 	double value1 = (double)totalBlock;
@@ -176,17 +143,17 @@
 
 </div>
 
-<div style="padding-top: 20px; width: 80%;" align="right">
+<div style="padding-top: 20px; width: 50%;" align="right">
 	|
-	<a href="#" onClick="move('board_list', '', '', '');">목록</a>
+	<a href="#" onClick="move('shopVendor_list', '', '', '');">목록</a>
 	|
-	<a href="#" onClick="move('board_write', '', '', '');">등록</a>
+	<a href="#" onClick="move('shopVendor_regi', '', '', '');">등록</a>
 	|
 </div>
 
 <script>
 function move(value1, value2, searchField, searchWord) {
-	var linkAddr = 'main.jsp?menuGubun=' + value1 + '&no=' + value2 + '&searchField=' + searchField + '&searchWord=' + searchWord;
+	var linkAddr = 'main.jsp?menuGubun=' + value1 + '&vendorCode=' + value2 + '&searchField=' + searchField + '&searchWord=' + searchWord;
 	location.href = linkAddr;
 }
 function goPage(value1, value2, value3, value4) {

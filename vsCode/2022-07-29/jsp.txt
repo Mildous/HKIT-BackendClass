@@ -1,0 +1,19 @@
+정적인 웹 페이지 - html
+동적인 웹 페이지 - jsp
+
+Dynamic Web Project - jsp
+
+http://localhost:8090/jspTest/test.jsp
+--------------------  
+        도메인
+
+WebContent/test.jsp
+
+경로..
+http://localhost:8090/jspTest/test/test.jsp
+----------------------------- ----
+            WebContent        폴더
+
+
+<% %>  : 스크립틀릿
+<%= %> : 표현식

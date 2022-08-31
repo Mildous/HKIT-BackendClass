@@ -32,3 +32,10 @@ drop user bookTest cascade;
 drop tablespace bookTest including contents and datafiles cascade constraints;
 
 --=======================================================================
+
+
+create user mystudy identified by 1234
+
+grant connect, resource to mystudy;
+
+revoke connect, resource from mystudy;

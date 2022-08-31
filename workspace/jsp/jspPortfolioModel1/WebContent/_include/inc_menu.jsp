@@ -30,7 +30,7 @@ a:active {
 
 <table align="center" width="80%">
 	<tr>
-		<td colspan="7" align="right" style="padding: 0px 10px 10px 0px;">
+		<td colspan="9" align="right" style="padding: 0px 10px 10px 0px;">
 		
 		<%	if(sessionNo == 0) { %>
 				<a href="main.jsp?menuGubun=dashBoard_list">[로그인]</a>
@@ -60,8 +60,14 @@ a:active {
 		<td align="center" style="padding: 10px;" id="board" class="bgHover">
 			<a href="<%= path %>/main/main.jsp?menuGubun=board_list" >게시판</a>
 		</td>
-		<td align="center" style="padding: 10px;" id="menu4">
-			메뉴5
+		<td align="center" style="padding: 10px;" id="shopProduct" class="bgHover">
+			<a href="<%= path %>/main/main.jsp?menuGubun=shopProduct_list" >몰(product)</a>
+		</td>
+		<td align="center" style="padding: 10px;" id="shopVendor" class="bgHover">
+			<a href="<%= path %>/main/main.jsp?menuGubun=shopVendor_list" >몰(vendor)</a>
+		</td>
+		<td align="center" style="padding: 10px;" id="shopMall" class="bgHover">
+			<a href="<%= path %>/main/main.jsp?menuGubun=shopMall_list" >몰(Mall)</a>
 		</td>
 	</tr>
 </table>
