@@ -143,7 +143,8 @@ public class ProductDAO {
 			String query = "update product set productPrice = ? where productCode = ?";
 			pstmt = conn.prepareStatement(query);
 			pstmt.setInt(1, param.getProductPrice());
-			pstmt.setInt(2, param.getProductCode());
+			pstmt.setString(2, param.getAttachInfo());
+			pstmt.setInt(3, param.getProductCode());
 
 			result = pstmt.executeUpdate();
 		} catch(Exception e) {

@@ -1,3 +1,4 @@
+<%@page import="config.Pagenation"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="_inc_top.jsp" %>
@@ -22,33 +23,33 @@
 	dao = new ProductDAO();
 	
 	// ---------------- 페이징 처리 ----------------
-	String pageNumber_ = request.getParameter("pageNumber");
-	if(pageNumber_ == null || pageNumber_.trim().equals("")) {
-		pageNumber_ = "1";
+	String pageNum_ = request.getParameter("pageNum");
+	if(pageNum_ == null || pageNum_.trim().equals("")) {
+		pageNum_ = "1";
 	}
-	int pageNumber = Integer.parseInt(pageNumber_);
+	int pageNum = Integer.parseInt(pageNum_);
 	
 	int totalRecord = dao.getTotalRecord(searchField, searchWord);
 	int pageSize = 10;	// 한 페이지에 나타낼 레코드 개수
-	int blockSize = 10;	// 출력할 블럭의 개수
+	int blockSize = 5;	// 출력할 블럭의 개수
 	
-	int block = (pageNumber - 1) / pageSize;
-	int jj = totalRecord - pageSize * (pageNumber - 1);	//단지 화면에 보여질 일련번호..
+	int block = (pageNum - 1) / pageSize;
+	int jj = totalRecord - pageSize * (pageNum - 1);	//단지 화면에 보여질 일련번호..
 	
 	double totalPageDou = Math.ceil(totalRecord / (double)pageSize);
 	int totalPage = (int)totalPageDou;
 	
-	int startRecord = pageSize * (pageNumber - 1) + 1;
-	int lastRecord = pageSize * pageNumber;
+	int startRecord = pageSize * (pageNum - 1) + 1;
+	int lastRecord = pageSize * pageNum;
 	
 	ArrayList<ProductDTO> list = dao.getSelectAll(searchField, searchWord, startRecord, lastRecord);
-	
+	String urlStr = "main.jsp?menuGubun=shopProduct_list";
 %>
 
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@48,400,0,0" />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,400,0,-25" />
 
 <h2>상품목록</h2>
-<div style="padding: 0px 0px; width: 60%;" align="left">
+<div style="padding: 5px 0px; width: 60%;" align="left">
 <%	if(searchField.equals("") || searchWord.equals("")) { %>
 	* 전체목록 (<%= totalRecord %>건)
 <%	} else { %>
@@ -56,7 +57,7 @@
 <%	} %>
 </div>
 <table border="1" width="60%">
-	<tr>
+	<tr height="30px">
 		<th width="50px">순번</th>
 		<th width="50px">제조사</th>
 		<th>상품명</th>
@@ -105,52 +106,11 @@
 	</tr>
 </table>
 
-
 <div style="padding-top: 20px; width: 60%;" align="center">
-<%
-   int totalBlock = totalPage / blockSize;
-   double value1 = (double)totalBlock;
-   double value2 = totalPage / blockSize;
-   if(value1 - value2 == 0) {
-      totalBlock = totalBlock - 1;
-   }
-%>
-
-<a href="#" onClick="goPage('<%= menuGubun %>', '1', '<%= searchField %>', '<%= searchWord %>');">[첫페이지]</a>
-&nbsp;&nbsp;
-<%   if(block > 0) { 
-      int imsiPage = (block-1) * blockSize + 10;
-%>
-   <a href="#" onClick="goPage('<%= menuGubun %>', '<%= imsiPage %>', '<%= searchField %>', '<%= searchWord %>');">[이전10개]</a>
-<%   } %>
-&nbsp;&nbsp;
-<%
-   for(int goPage=1; goPage<=blockSize; goPage++) {
-      int imsiValue = block * blockSize + goPage;
-      if(totalPage - imsiValue >= 0) {
-         if(imsiValue == pageNumber) {
-%>
-            <%= imsiValue %>
-<%         } else { %>
-            <a href="#" onClick="goPage('<%= menuGubun %>', '<%= imsiValue %>', '<%= searchField %>', '<%= searchWord %>');"><%= imsiValue %></a>
-<%
-         }
-         out.println("&nbsp;");
-      }
-   }
-   if(block-totalBlock <= 0) {
-      int yyy = (block + 1) * blockSize + 1;
-      //int zzz = block + 1;
-%>
-&nbsp;&nbsp;
-      <a href="#" onClick="goPage('<%= menuGubun %>', '<%= yyy %>', '<%= searchField %>', '<%= searchWord %>');">[다음10개]</a>
-<%   } %>
-&nbsp;&nbsp;
-<a href="#" onClick="goPage('<%= menuGubun %>', '<%= totalPage %>', '<%= searchField %>', '<%= searchWord %>');">[끝페이지]</a>
-
+	<%= Pagenation.pagingStr(totalRecord, pageSize, blockSize, pageNum, urlStr, searchField, searchWord) %>
 </div>
 
-<div style="padding-top: 20px; width: 60%;" align="right">
+<div style="padding-top: 10px; width: 60%;" align="right">
    |
    <a href="#" onClick="move('shopProduct_list', '', '', '');">목록</a>
    |
@@ -162,8 +122,5 @@
 function move(value1, value2, searchField, searchWord) {
 	var linkAddr = 'main.jsp?menuGubun=' + value1 + '&productCode=' + value2 + '&searchField=' + searchField + '&searchWord=' + searchWord;
 	location.href = linkAddr;
-}
-function goPage(value1, value2, value3, value4) {
-	location.href='main.jsp?menuGubun=' + value1 + '&pageNumber=' + value2 + '&searchField=' + value3 + '&searchWord=' + value4 ;
 }
 </script>

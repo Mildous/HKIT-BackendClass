@@ -121,21 +121,26 @@
 	if(attachInfo == null || attachInfo.equals("")) {
 		attachInfo = "-";
 	}
+	
 	ProductDTO arguDto = new ProductDTO();
+	
 	arguDto.setProductName(productName);
 	arguDto.setProductPrice(productPrice);
 	arguDto.setVendorCode(vendorCode);
 	arguDto.setAttachInfo(attachInfo);
 	
 	int result = dao.setInsert(arguDto);
+
 	/*
 	int result = 0;
-	for(int i=7; i<=100; i++) {
+	for(int i=77; i<=150; i++) {
 		arguDto.setProductName(productName + " - " + i);
+		arguDto.setProductPrice(productPrice);
+		arguDto.setVendorCode(vendorCode);
+		arguDto.setAttachInfo(attachInfo);
 		result = dao.setInsert(arguDto);
 	}
 	*/
-	
 	
 	if(result > 0) {
 		out.println("<script>location.href='main.jsp?menuGubun=shopProduct_list';</script>");

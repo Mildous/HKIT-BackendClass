@@ -22,7 +22,7 @@
 
 <script>
 function move() {
-	location.href='main.jsp?menuGubun=boardBasic_list&searchGubun=<%= searchGubun %>&searchData=<%= searchData %>';
+	location.href='main.jsp?menuGubun=member_list&searchGubun=<%= searchGubun %>&searchData=<%= searchData %>';
 }
 move();
 </script>

@@ -26,7 +26,7 @@
 						imsiImgPath += "/attach";
 						imsiImgPath += request.getContextPath();
 						imsiImgPath += "/product/";
-						imsiImgPath += imsiArray2[1];
+						
 						
 						out.println("<img src='" + imsiImgPath + "' width='200px'>");
 					}

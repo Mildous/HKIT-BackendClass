@@ -15,8 +15,8 @@
 
 	if(result > 0) {
 		out.println("<script>location.href='main.jsp?menuGubun=shopProduct_list';</script>");
-		String attachPath = "C:/Users/HKIT/COY/attach";
-		String uploadPath = attachPath + request.getContextPath() + "/product";
+		attachPath = "C:/Users/HKIT/COY/attach";
+		uploadPath = attachPath + request.getContextPath() + "/product";
 		
 		String[] imsiArray01 = attachInfo.split(",");
 		for(int i=0; i<imsiArray01.length; i++) {

@@ -10,16 +10,16 @@
 <%
 	ProductDAO dao = null;
 	ProductDTO dto = null;
-	int ProductCode = 0;
+	int productCode = 0;
 	if( fileName.equals("regi") || fileName.equals("regiProc") || fileName.equals("view") || fileName.equals("edit") || fileName.equals("editProc") || fileName.equals("drop") || fileName.equals("dropProc")) {
 		String productCode_ = request.getParameter("productCode");
 		if(productCode_ == null || productCode_.trim().equals("")) {
 			productCode_ = "0";
 		}
-		ProductCode = Integer.parseInt(productCode_);
+		productCode = Integer.parseInt(productCode_);
 		
 		ProductDTO arguDto = new ProductDTO();
-		arguDto.setProductCode(ProductCode);
+		arguDto.setProductCode(productCode);
 			
 		dao = new ProductDAO();	
 		dto = dao.getSelectOne(arguDto);

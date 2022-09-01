@@ -9,7 +9,7 @@
 	String searchWord = request.getParameter("searchWord");
 %>
 
-<h2>상품정보</h2>
+<h2>정보수정</h2>
 <form name="regiForm">
 <input type="hidden" name="productCode" value="<%= dto.getProductCode() %>">
 <table border="1" width="50%">
@@ -26,7 +26,7 @@
 		<td><%= dto.getVendorName() %></td>
 	</tr>
 	<tr>
-		<th>첨부</th>
+		<th>첨부파일</th>
 		<td>
 		<%
 			if(dto.getAttachInfo() == null || dto.getAttachInfo().equals("-")) {
@@ -50,7 +50,7 @@
 		</td>
 	</tr>
 	<tr>
-		<td colspan="2" align="center">
+		<td colspan="3" align="center">
 			<button type="button" onClick="save();">수정하기</button>
 			<button type="button" onClick="location.href='main.jsp?menuGubun=shopProduct_list';">목록으로</button>
 		</td>
@@ -60,7 +60,7 @@
 
 <script>
 function save() {
-	if(confirm('수정하시겠습니까?')) {
+	if(confirm('수정하시겠습니까?')) {a
 		document.regiForm.action = "mainProc.jsp?menuGubun=shopProduct_editProc";
 		document.regiForm.method = "post";
 		document.regiForm.submit();

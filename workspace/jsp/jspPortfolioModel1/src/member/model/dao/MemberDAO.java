@@ -69,7 +69,7 @@ public class MemberDAO {
 				list.add(dto);
 			}
 		} catch(Exception e) {
-			//e.printStackTrace();
+			e.printStackTrace();
 		} finally {
 			DB.dbConnClose(rs, pstmt, conn);
 		}
@@ -100,7 +100,7 @@ public class MemberDAO {
 				dto.setAttachInfo(rs.getString("attachInfo"));
 			}
 		} catch(Exception e) {
-			//e.printStackTrace();
+			e.printStackTrace();
 		} finally {
 			DB.dbConnClose(rs, pstmt, conn);
 		}
@@ -150,7 +150,7 @@ public class MemberDAO {
 			pstmt.setString(12, paramDto.getAttachInfo());
 			result = pstmt.executeUpdate();
 		} catch(Exception e) {
-			//e.printStackTrace();
+			e.printStackTrace();
 		} finally {
 			DB.dbConnClose(rs, pstmt, conn);
 		}
@@ -175,7 +175,7 @@ public class MemberDAO {
 			
 			result = pstmt.executeUpdate();
 		} catch(Exception e) {
-			//e.printStackTrace();
+			e.printStackTrace();
 		} finally {
 			DB.dbConnClose(rs, pstmt, conn);
 		}
@@ -193,7 +193,7 @@ public class MemberDAO {
 			
 			result = pstmt.executeUpdate();
 		} catch(Exception e) {
-			//e.printStackTrace();
+			e.printStackTrace();
 		} finally {
 			DB.dbConnClose(rs, pstmt, conn);
 		}

@@ -47,7 +47,7 @@
 	</tr>
 	<% if(totalCount == 0) { %>
 	<tr>
-		<td colspan="5" height="200px" align="center">등록된 게시글이 없습니다..</td>
+		<td colspan="6" height="200px" align="center">등록된 게시글이 없습니다..</td>
 	</tr>
 	<% } %>
 	<%
@@ -75,7 +75,7 @@
 	%>
 	
 	<tr>
-		<td colspan="5" align="center" style="padding: 20px 0px;">
+		<td colspan="6" align="center" style="padding: 20px 0px;">
 			<form name="searchForm">
 			<select name="searchGubun">
 				<option value="" <% if(searchGubun.equals("")) { out.println("selected"); } %>>-- 선택 --</option>
