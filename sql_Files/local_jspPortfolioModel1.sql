@@ -215,3 +215,5 @@ select * from (
         rownum rNum from (select p.* from product p order by productCode desc
     ) A
 ) where rNum between 1 and 10;
+
+select * from cart;

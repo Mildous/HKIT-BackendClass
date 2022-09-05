@@ -6,8 +6,15 @@
 <%@ page import = "shopMall.model.dao.CartDAO" %>
 <%@ page import = "shopMall.model.dto.CartDTO" %>
 
-<%@ page import = "product.model.dao.ProductDAO" %>
-<%@ page import = "product.model.dto.ProductDTO" %>
-
 <%@ include file = "../_include/inc_header.jsp" %>
 <%@ include file = "../_include/inc_sessionChk.jsp" %>
+
+<%
+/*  	if (sessionNo <= 0) {
+		out.println("<script>");
+		out.println("alert('로그인 후 이용하세요.');");
+		out.println("location.href = '" + request.getContextPath() + "';");
+		out.println("</script>");
+		return;
+	} */
+%>
