@@ -4,11 +4,37 @@
 <%@ include file="_inc_top.jsp" %>
 
 <%
+	SubBoardDTO arguDto = new SubBoardDTO();
+	arguDto.setField(field);
+	arguDto.setWord(word);
+	
 	SubBoardDAO subBoardDao = new SubBoardDAO();
-	ArrayList<SubBoardDTO> list = subBoardDao.getSelectAll();
+	ArrayList<SubBoardDTO> list = subBoardDao.getSelectAll(arguDto);
 %>
 
 <h2>게시글 목록</h2>
+
+<div style="padding: 10px 0px 10px 0px; width: 80%" align="left">
+	<form name="searchForm">
+		<select name="field">
+			<option value="">-- 선택 --</option>
+			<option value="writer" <% if(field.equals("writer")) { out.println("selected"); } %>>작성자</option>
+			<option value="subject" <% if(field.equals("subject")) { out.println("selected"); } %>>제목</option>
+			<option value="content" <% if(field.equals("content")) { out.println("selected"); } %>>내용</option>
+			<option value="writer_subject_content" <% if(field.equals("writer_subject_content")) { out.println("selected"); } %>>작성자+제목+내용</option>
+		</select>&nbsp;
+		<input type="text" name="word" value="<%= word %>">&nbsp;
+		<button type="button" onclick="search();">검색</button>
+	</form>
+	<script>
+		function search() {
+			searchForm.action = "mainProc.jsp?menuGubun=subBoard_listSearch";
+			searchForm.method = "post";
+			searchForm.submit();
+		}
+	</script>
+</div>
+
 
 <table border="1" width="80%">
 	<tr>
@@ -43,8 +69,17 @@
 %>
 	<tr>
 		<td><%= dto.getNum() %></td>
-		<td><a href="#" onclick="move('subBoard_view', '<%= dto.getNo() %>');" >
-				<%= dto.getSubject() %></a></td>
+	<%
+		String blankValue = "";
+		for(int k=2; k<=dto.getStepNo(); k++) {
+			blankValue += "&nbsp;&nbsp;&nbsp;&nbsp;[Re] ";
+		}
+		String imsiSubject = dto.getSubject();
+		if(imsiSubject.length() > 10) {
+			imsiSubject = imsiSubject.substring(0, 10) + "...";
+		}
+	%>
+		<td><%= blankValue %><a href="#" onclick="move('subBoard_view', '<%= dto.getNo() %>');" ><%= imsiSubject %></a></td>
 		<td><%= dto.getWriter() %></td>
 		<td><%= dto.getRegiDate() %></td>
 		<td><%= dto.getHit() %></td>
@@ -73,6 +108,6 @@
 
 <script>
 function move(value1, value2) {
-	location.href='main.jsp?menuGubun=' + value1 + '&no=' + value2;	
+	location.href='main.jsp?menuGubun=' + value1 + '&no=' + value2 + '&field=<%= field %>&word=<%= word %>';
 }
 </script>

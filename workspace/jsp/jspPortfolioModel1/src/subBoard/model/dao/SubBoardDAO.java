@@ -14,14 +14,30 @@ public class SubBoardDAO {
 	PreparedStatement pstmt = null;
 	ResultSet rs = null;
 	
-	public ArrayList<SubBoardDTO> getSelectAll() {
+	public ArrayList<SubBoardDTO> getSelectAll(SubBoardDTO param) {
 		ArrayList<SubBoardDTO> list = new ArrayList<SubBoardDTO>();
 		conn = DB.dbConn();
 		try {
 			String query = "";
 			query += "select * from board ";
-			query += "order by no desc";
+			
+			if(param.getField().equals("writer_subject_content")) {
+				query += "where (writer like ? or subject like ? or content like ?) ";
+			} else if(param.getField().equals("writer") || param.getField().equals("subject") || param.getField().equals("content")) {
+				query += "where " + param.getField() + " like ? ";
+			}
+			
+			query += "order by noticeNo desc, refNo desc, levelNo asc";
 			pstmt = conn.prepareStatement(query);
+			
+			if(param.getField().equals("writer_subject_content")) {
+				pstmt.setString(1, '%' + param.getWord() + '%');
+				pstmt.setString(2, '%' + param.getWord() + '%');
+				pstmt.setString(3, '%' + param.getWord() + '%');
+			} else if(param.getField().equals("writer") || param.getField().equals("subject") || param.getField().equals("content")) {
+				pstmt.setString(1, '%' + param.getWord() + '%');
+			}
+			
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				SubBoardDTO dto = new SubBoardDTO();
@@ -58,9 +74,40 @@ public class SubBoardDAO {
 		SubBoardDTO dto = new SubBoardDTO();
 		conn = DB.dbConn();
 		try {
-			String query = "select * from board where no = ?";
+			String query = "select * from ( ";
+			query += "select b.*, ";
+			query += "LAG(no) OVER (order by noticeNo desc, refNo desc, levelNo asc) preNo, ";
+			query += "LAG(subject) OVER (order by noticeNo desc, refNo desc, levelNo asc) preSubject, ";
+			query += "LEAD(no) OVER (order by noticeNo desc, refNo desc, levelNo asc) nxtNo, ";
+			query += "LEAD(subject) OVER (order by noticeNo desc, refNo desc, levelNo asc) nxtSubject ";
+			query += "from board b where 1 = 1";
+			
+			if(param.getField() == null) {
+				
+			} else if(param.getField().equals("writer_subject_content")) {
+				query += "and writer like ? or subject like ? or content like ? ";
+			} else if(param.getField().equals("writer") || param.getField().equals("subject") || param.getField().equals("content")) {
+				query += "and " + param.getField() + " like ? ";
+			}
+			
+			query += "order by noticeNo desc, refNo desc, levelNo asc";
+			query += ") where no = ?";
 			pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1, param.getNo());
+		
+			if(param.getField() == null) {
+				pstmt.setInt(1, param.getNo());
+			} else if(param.getField().equals("writer_subject_content")) {
+				pstmt.setString(1, '%' + param.getWord() + '%');
+				pstmt.setString(2, '%' + param.getWord() + '%');
+				pstmt.setString(3, '%' + param.getWord() + '%');
+				pstmt.setInt(4, param.getNo());
+			} else if(param.getField().equals("writer") || param.getField().equals("subject") || param.getField().equals("content")) {
+				pstmt.setString(1, '%' + param.getWord() + '%');
+				pstmt.setInt(2, param.getNo());
+			} else {
+				pstmt.setInt(1, param.getNo());
+			}
+			
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				dto.setNo(rs.getInt("no"));
@@ -82,6 +129,11 @@ public class SubBoardDAO {
 				dto.setSecretGubun(rs.getString("secretGubun"));
 				dto.setRegiDate(rs.getDate("regiDate"));
 				dto.setAttachInfo(rs.getString("attachInfo"));
+				
+				dto.setPreNo(rs.getInt("preNo"));
+				dto.setPreSubject(rs.getString("preSubject"));
+				dto.setNxtNo(rs.getInt("nxtNo"));
+				dto.setNxtSubject(rs.getString("nxtSubject"));
 			}
 		} catch(Exception e) {
 			e.printStackTrace();
@@ -189,6 +241,22 @@ public class SubBoardDAO {
 			DB.dbConnClose(rs, pstmt, conn);
 		}
 		return result;
+	}
+	
+	public void setUpdateRelevel(SubBoardDTO param) {
+		
+		conn = DB.dbConn();
+		try {
+			String query = "update board set levelNo = (levelNo + 1) where refNo = ? and levelNo > ?";
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, param.getRefNo());
+			pstmt.setInt(2, param.getLevelNo());
+			pstmt.executeUpdate();
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			DB.dbConnClose(rs, pstmt, conn);
+		}
 	}
 
 }

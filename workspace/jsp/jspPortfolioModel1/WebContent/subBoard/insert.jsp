@@ -2,9 +2,35 @@
     pageEncoding="UTF-8"%>
 <%@ include file="_inc_top.jsp" %>
 
-<h2>게시글 작성</h2>
+<%
+	String imsiSubject = "";
+	String imsiContent = "";
+	String imsiTitle = "글쓰기";
+	if(no > 0) {
+		imsiTitle = "답변글쓰기";
+		
+		SubBoardDTO arguDto = new SubBoardDTO();
+		arguDto.setNo(no);
+		
+		SubBoardDAO subBoardDao = new SubBoardDAO();
+		SubBoardDTO returnDto = subBoardDao.getSelectOne(arguDto);
+		
+		if(returnDto.getNo() <= 0) {
+			return;
+		}
+		
+		imsiSubject = returnDto.getSubject();
+		imsiContent = returnDto.getContent();
+	}
+
+%>
+
+<h2><%= imsiTitle %></h2>
 
 <form name="DirForm">
+<input type="hidden" name="no" value="<%= no %>">
+<input type="hidden" name="field" value="<%= field %>">
+<input type="hidden" name="word" value="<%= word %>">
 <table border="1" width="50%">
 	<tr>
 		<th>작성자</th>
@@ -20,12 +46,12 @@
 	</tr>
 	<tr>
 		<th>제목</th>
-		<td><input type="text" name="subject"></td>
+		<td><input type="text" name="subject" value="<%= imsiSubject %>"></td>
 	</tr>
 	<tr>
 		<th>내용</th>
 		<td>
-			<textarea name="content" style="width: 300px; height: 100px;"></textarea>
+			<textarea name="content" style="width: 300px; height: 100px;"><%= imsiContent %></textarea>
 		</td>
 	</tr>
 	<tr>

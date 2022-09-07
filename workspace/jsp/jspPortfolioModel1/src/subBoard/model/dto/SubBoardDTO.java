@@ -24,6 +24,15 @@ public class SubBoardDTO {
 	private Date regiDate;
 	private String attachInfo;
 	
+	private String field;
+	private String word;
+	
+	private int preNo;
+	private String preSubject;
+	private int nxtNo;
+	private String nxtSubject;
+	
+	
 	public int getNo() {
 		return no;
 	}
@@ -138,5 +147,41 @@ public class SubBoardDTO {
 	public void setAttachInfo(String attachInfo) {
 		this.attachInfo = attachInfo;
 	}
-
+	public String getField() {
+		return field;
+	}
+	public void setField(String field) {
+		this.field = field;
+	}
+	public String getWord() {
+		return word;
+	}
+	public void setWord(String word) {
+		this.word = word;
+	}
+	public int getPreNo() {
+		return preNo;
+	}
+	public void setPreNo(int preNo) {
+		this.preNo = preNo;
+	}
+	public String getPreSubject() {
+		return preSubject;
+	}
+	public void setPreSubject(String preSubject) {
+		this.preSubject = preSubject;
+	}
+	public int getNxtNo() {
+		return nxtNo;
+	}
+	public void setNxtNo(int nxtNo) {
+		this.nxtNo = nxtNo;
+	}
+	public String getNxtSubject() {
+		return nxtSubject;
+	}
+	public void setNxtSubject(String nxtSubject) {
+		this.nxtSubject = nxtSubject;
+	}
+	
 }

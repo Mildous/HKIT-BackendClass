@@ -3,6 +3,7 @@
 <%@ include file="_inc_top.jsp" %>
 
 <%
+	
 	String writer = request.getParameter("writer");
 	String email = request.getParameter("email");
 	String passwd = request.getParameter("passwd");
@@ -21,6 +22,20 @@
 	int stepNo = 1;
 	int levelNo = 1;
 	int parentNo = 0;
+	if(no > 0) {
+		SubBoardDTO imsiArguDto = new SubBoardDTO();
+		imsiArguDto.setNo(no);
+		
+		SubBoardDAO imsiSubBoardDao = new SubBoardDAO();
+		SubBoardDTO imsiReturnDto = imsiSubBoardDao.getSelectOne(imsiArguDto);
+		
+		imsiSubBoardDao.setUpdateRelevel(imsiReturnDto);
+		
+		refNo = imsiReturnDto.getRefNo();
+		stepNo = imsiReturnDto.getStepNo() + 1;
+		levelNo = imsiReturnDto.getLevelNo() + 1;
+		parentNo = no;
+	}
 	
 	int hit = 0;
 	//String ip = "";
@@ -34,6 +49,7 @@
 	String attachInfo = "-";
 	
 	SubBoardDTO arguDto = new SubBoardDTO();
+	arguDto.setNum(num);
 	arguDto.setTbl(tbl);
 	arguDto.setWriter(writer);
 	arguDto.setEmail(email);
