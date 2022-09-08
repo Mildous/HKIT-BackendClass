@@ -1,3 +1,4 @@
+<%@page import="config.Pagenation"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
@@ -5,37 +6,76 @@
 
 <%
 	SubBoardDTO arguDto = new SubBoardDTO();
-	arguDto.setField(field);
-	arguDto.setWord(word);
+	arguDto.setField(searchField);
+	arguDto.setWord(searchWord);
 	
 	SubBoardDAO subBoardDao = new SubBoardDAO();
+
+	// ---------------- 페이징 처리 ----------------
+		
+	int totalRecord = subBoardDao.getTotalRecord(arguDto);
+	int pageSize = 10;	// 한 페이지에 나타낼 레코드 개수
+	int blockSize = 5;	// 출력할 블럭의 개수
+		
+	int block = (pageNum - 1) / pageSize;
+	int jj = totalRecord - pageSize * (pageNum - 1);	//단지 화면에 보여질 일련번호..
+		
+	double totalPageDou = Math.ceil(totalRecord / (double)pageSize);
+	int totalPage = (int)totalPageDou;
+		
+	int startRecord = pageSize * (pageNum - 1) + 1;
+	int lastRecord = pageSize * pageNum;
+	String urlStr = "main.jsp?menuGubun=subBoard_list";
+	
+	arguDto.setStartRecord(startRecord);
+	arguDto.setLastRecord(lastRecord);
+	
 	ArrayList<SubBoardDTO> list = subBoardDao.getSelectAll(arguDto);
+	String searchFieldStr = "";
 %>
 
 <h2>게시글 목록</h2>
-
-<div style="padding: 10px 0px 10px 0px; width: 80%" align="left">
-	<form name="searchForm">
-		<select name="field">
-			<option value="">-- 선택 --</option>
-			<option value="writer" <% if(field.equals("writer")) { out.println("selected"); } %>>작성자</option>
-			<option value="subject" <% if(field.equals("subject")) { out.println("selected"); } %>>제목</option>
-			<option value="content" <% if(field.equals("content")) { out.println("selected"); } %>>내용</option>
-			<option value="writer_subject_content" <% if(field.equals("writer_subject_content")) { out.println("selected"); } %>>작성자+제목+내용</option>
-		</select>&nbsp;
-		<input type="text" name="word" value="<%= word %>">&nbsp;
-		<button type="button" onclick="search();">검색</button>
-	</form>
-	<script>
-		function search() {
-			searchForm.action = "mainProc.jsp?menuGubun=subBoard_listSearch";
-			searchForm.method = "post";
-			searchForm.submit();
-		}
-	</script>
+<div style="padding: 10px 0px 10px 0px; width: 80%">
+	<div style="padding: 10px 0px 10px 0px; idth: 30%; float: left;" align="left">
+	<%	if(imsiSearchCounter > 0) { %>
+			* 전체목록 (<%= totalRecord %>건)
+	<%	} else {
+			if(searchField.equals("writer")) {
+				searchFieldStr = "작성자";
+			} else if(searchField.equals("subject")) {
+				searchFieldStr = "제목";
+			} else if(searchField.equals("content")) {
+				searchFieldStr = "내용";
+			} else if(searchField.equals("writer_subject_content")) {
+				searchFieldStr = "작성자+제목+내용";
+			}
+	%>
+	
+			* <%= searchFieldStr %>에서 "<b><%= searchWord %></b>"으/로 검색된 목록 (<%= totalRecord %>건)
+	<%	} %>
+	</div>
+	
+	<div style="padding: 10px 0px 10px 0px; width: 50%; float: right;" align="right">
+		<form name="searchForm">
+			<select name="searchField">
+				<option value="">-- 선택 --</option>
+				<option value="writer" <% if(searchField.equals("writer")) { out.println("selected"); } %>>작성자</option>
+				<option value="subject" <% if(searchField.equals("subject")) { out.println("selected"); } %>>제목</option>
+				<option value="content" <% if(searchField.equals("content")) { out.println("selected"); } %>>내용</option>
+				<option value="writer_subject_content" <% if(searchField.equals("writer_subject_content")) { out.println("selected"); } %>>작성자+제목+내용</option>
+			</select>&nbsp;
+			<input type="text" name="searchWord" value="<%= searchWord %>">&nbsp;
+			<button type="button" onclick="search();">검색</button>
+		</form>
+		<script>
+			function search() {
+				searchForm.action = "mainProc.jsp?menuGubun=subBoard_listSearch";
+				searchForm.method = "post";
+				searchForm.submit();
+			}
+		</script>
+	</div>
 </div>
-
-
 <table border="1" width="80%">
 	<tr>
 		<th>순번</th>
@@ -68,7 +108,7 @@
 	for(SubBoardDTO dto : list) {
 %>
 	<tr>
-		<td><%= dto.getNum() %></td>
+		<td><%= jj %></td>
 	<%
 		String blankValue = "";
 		for(int k=2; k<=dto.getStepNo(); k++) {
@@ -95,19 +135,25 @@
 		<td><%= dto.getSecretGubun() %></td>
 	</tr>	
 <%
+	jj--;
 	}
 %>
 </table>
+
+<div style="padding-top: 20px; width: 60%;" align="center">
+	<%= Pagenation.pagingStr(totalRecord, pageSize, blockSize, pageNum, urlStr, searchField, searchWord) %>
+</div>
 
 <div style="padding-top: 20px; width: 80%;" align="right">
 	|
 	<a href="#" onclick="move('subBoard_list', '');">목록</a>
 	|
 	<a href="#" onclick="move('subBoard_insert', '');">등록</a>
+	|
 </div>
 
 <script>
 function move(value1, value2) {
-	location.href='main.jsp?menuGubun=' + value1 + '&no=' + value2 + '&field=<%= field %>&word=<%= word %>';
+	location.href='main.jsp?menuGubun=' + value1 + '&no=' + value2 + '&searchField=<%= searchField %>&searchWord=<%= searchWord %>';
 }
 </script>

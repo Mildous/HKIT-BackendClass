@@ -217,3 +217,23 @@ select * from (
 ) where rNum between 1 and 10;
 
 select * from cart;
+
+select * from board;
+drop sequence seq_board;
+truncate table board;
+
+
+create table boardComment (
+commentNo number not null primary key,
+boardNo number not null references board(no),
+writer varchar2(50) not null,
+content clob not null,
+passwd varchar2(50) not null,
+memberNo number not null,
+ip varchar2(50) not null,
+regiDate date default sysdate
+);
+create sequence seq_boardComment start with 1 increment by 1 nomaxvalue nocache;
+
+select * from boardComment;
+

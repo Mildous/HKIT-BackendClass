@@ -29,8 +29,8 @@
 
 <form name="DirForm">
 <input type="hidden" name="no" value="<%= no %>">
-<input type="hidden" name="field" value="<%= field %>">
-<input type="hidden" name="word" value="<%= word %>">
+<input type="hidden" name="searchField" value="<%= searchField %>">
+<input type="hidden" name="searchWord" value="<%= searchWord %>">
 <table border="1" width="50%">
 	<tr>
 		<th>작성자</th>

@@ -24,8 +24,9 @@
 /*		out.println("<script>");
 		out.println("location.href='error.jsp?errorCode=001';");
 		out.println("</script>");
-*/
 		return;
+*/
+
 	}
 	
 	String[] imsiMenuGubunArray = menuGubun.split("_");

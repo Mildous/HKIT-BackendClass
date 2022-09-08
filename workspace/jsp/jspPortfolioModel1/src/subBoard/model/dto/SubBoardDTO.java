@@ -32,6 +32,8 @@ public class SubBoardDTO {
 	private int nxtNo;
 	private String nxtSubject;
 	
+	private int startRecord;
+	private int lastRecord;
 	
 	public int getNo() {
 		return no;
@@ -182,6 +184,18 @@ public class SubBoardDTO {
 	}
 	public void setNxtSubject(String nxtSubject) {
 		this.nxtSubject = nxtSubject;
+	}
+	public int getStartRecord() {
+		return startRecord;
+	}
+	public void setStartRecord(int startRecord) {
+		this.startRecord = startRecord;
+	}
+	public int getLastRecord() {
+		return lastRecord;
+	}
+	public void setLastRecord(int lastRecord) {
+		this.lastRecord = lastRecord;
 	}
 	
 }

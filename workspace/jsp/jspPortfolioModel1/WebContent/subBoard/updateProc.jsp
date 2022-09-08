@@ -43,8 +43,8 @@
 		String imsiUrl = "";
 		imsiUrl += "main.jsp?menuGubun=subBoard_update";
 		imsiUrl += "&no=" + no;
-		imsiUrl += "&field=" + field;
-		imsiUrl += "&word=" + word;
+		imsiUrl += "&searchField=" + searchField;
+		imsiUrl += "&searchWord=" + searchWord;
 		out.println("<script>");
 		out.println("alert('입력한 비밀번호가 다릅니다. \\n확인 후 다시 이용바랍니다.');");
 		out.println("location.href='" + imsiUrl + "';");
@@ -55,11 +55,11 @@
 	int result = subBoardDao.setUpdate(arguDto);
 	
 	if(result > 0) {
-		out.println("<script>location.href='main.jsp?menuGubun=subBoard_view&no=" + no + "&field=" + field + "&word=" + word + "';</script>");
+		out.println("<script>location.href='main.jsp?menuGubun=subBoard_view&no=" + no + "&searchField=" + searchField + "&searchWord=" + searchWord + "';</script>");
 	} else {
 		out.println("<script>");
 		out.println("alert('수정 실패..');");
-		out.println("location.href='main.jsp?menuGubun=subBoard_update&no=" + no + "&field=" + field + "&word=" + word + "';");
+		out.println("location.href='main.jsp?menuGubun=subBoard_update&no=" + no + "&searchField=" + searchField + "&searchWord=" + searchWord + "';");
 		out.println("</script>");
 	}
 %>

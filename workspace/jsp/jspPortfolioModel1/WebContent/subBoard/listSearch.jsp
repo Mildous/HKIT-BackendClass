@@ -5,7 +5,7 @@
 
 <script>
 function move() {
-	location.href = 'main.jsp?menuGubun=subBoard_list&field=<%= field %>&word=<%= word %>';
+	location.href = 'main.jsp?menuGubun=subBoard_list&searchField=<%= searchField %>&searchWord=<%= searchWord %>';
 }
 move();
 </script>

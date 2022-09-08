@@ -67,7 +67,17 @@
 	arguDto.setSecretGubun(secretGubun);
 	arguDto.setAttachInfo(attachInfo);
 	
+	
 	int result = subBoardDao.setInsert(arguDto);
+	/*
+	int result = 0;
+	for(int i=151; i<=200; i++) {
+		arguDto.setSubject(subject + " - " + i);
+		arguDto.setRefNo(i);
+		arguDto.setNum(i);
+		result = subBoardDao.setInsert(arguDto);
+	}
+	*/
 	
 	if(result > 0) {
 		out.println("<script>location.href='main.jsp?menuGubun=subBoard_list';</script>");

@@ -11,10 +11,11 @@
 	
 	SubBoardDTO arguDto = new SubBoardDTO();
 	arguDto.setNo(no);
-	arguDto.setField(field);
-	arguDto.setWord(word);
+	arguDto.setField(searchField);
+	arguDto.setWord(searchWord);
 	
 	SubBoardDAO dao = new SubBoardDAO();
+	dao.setUpdateHit(arguDto);
 	SubBoardDTO dto = dao.getSelectOne(arguDto);
 	
 	if(dto.getNo() <= 0) {
@@ -32,8 +33,8 @@
 <%	if(imsiPage.equals("viewPasswdPage")) {	%>
 	<form name="passwdForm">
 	<input type="hidden" name="no" value="<%= no %>">
-	<input type="hidden" name="field" value="<%= field %>">
-	<input type="hidden" name="word" value="<%= word %>">
+	<input type="hidden" name="searchField" value="<%= searchField %>">
+	<input type="hidden" name="searchWord" value="<%= searchWord %>">
 	<table>
 		<tr>
 			<td colspan="2" align="center" >
@@ -145,8 +146,36 @@
 <%	} %>
 <script>
 function move(value1, value2) {
-	location.href='main.jsp?menuGubun=' + value1 + '&no=' + value2 + '&field=<%= field %>&word=<%= word %>';
+	location.href='main.jsp?menuGubun=' + value1 + '&no=' + value2 + '&searchField=<%= searchField %>&searchWord=<%= searchWord %>';
 }
 
 </script>
+
+<%	if(imsiPage.equals("viewPage")) { %>
+	<a name="comment"></a>
+	<div id="commentResult" style="margin: 20px 0px 20px 0px; width: 80%; " align="center"></div>
+	
+	
+	<script>
+	$(document).ready(function() {
+		commentList();
+	});
+	
+	function commentList() {
+		var param = {
+				"no" : <%= no %>
+		}
+		var url = "../subBoard/commentList.jsp";
+		$.ajax({
+			type: "post",
+			data: param,
+			url: url,
+			success: function(data) {
+				$("#commentResult").html(data);
+			}
+		});
+	}
+	</script>
+
+<% } %>
 

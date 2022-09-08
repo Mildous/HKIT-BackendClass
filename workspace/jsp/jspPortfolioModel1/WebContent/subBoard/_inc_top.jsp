@@ -9,6 +9,12 @@
 <%@ include file="../_include/inc_sessionChk.jsp" %>
 
 <%
+	String pageNum_ = request.getParameter("pageNum");
+	if(pageNum_ == null || pageNum_.trim().equals("")) {
+		pageNum_ = "1";
+	}
+	int pageNum = Integer.parseInt(pageNum_);
+
 	String no_ = request.getParameter("no");
 	
 	if(no_ == null || no_.trim().equals("")) {
@@ -17,21 +23,21 @@
 	
 	int no = Integer.parseInt(no_);
 
-	String field = request.getParameter("field");
-	String word = request.getParameter("word");
+	String searchField = request.getParameter("searchField");
+	String searchWord = request.getParameter("searchWord");
 	
 	// 하나라도 비어있으면 검색X
-	int imsiCounter = 0;
-	if(field == null || field.trim().equals("")) {
-		field = "";
-		imsiCounter++;
+	int imsiSearchCounter = 0;
+	if(searchField == null || searchField.trim().equals("")) {
+		searchField = "";
+		imsiSearchCounter++;
 	}
-	if(word == null || word.trim().equals("")) {
-		word = "";
-		imsiCounter++;
+	if(searchWord == null || searchWord.trim().equals("")) {
+		searchWord = "";
+		imsiSearchCounter++;
 	}
-	if(imsiCounter > 0) {
-		field = "";
-		word = "";
+	if(imsiSearchCounter > 0) {
+		searchField = "";
+		searchWord = "";
 	}
 %>

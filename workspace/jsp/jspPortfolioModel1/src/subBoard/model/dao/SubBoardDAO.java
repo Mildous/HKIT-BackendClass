@@ -5,7 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+import board.model.dto.BoardDTO;
 import config.DB;
+import subBoard.model.dto.SubBoardCommentDTO;
 import subBoard.model.dto.SubBoardDTO;
 
 public class SubBoardDAO {
@@ -13,6 +15,41 @@ public class SubBoardDAO {
 	Connection conn = null;
 	PreparedStatement pstmt = null;
 	ResultSet rs = null;
+	
+	public int getTotalRecord(SubBoardDTO param) {
+		int result = 0;
+		conn = DB.dbConn();
+		try {
+			String query = "select count(*) counter from board where 1 = 1 ";
+			
+			if(param.getField().equals("writer_subject_content")) {
+				query += "and (writer like ? or subject like ? or content like ?) ";
+			} else if(param.getField().equals("writer") || param.getField().equals("subject") || param.getField().equals("content")) {
+				query += "and " + param.getField() + " like ? ";
+			}
+
+			pstmt = conn.prepareStatement(query);
+			
+			if(param.getField().equals("writer_subject_content")) {
+				pstmt.setString(1, '%' + param.getWord() + '%');
+				pstmt.setString(2, '%' + param.getWord() + '%');
+				pstmt.setString(3, '%' + param.getWord() + '%');
+			} else if(param.getField().equals("writer") || param.getField().equals("subject") || param.getField().equals("content")) {
+				pstmt.setString(1, '%' + param.getWord() + '%');
+			}
+			
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				result = rs.getInt("counter");
+			}
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			DB.dbConnClose(rs, pstmt, conn);
+		}
+		return result;
+	}
 	
 	public ArrayList<SubBoardDTO> getSelectAll(SubBoardDTO param) {
 		ArrayList<SubBoardDTO> list = new ArrayList<SubBoardDTO>();
@@ -28,16 +65,27 @@ public class SubBoardDAO {
 			}
 			
 			query += "order by noticeNo desc, refNo desc, levelNo asc";
-			pstmt = conn.prepareStatement(query);
+			
+			String sql = "";
+			sql += "select * from (select A.*, Rownum rnum from (";
+			sql += query;
+			sql += ") A) where rNum between ? and ? ";
+			pstmt = conn.prepareStatement(sql);
 			
 			if(param.getField().equals("writer_subject_content")) {
 				pstmt.setString(1, '%' + param.getWord() + '%');
 				pstmt.setString(2, '%' + param.getWord() + '%');
 				pstmt.setString(3, '%' + param.getWord() + '%');
+				pstmt.setInt(4, param.getStartRecord());
+				pstmt.setInt(5, param.getLastRecord());
 			} else if(param.getField().equals("writer") || param.getField().equals("subject") || param.getField().equals("content")) {
 				pstmt.setString(1, '%' + param.getWord() + '%');
+				pstmt.setInt(2, param.getStartRecord());
+				pstmt.setInt(3, param.getLastRecord());
+			} else {
+				pstmt.setInt(1, param.getStartRecord());
+				pstmt.setInt(2, param.getLastRecord());
 			}
-			
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				SubBoardDTO dto = new SubBoardDTO();
@@ -141,6 +189,20 @@ public class SubBoardDAO {
 			DB.dbConnClose(rs, pstmt, conn);
 		}
 		return dto;
+	}
+	
+	public void setUpdateHit(SubBoardDTO param) {
+		conn = DB.dbConn();
+		try {
+			String query = "update board set hit = (hit + 1) where no = ?";
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, param.getNo());
+			pstmt.executeUpdate();
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			DB.dbConnClose(rs, pstmt, conn);
+		}
 	}
 	
 	public int setInsert(SubBoardDTO param) {
@@ -257,6 +319,94 @@ public class SubBoardDAO {
 		} finally {
 			DB.dbConnClose(rs, pstmt, conn);
 		}
+	}
+	
+	// 댓글 출력..
+	public ArrayList<SubBoardCommentDTO> getCommentSelectAll(int no) {
+		ArrayList<SubBoardCommentDTO> list = new ArrayList<SubBoardCommentDTO>();
+		conn = DB.dbConn();
+		try {
+			String query = "select * from boardComment where boardNo = ? order by commentNo desc";
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, no);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				SubBoardCommentDTO dto = new SubBoardCommentDTO();
+				dto.setCommentNo(rs.getInt("commentNo"));
+				dto.setBoardNo(rs.getInt("boardNo"));
+				dto.setWriter(rs.getString("writer"));
+				dto.setContent(rs.getString("content"));
+				dto.setPasswd(rs.getString("passwd"));
+				dto.setMemberNo(rs.getInt("memberNo"));
+				dto.setIp(rs.getString("ip"));
+				dto.setRegiDate(rs.getDate("regiDate"));
+				list.add(dto);
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			DB.dbConnClose(rs, pstmt, conn);
+		}
+		return list;
+	}
+	
+	// 댓글 등록..
+	public int setCommentInsert(SubBoardCommentDTO param) {
+		int result = 0;
+		conn = DB.dbConn();
+		try {
+			String query = "insert into boardComment values (seq_boardComment.nextval, ?, ?, ?, ?, ?, ?, sysdate)";
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, param.getBoardNo());
+			pstmt.setString(2, param.getWriter());
+			pstmt.setString(3, param.getContent());
+			pstmt.setString(4, param.getPasswd());
+			pstmt.setInt(5, param.getMemberNo());
+			pstmt.setString(6, param.getIp());
+			result = pstmt.executeUpdate();
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			DB.dbConnClose(rs, pstmt, conn);
+		}
+		return result;
+	}
+	
+	// 댓글 수정
+	public int setCommentUpdate(SubBoardCommentDTO param) {
+		int result = 0;
+		conn = DB.dbConn();
+		try {
+			String query = "update boardComment set writer = ?, content = ?, where commentNo = ? and passwd = ?";
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, param.getWriter());
+			pstmt.setString(2, param.getContent());
+			pstmt.setInt(3, param.getCommentNo());
+			pstmt.setString(4, param.getPasswd());
+			result = pstmt.executeUpdate();
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			DB.dbConnClose(rs, pstmt, conn);
+		}
+		return result;
+	}
+	
+	public int setCommentDelete(SubBoardCommentDTO param) {
+		int result = 0;
+		conn = DB.dbConn();
+		try {
+			String query = "delete from boardComment where commentNo = ? and passwd = ?";
+			pstmt = conn.prepareStatement(query);
+			pstmt.setInt(1, param.getCommentNo());
+			pstmt.setString(2, param.getPasswd());
+			result = pstmt.executeUpdate();
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			DB.dbConnClose(rs, pstmt, conn);
+		}
+		return result;
 	}
 
 }
