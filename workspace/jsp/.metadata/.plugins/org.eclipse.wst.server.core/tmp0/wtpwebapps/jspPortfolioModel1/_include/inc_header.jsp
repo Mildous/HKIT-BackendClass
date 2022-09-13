@@ -24,13 +24,21 @@
 /*		out.println("<script>");
 		out.println("location.href='error.jsp?errorCode=001';");
 		out.println("</script>");
-*/
 		return;
+*/
+
 	}
 	
 	String[] imsiMenuGubunArray = menuGubun.split("_");
 	String folderName = imsiMenuGubunArray[0];
 	String fileName = imsiMenuGubunArray[1];
 	String includePage = "../" + folderName + "/" + fileName + ".jsp";
+	//System.out.println("--> " + folderName + " / " + fileName + " / " + includePage + "<br>");
+	
+	
+	String imgDisplayPath = "";
+	imgDisplayPath += request.getContextPath();
+	imgDisplayPath += "/attach";
+	imgDisplayPath += request.getContextPath();
 		
 %>

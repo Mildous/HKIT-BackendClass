@@ -1,0 +1,5 @@
+package subBoard.model.dao;
+
+public class SubBoardChkDAO {
+
+}

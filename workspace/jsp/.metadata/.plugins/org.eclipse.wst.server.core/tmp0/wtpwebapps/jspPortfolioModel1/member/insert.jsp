@@ -68,7 +68,6 @@
 function join() {
 	if(confirm('등록할까요?')) {
 		document.insertForm.action = "mainProc.jsp?menuGubun=member_insertProc";
-		document.insertForm.action = "insertProc.jsp";
 		document.insertForm.method = "post";
 		document.insertForm.submit();
 	}

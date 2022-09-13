@@ -1,0 +1,9 @@
+package subBoard.model.dto;
+
+public class SubBoardChkDTO {
+
+	private int boardChkNo number not null primary key,
+	private String tbl varchar2(50) not null,
+	private String tblName varchar2(50) not null,
+	private Date regiDate date default sysdate
+}

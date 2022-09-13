@@ -1,0 +1,38 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ include file="_inc_top.jsp" %>
+
+<%
+	String passwd = request.getParameter("passwd");
+	
+	SubBoardDAO subBoardDao = new SubBoardDAO();
+	
+	SubBoardDTO arguDto = new SubBoardDTO();
+	arguDto.setNo(no);
+	arguDto.setPasswd(passwd);
+	
+	SubBoardDTO returnDto = subBoardDao.getSelectOne(arguDto);
+	if(!returnDto.getPasswd().equals(passwd)) {
+		String imsiUrl = "";
+		imsiUrl += "main.jsp?menuGubun=subBoard_delete";
+		imsiUrl += "&no=" + no;
+		imsiUrl += "&field=" + field;
+		imsiUrl += "&word=" + word;
+		out.println("<script>");
+		out.println("alert('입력한 비밀번호가 다릅니다. \\n확인 후 다시 이용바랍니다.');");
+		out.println("location.href='" + imsiUrl + "';");
+		out.println("</script>");
+		return;
+	}
+	
+	int result = subBoardDao.setDelete(arguDto);
+	
+	if(result > 0) {
+		out.println("<script>location.href='main.jsp?menuGubun=subBoard_list&field=" + field + "&word=" + word + "';</script>");
+	} else {
+		out.println("<script>");
+		out.println("alert('수정 실패..');");
+		out.println("location.href='main.jsp?menuGubun=subBoard_delete&no=" + no + "&field=" + field + "&word=" + word + "';");
+		out.println("</script>");
+	}
+%>

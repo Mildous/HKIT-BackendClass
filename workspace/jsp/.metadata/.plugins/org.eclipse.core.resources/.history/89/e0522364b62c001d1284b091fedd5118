@@ -1,0 +1,19 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	    pageEncoding="UTF-8"%>
+	    
+<%@ include file="../_include/inc_header.jsp" %>
+<%@ include file="../_include/inc_sessionChk.jsp" %>
+
+<button type="button" onclick="suntaek('examPiechart');">examPiechart</button>
+
+<script>
+function suntaek(value1) {
+	if(value1 == 'examPiechart') {
+		location.href='main.jsp?menuGubun=chart_' + value1;
+	} else if(value1 == '') {
+		location.href='main.jsp?menuGubun=chart_' + value1;
+	}
+}
+</script>
+
+<hr style="width: 70% margin: 20px 0px;">

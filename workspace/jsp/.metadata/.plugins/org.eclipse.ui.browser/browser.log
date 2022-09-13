@@ -347,3 +347,70 @@
 8월 29, 2022 13:40:24.483 [1216:5884:0829/134024.483:ERROR:util.cc(127)] Can't create base directory: C:\Program Files\Google\GoogleUpdater
 8월 29, 2022 14:23:15.388 [1216:4600:0829/142315.386:ERROR:interface_endpoint_client.cc(665)] Message 0 rejected by interface blink.mojom.WidgetHost
 8월 29, 2022 15:37:50.418 [1216:4600:0829/153750.417:ERROR:device_event_log_impl.cc(214)] [15:37:50.416] USB: usb_service_win.cc:104 SetupDiGetDeviceProperty({{A45C254E-DF1C-4EFD-8020-67D146A850E0}, 6}) failed: 요소가 없습니다. (0x490)
+
+8월 31, 2022 09:13:02.527 NEW SESSION
+8월 31, 2022 09:13:02.527 [10212:7792:0831/091302.521:ERROR:device_event_log_impl.cc(214)] [09:13:02.521] USB: usb_device_handle_win.cc:1048 Failed to read descriptor from node connection: 시스템에 부착된 장치가 작동하지 않습니다. (0x1F)
+8월 31, 2022 09:13:59.605 [10212:4516:0831/091359.604:ERROR:util.cc(127)] Can't create base directory: C:\Program Files\Google\GoogleUpdater
+8월 31, 2022 09:18:32.757 [10212:7792:0831/091832.757:ERROR:device_event_log_impl.cc(214)] [09:18:32.757] USB: usb_service_win.cc:104 SetupDiGetDeviceProperty({{A45C254E-DF1C-4EFD-8020-67D146A850E0}, 6}) failed: 요소가 없습니다. (0x490)
+8월 31, 2022 11:31:43.463 [10528:4212:0831/113143.463:ERROR:device_event_log_impl.cc(214)] [11:31:43.463] USB: usb_device_handle_win.cc:1048 Failed to read descriptor from node connection: 시스템에 부착된 장치가 작동하지 않습니다. (0x1F)
+8월 31, 2022 11:32:41.406 [10528:1712:0831/113241.406:ERROR:util.cc(127)] Can't create base directory: C:\Program Files\Google\GoogleUpdater
+8월 31, 2022 13:58:12.511 [1620:520:0831/135812.510:ERROR:device_event_log_impl.cc(214)] [13:58:12.510] USB: usb_device_handle_win.cc:1048 Failed to read descriptor from node connection: 시스템에 부착된 장치가 작동하지 않습니다. (0x1F)
+8월 31, 2022 13:59:10.265 [1620:11524:0831/135910.265:ERROR:util.cc(127)] Can't create base directory: C:\Program Files\Google\GoogleUpdater
+8월 31, 2022 15:02:03.898 [1620:520:0831/150203.898:ERROR:interface_endpoint_client.cc(665)] Message 1 rejected by interface blink.mojom.WidgetHost
+8월 31, 2022 15:46:28.106 [1620:520:0831/154628.106:ERROR:interface_endpoint_client.cc(665)] Message 1 rejected by interface blink.mojom.WidgetHost
+8월 31, 2022 15:46:28.106 [1620:520:0831/154628.106:ERROR:interface_endpoint_client.cc(665)] Message 1 rejected by interface blink.mojom.WidgetHost
+8월 31, 2022 16:09:41.592 [1620:520:0831/160941.591:ERROR:interface_endpoint_client.cc(665)] Message 1 rejected by interface blink.mojom.WidgetHost
+8월 31, 2022 17:05:00.304 [1620:520:0831/170500.304:ERROR:interface_endpoint_client.cc(665)] Message 1 rejected by interface blink.mojom.WidgetHost
+8월 31, 2022 17:18:30.929 [1620:520:0831/171830.929:ERROR:interface_endpoint_client.cc(665)] Message 1 rejected by interface blink.mojom.WidgetHost
+8월 31, 2022 17:19:51.713 [1620:520:0831/171951.712:ERROR:interface_endpoint_client.cc(665)] Message 1 rejected by interface blink.mojom.WidgetHost
+8월 31, 2022 17:19:51.713 [1620:520:0831/171951.712:ERROR:interface_endpoint_client.cc(665)] Message 1 rejected by interface blink.mojom.WidgetHost
+
+9월 01, 2022 09:18:52.49 NEW SESSION
+9월 01, 2022 09:18:52.49 [2924:10916:0901/091852.046:ERROR:device_event_log_impl.cc(214)] [09:18:52.045] USB: usb_device_handle_win.cc:1048 Failed to read descriptor from node connection: 시스템에 부착된 장치가 작동하지 않습니다. (0x1F)
+9월 01, 2022 09:19:49.54 [2924:1884:0901/091949.053:ERROR:util.cc(127)] Can't create base directory: C:\Program Files\Google\GoogleUpdater
+9월 01, 2022 09:22:14.186 [2924:10916:0901/092214.185:ERROR:device_event_log_impl.cc(214)] [09:22:14.185] USB: usb_service_win.cc:104 SetupDiGetDeviceProperty({{A45C254E-DF1C-4EFD-8020-67D146A850E0}, 6}) failed: 요소가 없습니다. (0x490)
+9월 01, 2022 10:01:13.982 [11488:10596:0901/100113.982:ERROR:device_event_log_impl.cc(214)] [10:01:13.982] USB: usb_device_handle_win.cc:1048 Failed to read descriptor from node connection: 시스템에 부착된 장치가 작동하지 않습니다. (0x1F)
+9월 01, 2022 10:02:11.400 [11488:5188:0901/100211.399:ERROR:util.cc(127)] Can't create base directory: C:\Program Files\Google\GoogleUpdater
+9월 01, 2022 10:03:07.971 [11488:10596:0901/100307.970:ERROR:interface_endpoint_client.cc(665)] Message 1 rejected by interface blink.mojom.WidgetHost
+9월 01, 2022 10:23:25.101 [11488:10596:0901/102325.100:ERROR:interface_endpoint_client.cc(665)] Message 1 rejected by interface blink.mojom.WidgetHost
+9월 01, 2022 10:23:25.101 [11488:10596:0901/102325.100:ERROR:interface_endpoint_client.cc(665)] Message 1 rejected by interface blink.mojom.WidgetHost
+9월 01, 2022 10:23:25.102 [11488:10596:0901/102325.101:ERROR:interface_endpoint_client.cc(665)] Message 1 rejected by interface blink.mojom.WidgetHost
+9월 01, 2022 10:25:02.962 [11488:10596:0901/102502.962:ERROR:device_event_log_impl.cc(214)] [10:25:02.958] USB: usb_service_win.cc:104 SetupDiGetDeviceProperty({{A45C254E-DF1C-4EFD-8020-67D146A850E0}, 6}) failed: 요소가 없습니다. (0x490)
+9월 01, 2022 11:20:19.787 [11488:10596:0901/112019.786:ERROR:interface_endpoint_client.cc(665)] Message 0 rejected by interface blink.mojom.WidgetHost
+9월 01, 2022 11:20:29.518 [11488:10596:0901/112029.518:ERROR:interface_endpoint_client.cc(665)] Message 0 rejected by interface blink.mojom.WidgetHost
+9월 01, 2022 15:02:11.803 [11488:11900:0901/150211.802:ERROR:util.cc(127)] Can't create base directory: C:\Program Files\Google\GoogleUpdater
+9월 01, 2022 15:07:51.44 [11488:10596:0901/150751.044:ERROR:interface_endpoint_client.cc(665)] Message 1 rejected by interface blink.mojom.WidgetHost
+9월 01, 2022 15:07:51.44 [11488:10596:0901/150751.044:ERROR:interface_endpoint_client.cc(665)] Message 1 rejected by interface blink.mojom.WidgetHost
+
+9월 02, 2022 11:03:15.978 NEW SESSION
+9월 02, 2022 11:03:15.978 [3212:12368:0902/110315.976:ERROR:device_event_log_impl.cc(214)] [11:03:15.975] USB: usb_device_handle_win.cc:1048 Failed to read descriptor from node connection: 시스템에 부착된 장치가 작동하지 않습니다. (0x1F)
+9월 02, 2022 11:04:13.663 [3212:11248:0902/110413.663:ERROR:util.cc(127)] Can't create base directory: C:\Program Files\Google\GoogleUpdater
+9월 02, 2022 12:00:20.471 [3212:12368:0902/120020.470:ERROR:device_event_log_impl.cc(214)] [12:00:20.470] USB: usb_service_win.cc:104 SetupDiGetDeviceProperty({{A45C254E-DF1C-4EFD-8020-67D146A850E0}, 6}) failed: 요소가 없습니다. (0x490)
+9월 02, 2022 12:20:20.755 [3212:12368:0902/122020.755:ERROR:interface_endpoint_client.cc(665)] Message 1 rejected by interface blink.mojom.WidgetHost
+
+9월 07, 2022 09:14:28.961 NEW SESSION
+9월 07, 2022 09:14:28.962 [7700:6088:0907/091428.957:ERROR:device_event_log_impl.cc(214)] [09:14:28.956] USB: usb_device_handle_win.cc:1048 Failed to read descriptor from node connection: 시스템에 부착된 장치가 작동하지 않습니다. (0x1F)
+9월 07, 2022 09:15:23.966 [7700:8:0907/091523.966:ERROR:util.cc(127)] Can't create base directory: C:\Program Files\Google\GoogleUpdater
+9월 07, 2022 09:16:30.456 [7700:6088:0907/091630.456:ERROR:device_event_log_impl.cc(214)] [09:16:30.456] USB: usb_service_win.cc:104 SetupDiGetDeviceProperty({{A45C254E-DF1C-4EFD-8020-67D146A850E0}, 6}) failed: 요소가 없습니다. (0x490)
+9월 07, 2022 14:15:23.979 [7700:1320:0907/141523.978:ERROR:util.cc(127)] Can't create base directory: C:\Program Files\Google\GoogleUpdater
+9월 07, 2022 15:59:56.720 [7700:6088:0907/155956.719:ERROR:interface_endpoint_client.cc(665)] Message 1 rejected by interface blink.mojom.WidgetHost
+9월 07, 2022 16:00:12.147 [7700:6088:0907/160012.147:ERROR:interface_endpoint_client.cc(665)] Message 3 rejected by interface blink.mojom.Widget
+
+9월 08, 2022 09:46:59.767 NEW SESSION
+9월 08, 2022 09:46:59.768 [12864:16916:0908/094659.764:ERROR:device_event_log_impl.cc(214)] [09:46:59.764] USB: usb_device_handle_win.cc:1048 Failed to read descriptor from node connection: 시스템에 부착된 장치가 작동하지 않습니다. (0x1F)
+9월 08, 2022 09:47:57.625 [12864:5624:0908/094757.624:ERROR:util.cc(129)] Can't create base directory: C:\Program Files\Google\GoogleUpdater
+9월 08, 2022 12:44:02.633 [12864:16916:0908/124402.631:ERROR:device_event_log_impl.cc(214)] [12:44:02.526] USB: usb_service_win.cc:104 SetupDiGetDeviceProperty({{A45C254E-DF1C-4EFD-8020-67D146A850E0}, 6}) failed: 요소가 없습니다. (0x490)
+9월 08, 2022 14:47:57.642 [12864:5304:0908/144757.641:ERROR:util.cc(129)] Can't create base directory: C:\Program Files\Google\GoogleUpdater
+
+9월 08, 2022 14:56:12.307 NEW SESSION
+9월 08, 2022 14:56:12.307 [5856:9308:0908/145612.305:ERROR:device_event_log_impl.cc(214)] [14:56:12.305] USB: usb_device_handle_win.cc:1048 Failed to read descriptor from node connection: 시스템에 부착된 장치가 작동하지 않습니다. (0x1F)
+9월 08, 2022 14:57:07.274 [5856:13892:0908/145707.273:ERROR:util.cc(129)] Can't create base directory: C:\Program Files\Google\GoogleUpdater
+9월 08, 2022 16:42:16.723 [5856:9308:0908/164216.722:ERROR:device_event_log_impl.cc(214)] [16:42:16.722] USB: usb_service_win.cc:104 SetupDiGetDeviceProperty({{A45C254E-DF1C-4EFD-8020-67D146A850E0}, 6}) failed: 요소가 없습니다. (0x490)
+
+9월 13, 2022 09:13:00.570 NEW SESSION
+9월 13, 2022 09:13:00.570 [11856:13496:0913/091300.566:ERROR:device_event_log_impl.cc(214)] [09:13:00.566] USB: usb_device_handle_win.cc:1048 Failed to read descriptor from node connection: 시스템에 부착된 장치가 작동하지 않습니다. (0x1F)
+9월 13, 2022 09:13:57.494 [11856:15016:0913/091357.494:ERROR:util.cc(129)] Can't create base directory: C:\Program Files\Google\GoogleUpdater
+9월 13, 2022 09:23:33.18 [11856:13496:0913/092333.018:ERROR:device_event_log_impl.cc(214)] [09:23:33.018] USB: usb_service_win.cc:104 SetupDiGetDeviceProperty({{A45C254E-DF1C-4EFD-8020-67D146A850E0}, 6}) failed: 요소가 없습니다. (0x490)
+9월 13, 2022 13:08:51.585 [libprotobuf ERROR ..\..\third_party\protobuf\src\google\protobuf\message_lite.cc:133] Can't parse message of type "safe_browsing.ClientDownloadRequest" because it is missing required fields: (cannot determine missing fields for lite message)
+9월 13, 2022 14:13:57.497 [11856:6968:0913/141357.496:ERROR:util.cc(129)] Can't create base directory: C:\Program Files\Google\GoogleUpdater
+9월 13, 2022 15:17:08.185 [11856:13496:0913/151708.184:ERROR:CONSOLE(1)] "Uncaught (in promise) RangeError: Invalid line number 202 in 1-line document", source: devtools://devtools/bundled/devtools-frontend/front_end/third_party/codemirror.next/chunk/codemirror.js (1)

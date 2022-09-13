@@ -1,0 +1,74 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ include file="_inc_top.jsp" %>
+
+<%
+	String searchField = "";
+	String searchWord = "";
+	CartDAO dao = new CartDAO();
+	ArrayList<CartDTO> list = dao.getSelectAll(searchField, searchWord);
+%>
+
+<h2>장바구니 목록</h2>
+
+<table border="1" width="50%">
+	<tr>
+		<th>순번</th>
+		<th>제조사명</th>
+		<th>등록일</th>
+		<th>비고</th>
+	</tr>
+<% if(list.size() == 0) { %>
+	<tr>
+		<td colspan="8" height="150px" align="center">장바구니가 비었습니다</td>
+	</tr>
+<% } %>
+<%
+	int num = list.size();
+	for(int i=0; i<list.size(); i++) {
+		CartDTO dto = list.get(i);
+%>
+	<tr>
+		<td align="center"><%= dto.getCartNo() %></td>
+		<td><%= dto.getMemberNo() %></td>
+		<td align="center"><%= dto.getProductCode() %></td>
+		<td align="center">
+			<a href="#" onClick="move('shopVendor_edit', '<%= dto.getCartNo() %>', '', '');">[수정]</a>
+			&nbsp;
+			<a href="#" onClick="move('shopVendor_drop', '<%= dto.getCartNo() %>', '', '');">[삭제]</a>
+		</td>
+	</tr>
+<%
+	}
+%>
+	<tr>
+		<td colspan="8" align="center" style="padding: 20px 0px;">
+		<form name="searchForm" method="post" action="main.jsp?menuGubun=shopVendor_list">
+			<select name="searchField">
+				<option value="">-- 선택 --</option>
+				<option value="vendorName" <% if(searchField.equals("vendorName")) { out.println("selected"); } %>>제조사명</option>
+			</select>
+			<input type="text" name="searchWord" value="<%= searchWord %>">
+			<button type="button" onClick="submit()">검색</button>
+		</form> 
+		</td>
+	</tr>
+</table>
+
+<div style="padding-top: 20px; width: 50%;" align="right">
+	|
+	<a href="#" onClick="move('shopVendor_list', '', '', '');">목록</a>
+	|
+	<a href="#" onClick="move('shopVendor_regi', '', '', '');">등록</a>
+	|
+</div>
+
+<script>
+function move(value1, value2, searchField, searchWord) {
+	var linkAddr = 'main.jsp?menuGubun=' + value1 + '&cartNo=' + value2 + '&searchField=' + searchField + '&searchWord=' + searchWord;
+	location.href = linkAddr;
+}
+function goPage(value1, value2, value3, value4) {
+	location.href='main.jsp?menuGubun=' + value1 + '&cartNo=' + value2 + '&searchField=' + value3 + '&searchWord=' + value4 ;
+}
+</script>

@@ -1,4 +1,4 @@
-<%@page import="config.BoardPage"%>
+<%@page import="config.Pagenation"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="_inc_top.jsp" %>
@@ -31,7 +31,7 @@
 	
 	int totalRecord = dao.getTotalRecord(searchField, searchWord);
 	int pageSize = 10;	// 한 페이지에 나타낼 레코드 개수
-	int blockSize = 5;	// 출력할 블럭의 개수
+	int blockSize = 10;	// 출력할 블럭의 개수
 	
 	int block = (pageNumber - 1) / pageSize;
 	int jj = totalRecord - pageSize * (pageNumber - 1);	//단지 화면에 보여질 일련번호..
@@ -80,7 +80,7 @@
 			if(indexDto.getNoticeNo() >= 1) {
 				out.println("공지");
 			} else {
-			 	out.println(indexDto.getNo());
+			 	out.println(jj-i);
 			}
 		%>
 		</td>
@@ -131,6 +131,48 @@
 </table>
 
 <div style="padding-top: 20px; width: 80%;" align="center">
+<%
+	int totalBlock = totalPage / blockSize;
+	double value1 = (double)totalBlock;
+	double value2 = totalPage / blockSize;
+	if(value1 - value2 == 0) {
+		totalBlock = totalBlock - 1;
+	}
+%>
+<a href="#" onClick="goPage('<%= menuGubun %>', '1', '<%= searchField %>', '<%= searchWord %>');">[첫페이지]</a>
+&nbsp;&nbsp;
+<%	if(block > 0) { 
+		int imsiPage = (block-1) * blockSize + 10;
+%>
+	<a href="#" onClick="goPage('<%= menuGubun %>', '<%= imsiPage %>', '<%= searchField %>', '<%= searchWord %>');">[이전10개]</a>
+<%	} else { %>
+	[이전10개]
+<%	} %>
+&nbsp;&nbsp;
+<%
+	for(int goPage=1; goPage<=blockSize; goPage++) {
+		int imsiValue = block * blockSize + goPage;
+		if(totalPage - imsiValue >= 0) {
+			if(imsiValue == pageNumber) {
+%>
+				<%= imsiValue %>
+<%			} else { %>
+				<a href="#" onClick="goPage('<%= menuGubun %>', '<%= imsiValue %>', '<%= searchField %>', '<%= searchWord %>');"><%= imsiValue %></a>
+<%
+			}
+			out.println("&nbsp;");
+		}
+	}
+	if(block-totalBlock <= 0) {
+		int yyy = (block + 1) * blockSize + 1;
+		//int zzz = block + 1;
+%>
+		<a href="#" onClick="goPage('<%= menuGubun %>', '<%= yyy %>', '<%= searchField %>', '<%= searchWord %>');">[다음10개]</a>
+<%	} else { %>
+		[다음10개]
+<%	} %>
+&nbsp;
+<a href="#" onClick="goPage('<%= menuGubun %>', '<%= totalPage %>', '<%= searchField %>', '<%= searchWord %>');">[끝페이지]</a>
 
 </div>
 
@@ -146,5 +188,8 @@
 function move(value1, value2, searchField, searchWord) {
 	var linkAddr = 'main.jsp?menuGubun=' + value1 + '&no=' + value2 + '&searchField=' + searchField + '&searchWord=' + searchWord;
 	location.href = linkAddr;
+}
+function goPage(value1, value2, value3, value4) {
+	location.href='main.jsp?menuGubun=' + value1 + '&pageNumber=' + value2 + '&searchField=' + value3 + '&searchWord=' + value4 ;
 }
 </script>

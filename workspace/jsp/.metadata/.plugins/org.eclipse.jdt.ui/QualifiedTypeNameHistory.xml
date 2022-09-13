@@ -17,12 +17,22 @@
     <fullyQualifiedTypeName name="java.sql.DriverManager"/>
     <fullyQualifiedTypeName name="memo.model.dto.MemoDTO"/>
     <fullyQualifiedTypeName name="guestbook.model.dto.GuestBookDTO"/>
-    <fullyQualifiedTypeName name="java.sql.Date"/>
-    <fullyQualifiedTypeName name="java.sql.Connection"/>
-    <fullyQualifiedTypeName name="java.sql.PreparedStatement"/>
-    <fullyQualifiedTypeName name="java.sql.ResultSet"/>
-    <fullyQualifiedTypeName name="java.util.ArrayList"/>
     <fullyQualifiedTypeName name="board.model.dto.BoardDTO"/>
+    <fullyQualifiedTypeName name="vendor.model.dto.VendorDTO"/>
+    <fullyQualifiedTypeName name="product.model.dto.ProductDTO"/>
+    <fullyQualifiedTypeName name="shopMall.model.dao.CartDAO"/>
+    <fullyQualifiedTypeName name="java.util.List"/>
+    <fullyQualifiedTypeName name="org.json.simple.JSONArray"/>
+    <fullyQualifiedTypeName name="org.json.simple.JSONObject"/>
+    <fullyQualifiedTypeName name="java.sql.PreparedStatement"/>
+    <fullyQualifiedTypeName name="java.sql.Connection"/>
+    <fullyQualifiedTypeName name="org.apache.ibatis.annotations.Results"/>
+    <fullyQualifiedTypeName name="java.sql.ResultSet"/>
+    <fullyQualifiedTypeName name="subBoard.model.dao.SubBoardDAO"/>
+    <fullyQualifiedTypeName name="subBoard.model.dto.SubBoardDTO"/>
+    <fullyQualifiedTypeName name="java.sql.Date"/>
     <fullyQualifiedTypeName name="java.lang.Exception"/>
     <fullyQualifiedTypeName name="config.DB"/>
+    <fullyQualifiedTypeName name="java.util.ArrayList"/>
+    <fullyQualifiedTypeName name="subBoard.model.dto.SubBoardCommentDTO"/>
 </qualifiedTypeNameHistroy>

@@ -12,5 +12,20 @@
 		return;
 	}
 
+	if(!sessionId.trim().equals("system")) {
+		out.println("<script>");
+		out.println("alert('관리자만 이용 가능합니다.');");
+		out.println("location.href='" + request.getContextPath() + "';");
+		//out.println("location.href='../main/main.jsp?menuGubun=noLogin_login';");
+		out.println("</script>");
+		return;
+	}
+	
+	String pageNum_ = request.getParameter("pageNum");
+	if(pageNum_ == null || pageNum_.trim().equals("")) {
+		pageNum_ = "1";
+	}
+	int pageNum = Integer.parseInt(pageNum_);
+
 %>
     

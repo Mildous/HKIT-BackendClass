@@ -1,0 +1,30 @@
+package subBoard.model.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+
+import config.DB;
+import subBoard.model.dto.SubBoardDTO;
+
+public class SubBoardChkDAO {
+	
+	Connection conn = null;
+	PreparedStatement pstmt = null;
+	ResultSet rs = null;
+	
+	public ArrayList<SubBoardChkDTO> getSelectAll(SubBoardDTO param) {
+		ArrayList<SubBoardDTO> list = new ArrayList<SubBoardDTO>();
+		conn = DB.dbConn();
+		try {
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			DB.dbConnClose(rs, pstmt, conn);
+		}
+		return list;
+	}
+
+}

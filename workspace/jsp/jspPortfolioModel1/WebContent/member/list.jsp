@@ -1,3 +1,4 @@
+<%@page import="config.Pagenation"%>
 <%@page import="config.Util"%>
 <%@page import="member.model.dto.MemberDTO"%>
 <%@page import="java.util.ArrayList"%>
@@ -6,31 +7,49 @@
     pageEncoding="UTF-8"%>
 <%@ include file="_inc_top.jsp" %>
 <%
-	String searchGubun = request.getParameter("searchGubun");
-	String searchData = request.getParameter("searchData");
+	String searchField = request.getParameter("searchField");
+	String searchWord = request.getParameter("searchWord");
 	
 	Util util = new Util();
 	
-	searchGubun = util.getNullBlankCheck(searchGubun, "");
-	searchData = util.getNullBlankCheck(searchData, "");
+	searchField = util.getNullBlankCheck(searchField, "");
+	searchWord = util.getNullBlankCheck(searchWord, "");
 	
-	if(searchGubun.equals("") || searchData.equals("")) {
-		searchGubun = "";
-		searchData = "";
+	if(searchField.equals("") || searchWord.equals("")) {
+		searchField = "";
+		searchWord = "";
 	}
 
 	MemberDAO dao = new MemberDAO();
-	ArrayList<MemberDTO> list = dao.getSelectAll(searchGubun, searchData);
+	MemberDTO arguDto = new MemberDTO();
 	
-	int totalCount = list.size();
+	// ---------------- 페이징 처리 ---------------- 
+	
+	int totalRecord = dao.getTotalRecord(searchField, searchWord);
+	int pageSize = 10;	// 한 페이지에 나타낼 레코드 개수
+	int blockSize = 5;	// 출력할 블럭의 개수
+			
+	int block = (pageNum - 1) / pageSize;
+	int jj = totalRecord - pageSize * (pageNum - 1);	//단지 화면에 보여질 일련번호..
+			
+	double totalPageDou = Math.ceil(totalRecord / (double)pageSize);
+	int totalPage = (int)totalPageDou;
+			
+	int startRecord = pageSize * (pageNum - 1) + 1;
+	int lastRecord = pageSize * pageNum;
+	String urlStr = "main.jsp?menuGubun=member_list";
+		
+		
+	ArrayList<MemberDTO> list = dao.getSelectAll(searchField, searchWord, startRecord, lastRecord);
+
 %>
 
 <h2>회원목록</h2>
 <div style="border: 0px solid red; padding: 0px 0px; width: 80%;" align="left">
-<%	if(searchGubun.equals("") || searchData.equals("")) { %>
+<%	if(searchField.equals("") || searchWord.equals("")) { %>
 		*전체목록 (<%= list.size() %>건)
 <%	} else { %>
-		*검색어 "<%= searchData %>"으/로 검색된 목록 (<%= list.size() %>건)
+		*검색어 "<%= searchWord %>"으/로 검색된 목록 (<%= list.size() %>건)
 <%	} %>
 </div>
 <table border="1" width="80%">
@@ -44,13 +63,13 @@
 		<th>등록일</th>
 		<th>첨부사진</th>
 	</tr>
-	<% if(totalCount == 0) { %>
+	<% if(totalRecord == 0) { %>
 	<tr>
 		<td colspan="8" height="200px" align="center">등록된 내용이 없습니다..</td>
 	</tr>
 	<% } %>
 	<%
-		int num = totalCount;
+		int num = totalRecord;
 		for(int i=0; i<list.size(); i++) {
 			MemberDTO dto = list.get(i);
 	%>
@@ -93,22 +112,26 @@
 	<tr>
 		<td colspan="8" align="center" style="padding: 20px 0px;">
 			<form name="searchForm">
-			<select name="searchGubun">
-				<option value="" <% if(searchGubun.equals("")) { out.println("selected"); } %>>-- 선택 --</option>
-				<option value="id" <% if(searchGubun.equals("id")) { out.println("selected"); } %>>아이디</option>
-				<option value="name" <% if(searchGubun.equals("name")) { out.println("selected"); } %>>이름</option>
-				<option value="phone" <% if(searchGubun.equals("phone")) { out.println("selected"); } %>>연락처</option>
-				<option value="jumin" <% if(searchGubun.equals("jumin")) { out.println("selected"); } %>>주민번호</option>
-				<option value="all" <% if(searchGubun.equals("all")) { out.println("selected"); } %>>ALL</option>
+			<select name="searchField">
+				<option value="" <% if(searchField.equals("")) { out.println("selected"); } %>>-- 선택 --</option>
+				<option value="id" <% if(searchField.equals("id")) { out.println("selected"); } %>>아이디</option>
+				<option value="name" <% if(searchField.equals("name")) { out.println("selected"); } %>>이름</option>
+				<option value="phone" <% if(searchField.equals("phone")) { out.println("selected"); } %>>연락처</option>
+				<option value="jumin" <% if(searchField.equals("jumin")) { out.println("selected"); } %>>주민번호</option>
+				<option value="all" <% if(searchField.equals("all")) { out.println("selected"); } %>>ALL</option>
 			</select>
 			&nbsp;
-			<input type="text" name="searchData" value="<%= searchData %>">
+			<input type="text" name="searchWord" value="<%= searchWord %>">
 			&nbsp;
 			<button type="button" onClick="search();">검색하기</button>
 			</form>
 		</td>
 	</tr>
 </table>
+
+<div style="padding-top: 20px; width: 60%;" align="center">
+	<%= Pagenation.pagingStr(totalRecord, pageSize, blockSize, pageNum, urlStr, searchField, searchWord) %>
+</div>
 
 <div style="padding-top: 20px; width: 80%; " align="right">
 	|

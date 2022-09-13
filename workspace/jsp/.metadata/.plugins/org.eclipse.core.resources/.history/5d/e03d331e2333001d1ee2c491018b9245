@@ -1,0 +1,13 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ include file="_inc_top.jsp" %>
+
+<%
+	String tbl = request.getParameter("tbl");
+	String tblName = request.getParameter("tblName");
+	
+	SubBoardChkDTO arguDto = new SubBoardChkDTO();
+	arguDto.setTbl(tbl);
+	arguDto.setTblName(tblName);
+
+%>

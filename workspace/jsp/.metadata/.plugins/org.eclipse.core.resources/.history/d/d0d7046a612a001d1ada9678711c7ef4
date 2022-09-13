@@ -1,0 +1,5 @@
+package shopMall.model.dto;
+
+public class CartDTO {
+
+}

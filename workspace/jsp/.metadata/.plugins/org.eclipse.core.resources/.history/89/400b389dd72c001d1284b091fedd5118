@@ -1,0 +1,25 @@
+package subBoard.model.dto;
+
+public class SubBoardDTO {
+	
+	private int no;
+	private int num;
+	private String tbl;
+	private String writer;
+	private String subject varchar2(50) not null,
+	private String content clob not null,
+	private String email varchar2(50) not null,
+	private String passwd varchar2(50) not null,
+	private int refNo number not null,
+	private int stepNo number not null,
+	private int levelNo number not null,
+	private int parentNo number not null,
+	private int hit number not null,
+	private String ip varchar2(50) not null,
+	private int memberNo number not null,
+	private int noticeNo number not null,
+	private String secretGubun varchar2(1) not null check (secretGubun in ('T', 'F')),
+	private Date regiDate date not null,
+	private String attachInfo clob not null,
+
+}

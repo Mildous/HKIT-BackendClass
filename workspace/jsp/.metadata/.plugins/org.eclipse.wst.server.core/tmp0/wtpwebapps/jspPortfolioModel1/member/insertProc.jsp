@@ -48,11 +48,11 @@
 	int result = dao.setInsert(arguDto);
 	
 	if(result > 0) {
-		//out.println("<script>location.href='main.jsp?menuGubun=member_list';</script>");
+		out.println("<script>location.href='main.jsp?menuGubun=member_list';</script>");
 	} else {
 		out.println("<script>");
 		out.println("alert('등록 중 오류가 발생했습니다.');");
-		//out.println("location.href='main.jsp?menuGubun=member_insert';)");
+		out.println("location.href='main.jsp?menuGubun=member_insert';");
 		out.println("</script>");
 	}
 	

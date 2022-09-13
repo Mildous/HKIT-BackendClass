@@ -1,0 +1,12 @@
+package chart.service;
+
+import org.json.simple.JSONObject;
+
+public class ChartService {
+
+	public JSONObject getChartData() {
+		JSONObject data = new JSONObject();
+		
+		return data;
+	}
+}

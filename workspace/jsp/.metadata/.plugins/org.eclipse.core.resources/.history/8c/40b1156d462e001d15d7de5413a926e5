@@ -1,0 +1,31 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+
+<%@page import="subBoard.model.dao.SubBoardDAO"%>
+<%@page import="subBoard.model.dto.SubBoardDTO"%>
+<%@page import="java.util.ArrayList"%>
+
+<%@ include file="../_include/inc_header.jsp" %>
+<%@ include file="../_include/inc_sessionChk.jsp" %>
+
+<%
+	request.setCharacterEncoding("UTF-8");
+
+	String searchField = request.getParameter("searchField");
+	String searchWord = request.getParameter("searchWord");
+	
+	// 하나라도 비어있으면 검색X
+	int imsiCounter = 0;
+	if(searchField == null || searchField.trim().equals("")) {
+		searchField = "";
+		imsiCounter++;
+	}
+	if(searchWord == null || searchWord.trim().equals("")) {
+		searchWord = "";
+		imsiCounter++;
+	}
+	if(imsiCounter > 0) {
+		searchField = "";
+		searchWord = "";
+	}
+%>

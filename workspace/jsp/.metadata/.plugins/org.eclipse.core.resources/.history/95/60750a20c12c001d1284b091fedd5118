@@ -1,0 +1,121 @@
+package shopMall.model.dao;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
+
+import config.DB;
+import shopMall.model.dto.CartDTO;
+
+public class CartDAO {
+   Connection conn=null;
+   PreparedStatement pstmt=null;
+   ResultSet rs=null;
+   
+   public ArrayList<CartDTO> getSelectAll(String searchVal,String searchData) {
+      ArrayList<CartDTO> list=new ArrayList<CartDTO>();
+      conn=DB.dbConn();
+      try {
+         
+         String sql="select * from cart where order by cartNo desc";
+         pstmt=conn.prepareStatement(sql);
+         
+         rs=pstmt.executeQuery();
+         while(rs.next()) {
+            CartDTO dto=new CartDTO();
+            dto.setCartNo(rs.getInt("cartNo"));
+            dto.setMemberNo(rs.getInt("MemberNo"));
+            dto.setProductCode(rs.getInt("ProductCode"));
+            dto.setAmount(rs.getInt("Amount"));
+            dto.setRegiDate(rs.getDate("RegiDate"));
+
+            list.add(dto);
+         }
+      }catch (Exception e) {
+         // TODO: handle exception
+      }finally {
+         DB.dbConnClose(rs, pstmt, conn);
+      }
+      return list;
+   }
+   
+   public CartDTO getSelectOne(CartDTO paramDto) {
+      CartDTO dto=new CartDTO();
+      conn=DB.dbConn();
+      try {
+         String sql="select * from cart where cartNo=?";
+         pstmt=conn.prepareStatement(sql);
+         pstmt.setInt(1, paramDto.getCartNo());
+         
+         rs=pstmt.executeQuery();
+         if(rs.next()) {
+            dto.setCartNo(rs.getInt("cartNo"));
+            dto.setMemberNo(rs.getInt("MemberNo"));
+            dto.setProductCode(rs.getInt("ProductCode"));
+            dto.setAmount(rs.getInt("Amount"));
+            dto.setRegiDate(rs.getDate("RegiDate"));
+         }
+      }catch (Exception e) {
+         // TODO: handle exception
+      }finally {
+         DB.dbConnClose(rs, pstmt, conn);
+      }
+      return dto;
+   }
+   
+   public int setInsert(CartDTO paramDto) {
+      int result=0;
+      conn=DB.dbConn();
+      try {
+         String sql="insert into cart values(seq_cart.nextval,?,?,?,SYSDATE)";
+         pstmt=conn.prepareStatement(sql);
+         pstmt.setInt(1, paramDto.getMemberNo());
+         pstmt.setInt(2, paramDto.getProductCode());
+         pstmt.setInt(3, paramDto.getAmount());
+         
+         result=pstmt.executeUpdate();
+      }catch (Exception e) {
+         // TODO: handle exception
+      }finally {
+         DB.dbConnClose(rs, pstmt, conn);
+      }
+      return result;
+   }
+   public int setUpdate(CartDTO paramDto) {
+      int result=0;
+      conn=DB.dbConn();
+      try {
+         String sql="Update cart set MemberNo=?,ProductCode=?,Amount=? where cartNo=?";
+         pstmt=conn.prepareStatement(sql);
+         pstmt.setInt(1, paramDto.getMemberNo());
+         pstmt.setInt(2, paramDto.getProductCode());
+         pstmt.setInt(3, paramDto.getAmount());
+         pstmt.setInt(4, paramDto.getCartNo());
+         
+         result=pstmt.executeUpdate();
+      }catch (Exception e) {
+         // TODO: handle exception
+      }finally {
+         DB.dbConnClose(rs, pstmt, conn);
+      }
+      return result;
+   }
+   public int setDelete(CartDTO paramDto) {
+      int result=0;
+      conn=DB.dbConn();
+      try {
+         String sql="delete from cart where cartNo=?";
+         pstmt=conn.prepareStatement(sql);
+         pstmt.setInt(1, paramDto.getCartNo());
+         
+         result=pstmt.executeUpdate();
+      }catch (Exception e) {
+         // TODO: handle exception
+      }finally {
+         DB.dbConnClose(rs, pstmt, conn);
+      }
+      return result;
+   }
+
+}

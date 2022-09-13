@@ -1,0 +1,30 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+
+<%@ include file="_inc_top.jsp" %>
+
+<%
+	String searchField = request.getParameter("searchField");
+	String searchWord = request.getParameter("searchWord");
+	
+	// 하나라도 비어있으면 검색X
+	int imsiCounter = 0;
+	if(searchField == null || searchField.trim().equals("")) {
+		searchField = "";
+		imsiCounter++;
+	}
+	if(searchWord == null || searchWord.trim().equals("")) {
+		searchWord = "";
+		imsiCounter++;
+	}
+	if(imsiCounter > 0) {
+		searchField = "";
+		searchWord = "";
+	}
+%>
+
+<script>
+function move() {
+	location.href="main.jsp?menuGubun=subBoard_list&searchField=<%= searchField %>&searchWord=<%= searchWord %>";
+}
+</script>

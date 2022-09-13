@@ -3,7 +3,7 @@
 <%@ include file="_inc_top.jsp" %>
 <%
 	if(dto.getNo() <= 0) {
-		out.println("<script>alert('존재하지 않는 회원입니다.'); location.href='main.jsp?menuGubun=boardBasic_list';</script>");
+		out.println("<script>alert('존재하지 않는 회원입니다.'); location.href='main.jsp?menuGubun=board_list';</script>");
 		return;
 	}
 %>

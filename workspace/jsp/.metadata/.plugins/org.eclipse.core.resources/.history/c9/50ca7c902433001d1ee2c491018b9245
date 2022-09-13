@@ -1,0 +1,56 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ include file="_inc_top.jsp" %>
+
+<%
+	SubBoardChkDTO dto = new SubBoardChkDTO();
+	SubBoardChkDAO dao = new SubBoardChkDAO();
+	
+
+%>
+
+<h2>게시판관리 목록</h2>
+<fieldset style="border: 0px solid blue; margin: 10px 0px 20px 0px; width: 80%;">
+	<form name="insertForm">
+	<table border="0" align="left">
+		<tr>
+			<td>
+				tbl : <input type="text" name="tbl" id="tbl"><br>
+				tblName : <input type="text" name="tblName" id="tblName">
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<button type="button" onclick="save();" id="btnSave">등록하기</button>
+			</td>
+		</tr>
+	</table>
+	</form>
+	
+	<script>
+	function save() {
+		if(confirm('처리할까요?')) {
+			insertForm.action = "mainProc.jsp?menuGubun=subBoardChk_insertProc";
+			insertForm.method = "post";
+			insertForm.submit();
+		}
+	}
+	</script>
+</fieldset>
+
+<table border="1" width="80%">
+	<tr>
+		<th>No</th>
+		<th>tbl</th>
+		<th>tblName</th>
+		<th>regiDate</th>
+		<th>&nbsp;</th>
+	</tr>
+<%
+	for(SubBoardChkDTO dto : list) {
+		
+	}
+
+%>	
+
+</table>

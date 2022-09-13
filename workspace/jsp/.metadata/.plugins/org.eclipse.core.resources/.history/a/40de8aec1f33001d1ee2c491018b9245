@@ -1,0 +1,23 @@
+package subBoard.model.dao;
+
+import java.util.ArrayList;
+
+import config.DB;
+import subBoard.model.dto.SubBoardDTO;
+
+public class SubBoardChkDAO {
+	
+	public ArrayList<SubBoardDTO> getSelectAll(SubBoardDTO param) {
+		ArrayList<SubBoardDTO> list = new ArrayList<SubBoardDTO>();
+		conn = DB.dbConn();
+		try {
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			DB.dbConnClose(rs, pstmt, conn);
+		}
+		return list;
+	}
+
+}

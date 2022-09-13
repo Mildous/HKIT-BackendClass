@@ -234,6 +234,42 @@ ip varchar2(50) not null,
 regiDate date default sysdate
 );
 create sequence seq_boardComment start with 1 increment by 1 nomaxvalue nocache;
-
+drop sequence seq_boardComment;
 select * from boardComment;
+truncate table boardComment;
 
+truncate table board;
+
+ALTER TABLE board DISABLE PRIMARY KEY CASCADE;
+
+-- 더미데이터
+DECLARE
+n NUMBER := 0;
+BEGIN
+    LOOP
+    DBMS_OUTPUT.PUT_LINE(n);
+    n := n+1;
+    insert into board values (seq_board.nextval, n, 'onebyone', n, n, n, n, n, n, 1, 1, 0, 0, '127.0.0.1', 0, 0, 'F', sysdate, '-');
+    commit;
+    EXIT WHEN n >= 5; -- 1000
+    END LOOP;
+END;
+
+select * from board;
+
+create table boardChk (
+boardChkNo number not null,
+tbl varchar2(50) not null,
+tblName varchar2(50) not null,
+regiDate date default sysdate,
+primary key (tbl),
+unique (boardChkNo)
+);
+
+create sequence seq_boardChk start with 1 increment by 1 nomaxvalue nocache;
+drop sequence seq_boardChk;
+select * from boardChk;
+
+desc boardChk;
+
+update boardChk set tbl = "updateTest", tblName = "수정테스트" where boardChkNo = ?

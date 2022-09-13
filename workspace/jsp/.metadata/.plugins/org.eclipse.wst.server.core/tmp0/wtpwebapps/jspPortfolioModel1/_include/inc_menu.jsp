@@ -30,7 +30,7 @@ a:active {
 
 <table align="center" width="80%">
 	<tr>
-		<td colspan="7" align="right" style="padding: 0px 10px 10px 0px;">
+		<td colspan="8" align="right" style="padding: 0 10px 10px 0;">
 		
 		<%	if(sessionNo == 0) { %>
 				<a href="main.jsp?menuGubun=dashBoard_list">[로그인]</a>
@@ -60,13 +60,41 @@ a:active {
 		<td align="center" style="padding: 10px;" id="board" class="bgHover">
 			<a href="<%= path %>/main/main.jsp?menuGubun=board_list" >게시판</a>
 		</td>
-		<td align="center" style="padding: 10px;" id="menu4">
-			메뉴5
+		<td align="center" style="padding: 10px;" id="chart" class="bgHover">
+			<a href="<%= path %>/main/main.jsp?menuGubun=chart_list" >차트</a>
+		</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td align="center" style="padding: 10px;" id="shopProduct" class="bgHover">
+			<a href="<%= path %>/main/main.jsp?menuGubun=shopProduct_list" >몰(product)</a>
+		</td>
+		<td align="center" style="padding: 10px;" id="shopVendor" class="bgHover">
+			<a href="<%= path %>/main/main.jsp?menuGubun=shopVendor_list" >몰(vendor)</a>
+		</td>
+		<td align="center" style="padding: 10px;" id="shopMall" class="bgHover">
+			<a href="<%= path %>/main/main.jsp?menuGubun=shopMall_list" >몰(Mall)</a>
+		</td>
+		<td align="center" style="padding: 10px;" id="shopMall" class="bgHover">
+			<a href="<%= path %>/main/main.jsp?menuGubun=shopCart_list" >장바구니</a>
+		</td>
+		<td align="center" style="padding: 10px;" id="freeboard" class="bgHover">
+			<a href="<%= path %>/main/main.jsp?menuGubun=subBoard_list&tbl=freeboard" >자유게시판</a>
+		</td>
+		<td align="center" style="padding: 10px;" id="onebyone" class="bgHover">
+			<a href="<%= path %>/main/main.jsp?menuGubun=subBoard_list&tbl=onebyone" >1:1게시판</a>
+		</td>
+		<td align="center" style="padding: 10px;" id="subBoardqna" class="bgHover">
+			<a href="<%= path %>/main/main.jsp?menuGubun=subBoard_list&tbl=qna" >Q&A</a>
+		</td>
+		<td align="center" style="padding: 10px;" id="subBoardChk" class="bgHover">
+			<a href="<%= path %>/main/main.jsp?menuGubun=subBoardChk_list" >게시판관리</a>
 		</td>
 	</tr>
 </table>
 
 <script>
+
 function applyMenuId() {
 	$("#<%= folderName %>").css("background-color", "#F7F6F2");
 	$("#<%= folderName %>").css("border-radius", "50px");

@@ -1,0 +1,5 @@
+package subBoard.model.dto;
+
+public class SubBoardCommentDTO {
+
+}

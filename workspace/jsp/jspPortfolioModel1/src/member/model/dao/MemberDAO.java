@@ -14,39 +14,103 @@ public class MemberDAO {
 	PreparedStatement pstmt = null;
 	ResultSet rs = null;
 
-	public ArrayList<MemberDTO> getSelectAll(String searchGubun, String searchData) {
+	public int getTotalRecord(String searchField, String searchWord) {
+		int result = 0;
+		conn = DB.dbConn();
+		try {
+			String sql = "select count(*) counter from member where 1 = 1 ";
+			if(searchField.equals("id")) {
+				sql += " and id like ? ";
+			} else if(searchField.equals("name")) {
+				sql += " and name like ? ";
+			} else if(searchField.equals("phone")) {
+				sql += " and phone like ? ";
+			} else if(searchField.equals("jumin")) {
+				sql += " and jumin like ? ";
+			} else if(searchField.equals("all")) {
+				sql += " and (id like ? or name like ? or phone like ? or jumin like ?) ";
+			}
+			
+			sql += " order by no desc";
+			pstmt = conn.prepareStatement(sql);
+			
+			if(searchField.equals("id")) {
+				pstmt.setString(1, '%' + searchWord + '%');
+			} else if(searchField.equals("name")) {
+				pstmt.setString(1, '%' + searchWord + '%');
+			} else if(searchField.equals("phone")) {
+				pstmt.setString(1, '%' + searchWord + '%');
+			} else if(searchField.equals("jumin")) {
+				pstmt.setString(1, '%' + searchWord + '%');
+			} else if(searchField.equals("all")) {
+				pstmt.setString(1, '%' + searchWord + '%');
+				pstmt.setString(2, '%' + searchWord + '%');
+				pstmt.setString(3, '%' + searchWord + '%');
+				pstmt.setString(4, '%' + searchWord + '%');
+			}
+			
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				result = rs.getInt("counter");
+			}
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			DB.dbConnClose(rs, pstmt, conn);
+		}
+		return result;
+	}
+	public ArrayList<MemberDTO> getSelectAll(String searchField, String searchWord, int startRecord, int lastRecord) {
 		ArrayList<MemberDTO> list = new ArrayList<>();
 		conn = DB.dbConn();
 		try {
 			String sql = "select * from member where 1 = 1";
 			
-			if(searchGubun.equals("id")) {
+			if(searchField.equals("id")) {
 				sql += " and id like ? ";
-			} else if(searchGubun.equals("name")) {
+			} else if(searchField.equals("name")) {
 				sql += " and name like ? ";
-			} else if(searchGubun.equals("phone")) {
+			} else if(searchField.equals("phone")) {
 				sql += " and phone like ? ";
-			} else if(searchGubun.equals("jumin")) {
+			} else if(searchField.equals("jumin")) {
 				sql += " and jumin like ? ";
-			} else if(searchGubun.equals("all")) {
+			} else if(searchField.equals("all")) {
 				sql += " and (id like ? or name like ? or phone like ? or jumin like ?) ";
 			}
 			sql += " order by no desc";
-			pstmt = conn.prepareStatement(sql);
 			
-			if(searchGubun.equals("id")) {
-				pstmt.setString(1, '%' + searchData + '%');
-			} else if(searchGubun.equals("name")) {
-				pstmt.setString(1, '%' + searchData + '%');
-			} else if(searchGubun.equals("phone")) {
-				pstmt.setString(1, '%' + searchData + '%');
-			} else if(searchGubun.equals("jumin")) {
-				pstmt.setString(1, '%' + searchData + '%');
-			} else if(searchGubun.equals("all")) {
-				pstmt.setString(1, '%' + searchData + '%');
-				pstmt.setString(2, '%' + searchData + '%');
-				pstmt.setString(3, '%' + searchData + '%');
-				pstmt.setString(4, '%' + searchData + '%');
+			String query = "select * from (select A.*, Rownum rnum from (";
+			query += sql;
+			query += ") A) where rNum between ? and ? ";
+			pstmt = conn.prepareStatement(query);
+			
+			if(searchField.equals("id")) {
+				pstmt.setString(1, '%' + searchWord + '%');
+				pstmt.setInt(2, startRecord);
+				pstmt.setInt(3, lastRecord);
+			} else if(searchField.equals("name")) {
+				pstmt.setString(1, '%' + searchWord + '%');
+				pstmt.setInt(2, startRecord);
+				pstmt.setInt(3, lastRecord);
+			} else if(searchField.equals("phone")) {
+				pstmt.setString(1, '%' + searchWord + '%');
+				pstmt.setInt(2, startRecord);
+				pstmt.setInt(3, lastRecord);
+			} else if(searchField.equals("jumin")) {
+				pstmt.setString(1, '%' + searchWord + '%');
+				pstmt.setInt(2, startRecord);
+				pstmt.setInt(3, lastRecord);
+			} else if(searchField.equals("all")) {
+				pstmt.setString(1, '%' + searchWord + '%');
+				pstmt.setString(2, '%' + searchWord + '%');
+				pstmt.setString(3, '%' + searchWord + '%');
+				pstmt.setString(4, '%' + searchWord + '%');
+				pstmt.setInt(5, startRecord);
+				pstmt.setInt(6, lastRecord);
+			} else {
+				pstmt.setInt(1, startRecord);
+				pstmt.setInt(2, lastRecord);
 			}
 			
 			rs = pstmt.executeQuery();

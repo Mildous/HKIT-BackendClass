@@ -1,0 +1,14 @@
+package chart.service;
+
+import org.json.simple.JSONObject;
+
+import shopMall.model.dao.CartDAO;
+
+public class ChartService {
+
+	public JSONObject getChartData() {
+		JSONObject data = new JSONObject();
+		CartDAO cartDao = new CartDAO();
+		return data;
+	}
+}

@@ -1,0 +1,26 @@
+<%@page import="subBoard.model.dao.SubBoardDAO"%>
+<%@page import="subBoard.model.dto.SubBoardCommentDTO"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ include file="../_include/inc_header.jsp" %>
+<%@ include file="../_include/inc_sessionChk.jsp" %>
+
+<%
+	String no_ = request.getParameter("no");
+	int no = Integer.parseInt(no_);
+	
+	String writer = request.getParameter("writer");
+	String passwd = request.getParameter("passwd");
+	String content = request.getParameter("content");
+	
+	SubBoardCommentDTO subBoardCommentDto = new SubBoardCommentDTO();
+	subBoardCommentDto.setBoardNo(no);
+	subBoardCommentDto.setWriter(writer);
+	subBoardCommentDto.setPasswd(passwd);
+	subBoardCommentDto.setContent(content);
+	
+	SubBoardDAO subBoardDao = new SubBoardDAO();
+	int result = subBoardDao.setCommentInsert(subBoardCommentDto);
+	
+	
+%>

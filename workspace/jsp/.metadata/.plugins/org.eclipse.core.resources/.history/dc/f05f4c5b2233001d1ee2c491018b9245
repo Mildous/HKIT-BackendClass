@@ -1,0 +1,16 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+
+<h2>게시판관리 목록</h2>
+<fieldset style="border: 0px solid blue; margin: 10px 0px 20px 0px; width: 80%;">
+	<form name="insertForm">
+	<table border="0" align="left">
+		<tr>
+			<td>
+				tbl : <input type="text" name="tbl" id="tbl"><br>
+				tblName : <input type="text" name="tbl" id="tbl">
+			</td>
+		</tr>
+	</table>
+	</form>
+</fieldset>

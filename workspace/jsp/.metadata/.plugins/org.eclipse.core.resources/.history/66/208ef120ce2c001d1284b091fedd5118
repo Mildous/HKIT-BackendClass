@@ -1,0 +1,33 @@
+<%@page import="shopMall.model.dao.CartDAO"%>
+<%@page import="shopMall.model.dto.CartDTO"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ include file="_inc_top.jsp" %>
+<%
+   String productCode_=request.getParameter("productCode");
+   int productCode1 = Integer.parseInt(productCode_);
+   
+   String amount_=request.getParameter("amount");
+   int amount=Integer.parseInt(amount_);
+   
+   CartDTO setDto=new CartDTO();
+   setDto.setProductCode(productCode1);
+   setDto.setAmount(amount);
+   setDto.setMemberNo(sessionNo);
+   
+   CartDAO setDAO=new CartDAO();
+   int result=setDAO.setInsert(setDto);
+   
+   
+   if(result>0){
+      out.print("<script>");
+      out.print("alert('장바구니에 담김');");
+      out.print("location.href='main.jsp?menuGubun=shopMall_view&productCode="+productCode1+"';");
+      out.print("</script>");
+   }else{
+      out.print("<script>");
+      out.print("alert('장바구니에 안 담김');");
+      out.print("location.href='main.jsp?menuGubun=shopMall_view&productCode="+productCode1+"';");
+      out.print("</script>");
+   }
+%>
