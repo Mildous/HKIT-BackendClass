@@ -272,4 +272,4 @@ select * from boardChk;
 
 desc boardChk;
 
-update boardChk set tbl = "updateTest", tblName = "수정테스트" where boardChkNo = ?
+update boardChk set tbl = 'updateTest', tblName = '수정테스트' where boardChkNo = 2;

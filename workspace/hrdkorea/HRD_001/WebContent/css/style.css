@@ -1,0 +1,86 @@
+@charset "UTF-8";
+
+* {
+	padding: 0px;
+	margin: 0px;
+	font-family: inherit;
+}
+
+a {
+	text-decoration: none;
+	color: white;
+}
+
+header {
+	width: 100%;
+	height: 100px;
+	background-color: blue;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: white;
+	font-size: small;
+}
+
+nav {
+	width: 100%;
+	height: 35px;
+	background-color: mediumpurple;
+	color: white;
+	font-weight: bold;
+	display: flex;
+	justify-content: left;
+	align-items: center;
+	font-size: 14px;
+}
+
+.menu {
+	padding: 0 20px 0 20px;
+}
+
+header>h2 {
+	text-align: center;
+	font-size: 24px;
+}
+
+section {
+	width: 100%;
+	height: 500px;
+	background-color: lightgray;
+}
+
+section>h3 {
+	padding: 30px;
+	text-align: center;
+	font-size: 20px;
+}
+
+section>p {
+	padding-left: 20px;
+}
+
+footer {
+	width: 100%;
+	height: 80px;
+	color: white;
+	background: linear-gradient(to right, blue, skyblue);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 14px;
+}
+
+.tbl, .tbl2 {
+	width: 100%;
+	display: flex;
+	justify-content: center;
+}
+
+.tbl>table {
+	width: 80%;
+}
+
+button {
+	width: 50px;
+	height: 20px;
+}
