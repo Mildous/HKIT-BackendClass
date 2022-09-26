@@ -4,7 +4,54 @@
 
 <h2>메모관리</h2>
 
+<div style="width: 60%; padding-bottom: 10px;" align="left">
+<c:choose>
+	<c:when test="${ searchField == '' }">
+	* 전체목록 : ${ map.totalRecord }건
+	</c:when>
+	<c:otherwise>
+	* 검색어 "<b>${ searchWord }</b>"으/로 검색된 목록 : ${ map.totalRecord }건
+	</c:otherwise>
+</c:choose>
+</div>
+
 <table border="1" width="60%">
+<tr>
+	<td colspan="4" align="center" height="50px" style="padding-top: 10px;">
+	<form name="searchForm">
+         <select name="searchField" id="searchField">
+         <c:choose>
+            <c:when test="${ searchField == 'writer' }">
+	            <option value="" >-선택-</option>
+	            <option value="writer" selected >작성자</option>
+	            <option value="content"  >내용</option>
+	            <option value="writer_content"  >작성자+내용</option>
+            </c:when>
+            <c:when test="${ searchField == 'content' }">
+	        	<option value="" >-선택-</option>
+	            <option value="writer" >작성자</option>
+	            <option value="content" selected >내용</option>
+	             <option value="writer_content"  >작성자+내용</option>
+            </c:when>
+            <c:when test="${ searchField == 'writer_content' }">
+	        	<option value="" >-선택-</option>
+	            <option value="writer" >작성자</option>
+	            <option value="content" >내용</option>
+	             <option value="writer_content" selected>작성자+내용</option>
+            </c:when>
+            <c:otherwise>
+          		<option value="" selected >-선택-</option>
+	            <option value="writer" >작성자</option>
+	            <option value="content" >내용</option>
+	             <option value="writer_content"  >작성자+내용</option>
+            </c:otherwise>
+         </c:choose>
+         </select>
+         <input type="text"  name="searchWord"  id="searchWord" value="${ searchWord }">
+         <button type="button" onClick="search();">검색</button>
+    </form>
+	</td>
+</tr>
 <tr>
 	<th>순번</th>
 	<th>작성자</th>
@@ -15,14 +62,14 @@
 <c:choose>
 	<c:when test="${ empty memo }">
 	<tr>
-		<td colspan="4" height="200px" align="center">등록된 메모가 없습니다..</td> 
+		<td colspan="4" height="100px" align="center">등록된 메모가 없습니다..</td> 
 	</tr>
 	</c:when>
 	
 	<c:otherwise>
 		<c:forEach items="${ memo }" var="memo" varStatus="loop">
 		<tr align="center">
-			<td>${ loop.index + 1 }</td>
+			<td>${ map.totalRecord - (((map.pageNum - 1) * map.pageSize) + loop.index) }</td>
 			<td>${ memo.writer }</td>
 			<td align="center">
 				<a href="#" onclick="move('memo_view.do', '${ memo.no }');">${ memo.content }</a>
@@ -32,9 +79,18 @@
 		</c:forEach>
 	</c:otherwise>
 </c:choose>
+
+<tr>
+	<td colspan="4" align="center" height="50px">
+	${ map.pagingImg }
+	</td>
+</tr>
+
 </table>
 
 <div style="width: 60%; margin-top: 10px;" align="right">
+|
+<a href="${ path }/memo_servlet/memo_list.do">전체목록</a>
 |
 <a href="#" onclick="move('memo_regi.do', '');">등록</a>
 |
@@ -44,6 +100,12 @@
 
 <script>
 function move(value1, value2) {
-	location.href='${ path }/memo_servlet/' + value1 + '?no=' + value2;
+	location.href='${ path }/memo_servlet/' + value1 + '?pageNum=${ map.pageNum }&no=' + value2 + '&${ searchQuery }';
 }
+
+function search() {
+    searchForm.action="${path}/memo_servlet/memo_search.do";
+    searchForm.method="post";
+    searchForm.submit();
+ }
 </script>

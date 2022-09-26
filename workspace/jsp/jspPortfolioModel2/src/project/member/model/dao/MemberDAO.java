@@ -289,11 +289,33 @@ public class MemberDAO {
 				result = rs.getInt("no");
 			}
 		} catch(Exception e) {
-			
+			e.printStackTrace();
 		} finally {
 			DB.dbConnClose(rs, pstmt, conn);
 		}
 		return result;
+	}
+	
+	public MemberDTO getLogin(String id, String passwd) {
+		MemberDTO dto = new MemberDTO();
+		conn = DB.dbConn();
+		try {
+			String query = "select no, id, name from member where id = ? and passwd = ?";
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, id);
+			pstmt.setString(2, passwd);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				dto.setNo(rs.getInt("no"));
+				dto.setId(rs.getString("id"));
+				dto.setName(rs.getString("name"));
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			DB.dbConnClose(rs, pstmt, conn);
+		}
+		return dto;
 	}
 
 }

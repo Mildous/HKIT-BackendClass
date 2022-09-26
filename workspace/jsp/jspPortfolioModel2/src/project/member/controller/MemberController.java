@@ -1,6 +1,7 @@
 package project.member.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -44,6 +45,23 @@ public class MemberController extends HttpServlet {
 		String ip6 = serverInfo[5];
 		String folderName = serverInfo[6];
 		String fileName = serverInfo[7];
+		
+		String[] sessionArray = util.getSessionCheck(request);
+		int sessionNo = Integer.parseInt(sessionArray[0]);
+		String sessionId = sessionArray[1];
+		String sessionName = sessionArray[2];
+		
+		if(sessionNo <= 0) {	// 로그인 안한 상태
+			response.setContentType("text/html; charset=utf-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>");
+			out.println("alert('로그인 후 이용바랍니다.');");
+			out.println("location.href='" + path + "';");
+			out.println("</script>");
+			out.flush();
+			out.close();
+			return;
+		}
 		
 		request.setAttribute("path", path);
 		request.setAttribute("folderName", folderName);
@@ -118,7 +136,17 @@ public class MemberController extends HttpServlet {
 			request.getRequestDispatcher(forwardPage).forward(request, response);
 			
 		} else if(fileName.equals("view")) {
-			int no = Integer.parseInt(request.getParameter("no"));
+			String no_ = request.getParameter("no");
+			int no = util.getNumberCheck(no_, 0);
+
+			if(no == 0) {
+				if(sessionNo > 0) {
+					no = sessionNo;
+				} else {
+					return;
+				}
+			}
+			
 			MemberDTO arguDto = new MemberDTO();
 			arguDto.setNo(no);
 			arguDto.setSearchField(searchField);
@@ -134,9 +162,21 @@ public class MemberController extends HttpServlet {
 			request.getRequestDispatcher(forwardPage).forward(request, response);
 			
 		} else if(fileName.equals("edit")) {
-			int no = Integer.parseInt(request.getParameter("no"));
+			String no_ = request.getParameter("no");
+			int no = util.getNumberCheck(no_, 0);
+
+			if(no == 0) {
+				if(sessionNo > 0) {
+					no = sessionNo;
+				} else {
+					return;
+				}
+			}
+
 			MemberDTO arguDto = new MemberDTO();
 			arguDto.setNo(no);
+			arguDto.setSearchField(searchField);
+			arguDto.setSearchWord(searchWord);
 			
 			MemberDAO dao = new MemberDAO();
 			MemberDTO dto = dao.getSelectOne(arguDto);
@@ -146,9 +186,21 @@ public class MemberController extends HttpServlet {
 			request.getRequestDispatcher(forwardPage).forward(request, response);
 			
 		} else if(fileName.equals("drop")) {
-			int no = Integer.parseInt(request.getParameter("no"));
+			String no_ = request.getParameter("no");
+			int no = util.getNumberCheck(no_, 0);
+
+			if(no == 0) {
+				if(sessionNo > 0) {
+					no = sessionNo;
+				} else {
+					return;
+				}
+			}
+			
 			MemberDTO arguDto = new MemberDTO();
 			arguDto.setNo(no);
+			arguDto.setSearchField(searchField);
+			arguDto.setSearchWord(searchWord);
 			
 			MemberDAO dao = new MemberDAO();
 			MemberDTO dto = dao.getSelectOne(arguDto);
@@ -162,6 +214,7 @@ public class MemberController extends HttpServlet {
 		
 		if(fileName.equals("regiProc")) {
 			String id = request.getParameter("id");
+			String tempId = request.getParameter("tempId");
 			String passwd = request.getParameter("passwd");
 			String passwdChk = request.getParameter("passwdChk");
 			String name = request.getParameter("name");
@@ -178,6 +231,7 @@ public class MemberController extends HttpServlet {
 			String extraAddress = request.getParameter("sample6_extraAddress");
 			
 			id = util.getNullBlankCheck(id);
+			tempId = util.getNullBlankCheck(tempId);
 			passwd = util.getNullBlankCheck(passwd);
 			passwdChk = util.getNullBlankCheck(passwdChk);
 			name = util.getNullBlankCheck(name);
@@ -195,6 +249,7 @@ public class MemberController extends HttpServlet {
 			
 			int failCounter = 0;
 			if(id.equals("")) { failCounter++; }
+			if(tempId.equals("")) { failCounter++; }
 			if(passwd.equals("")) { failCounter++; }
 			if(passwdChk.equals("")) { failCounter++; }
 			if(name.equals("")) { failCounter++; }
@@ -210,6 +265,10 @@ public class MemberController extends HttpServlet {
 			if(detailAddress.equals("")) { failCounter++; }
 			if(extraAddress.equals("")) {
 				extraAddress = "-";
+			}
+			
+			if(!id.equals(tempId)) {
+				failCounter++;
 			}
 			
 			int imsiJumin1 = util.getNumberCheck(jumin1, 0);
@@ -375,7 +434,7 @@ public class MemberController extends HttpServlet {
 			detailAddress = util.getCheckString(detailAddress);
 			extraAddress = util.getCheckString(extraAddress);
 			
-			MemberDTO dto = new MemberDTO();			
+			MemberDTO dto = new MemberDTO();
 			dto.setPasswd(passwd);
 			dto.setPhone1(phone1);
 			dto.setPhone2(phone2);
@@ -387,6 +446,8 @@ public class MemberController extends HttpServlet {
 			dto.setDetailAddress(detailAddress);
 			dto.setExtraAddress(extraAddress);
 			dto.setNo(no);
+			dto.setSearchField(searchField);
+			dto.setSearchWord(searchWord);
 			
 			MemberDAO dao = new MemberDAO();
 			MemberDTO returnDto = dao.getSelectOne(dto);
@@ -425,6 +486,8 @@ public class MemberController extends HttpServlet {
 			MemberDTO dto = new MemberDTO();			
 			dto.setPasswd(passwd);
 			dto.setNo(no);
+			dto.setSearchField(searchField);
+			dto.setSearchWord(searchWord);
 			
 			MemberDAO dao = new MemberDAO();
 			MemberDTO returnDto = dao.getSelectOne(dto);
@@ -450,8 +513,23 @@ public class MemberController extends HttpServlet {
 			moveUrl += path + "/member_servlet/member_list.do?" + searchQuery;
 			
 			response.sendRedirect(moveUrl);
+			
+		} else if(fileName.equals("idCheck")) {
+			String id = request.getParameter("id");
+			id = util.getNullBlankCheck(id);
+			
+			MemberDAO dao = new MemberDAO();
+			int result = dao.getIdCheckWin(id);
+			
+			response.setContentType("text/html; charset=utf-8");
+			PrintWriter out = response.getWriter();
+			out.print(result);
+			out.flush();
+			out.close();
+			return;
 		
 		} else if(fileName.equals("idCheckWin")) {
+			request.setAttribute("imsiId", "");
 			forwardPage = "/WEB-INF/project/member/idCheckWin.jsp";
 			request.getRequestDispatcher(forwardPage).forward(request, response);
 		
@@ -476,6 +554,7 @@ public class MemberController extends HttpServlet {
 			
 			forwardPage = "/WEB-INF/project/member/idCheckWin.jsp";
 			request.getRequestDispatcher(forwardPage).forward(request, response);
+		
 		}
 	}
 }

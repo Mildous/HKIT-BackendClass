@@ -61,21 +61,22 @@ function validateForm(form) {
 	}
 }
 </script>
+
 <c:choose>
-<c:when test="${ sessionNo == 0 }">
+<c:when test="${ sessionScope.sessionNo == null || sessionScope.sessionNo == '' || sessionScope.sessionNo == 0 }">
 <br><br>
 <h2 id="login_title">Login</h2>
-<form name="loginForm" method="post" action="mainProc.jsp?menuGubun=noLogin_loginProc" onsubmit="return validateForm(this);">
+<form name="loginForm" method="post" action="${ path }/noLogin_servlet/noLogin_loginProc.do" onsubmit="return validateForm(this);">
 <table id="login_table">
 	<tr>
 		<td align="center">
-			<img src="../img/user.png" id="login_img">&nbsp;
+			<img src="../../img/user.png" id="login_img">&nbsp;
 			<input type="text" id="login_input" name="user_id" placeholder="enter your ID..">
 		</td>
 	</tr>
 	<tr>
 		<td align="center">
-			<img src="../img/lock.png" id="login_img">&nbsp;
+			<img src="../../img/lock.png" id="login_img">&nbsp;
 			<input type="password" id="login_input" name="user_pw" placeholder="enter your Password..">
 		</td>
 	</tr>
@@ -87,16 +88,7 @@ function validateForm(form) {
 </table>
 </form>
 <br><br>
-		
-<script>
-function login() {
-	if(confirm('로그인 하시겠습니까?')) {
-		document.loginForm.action = 'mainProc.jsp?menuGubun=noLogin_loginProc';
-		document.loginForm.method = 'post';
-		document.loginForm.submit();
-	}
-}
-</script>
+
 </c:when>
 
 <c:otherwise>

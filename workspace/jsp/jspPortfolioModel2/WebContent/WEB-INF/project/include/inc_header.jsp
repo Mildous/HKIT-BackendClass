@@ -4,11 +4,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <%--
 <c:set var="path" value="${ pageContext.request.contextPath }" />
 <c:set var="url" value="${ pageContext.request.requestURL }" />
 <c:set var="uri" value="${ pageContext.request.requestURI }" />
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 --%>

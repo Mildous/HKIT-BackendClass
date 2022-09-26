@@ -1,13 +1,19 @@
 package project.common;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.net.Inet4Address;
+import java.net.URL;
 import java.net.UnknownHostException;
 import java.util.Calendar;
 import java.util.UUID;
 
+import javax.imageio.ImageIO;
 import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 public class Util {
 	
@@ -65,6 +71,30 @@ public class Util {
 		array[7] = fileName;
 		
 		return array;
+	}
+	
+	public String[] getSessionCheck(HttpServletRequest req) {
+		HttpSession session = req.getSession();
+		int sessionNo = 0;
+		String sessionId = "";
+		String sessionName = "";
+		
+		if(session.getAttribute("sessionNo") != null) {
+			sessionNo = (Integer)session.getAttribute("sessionNo");
+		}
+		
+		if(session.getAttribute("sessionId") != null) {
+			sessionId = (String)session.getAttribute("sessionId");
+		}
+		
+		if(session.getAttribute("sessionName") != null) {
+			sessionName = (String)session.getAttribute("sessionName");
+		}
+		String[] result = new String[3];
+		result[0] = sessionNo + "";
+		result[1] = sessionId;
+		result[2] = sessionName;
+		return result;
 	}
 	
 	public String getCheckString(String str) {
@@ -160,5 +190,6 @@ public class Util {
 	public String createUuid() {
 		return UUID.randomUUID().toString();
 	}
-
+	
+	
 }

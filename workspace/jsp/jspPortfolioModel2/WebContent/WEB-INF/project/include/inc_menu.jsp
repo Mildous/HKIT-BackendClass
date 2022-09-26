@@ -1,13 +1,29 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ include file="../include/inc_header.jsp" %>
 
 <table align="center" width="90%">
 	<tr>
-		<td colspan="5" style="padding: 0px 10px 0px 10px;" align="left">
-			Location : project > ${ folderName } > ${ fileName }
-		</td>
-		<td colspan="4" style="padding: 0px 10px 10px 10px" align="right">
+		<td colspan="3" style="padding: 0px 10px 0px 10px;" align="left">
+			<%-- Location : project > ${ folderName } > ${ fileName } --%>
 			접속IP : ${ ip }
+		</td>
+		<td colspan="6" style="padding: 0px 10px 10px 10px" align="right">
+		
+			<c:choose>
+				<c:when test="${ sessionScope.sessionNo == null || sessionScope.sessionNo == '' || sessionScope.sessionNo == 0 }">
+					<a href="${ path }">로그인</a>
+				</c:when>
+				<c:otherwise>
+					<a href="${ path }/member_servlet/member_edit.do">[회원수정</a>&nbsp;
+					<a href="${ path }/member_servlet/member_drop.do">회원탈퇴]</a><br>
+					${ sessionScope.sessionName }님, 반갑습니다.&nbsp;
+					<a href="${ path }/noLogin_servlet/noLogin_logout.do">[로그아웃]</a>
+					
+				</c:otherwise>
+			</c:choose>
+		</td>
+		<td>
 		</td>
 	</tr>
 	<tr align="center">
@@ -21,10 +37,10 @@
 			<a href="${ path }/memo_servlet/memo_list.do">메모장</a>
 		</td>
 		<td style="padding: 0px 10px;" id="guestBook">
-			<a href="#">방명록</a>
+			<a href="${ path }/guestBook_servlet/guestBook_list.do">방명록</a>
 		</td>
 		<td style="padding: 0px 10px;" id="board">
-			<a href="#">게시판</a>
+			<a href="${ path }/board_servlet/board_list.do">게시판</a>
 		</td>
 		<td style="padding: 0px 10px;" id="shopProduct">
 			<a href="#">Mall(상품관리)</a>

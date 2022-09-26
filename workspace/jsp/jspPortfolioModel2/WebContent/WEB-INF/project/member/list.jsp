@@ -1,16 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../include/inc_header.jsp" %>
+<%@ include file="_inc_top.jsp" %>
 
 <h2>회원관리</h2>
 
 <div style="width: 80%; padding-bottom: 10px;" align="left">
 <c:choose>
-	<c:when test="${ searchGubun == '' }">
-	* 전체목록 : ${ map.totalRecord }건<br>
+	<c:when test="${ searchField == '' }">
+	* 전체목록 : ${ map.totalRecord }건
 	</c:when>
 	<c:otherwise>
-	* 검색어 "<b>${ searchData }</b>"으/로 검색된 목록 : ${ map.totalRecord }건
+	* 검색어 "<b>${ searchWord }</b>"으/로 검색된 목록 : ${ map.totalRecord }건
 	</c:otherwise>
 </c:choose>
 </div>
@@ -21,19 +22,19 @@
 	<form name="searchForm">
          <select name="searchField" id="searchField">
          <c:choose>
-            <c:when test="${ searchGubun == 'id' }">
+            <c:when test="${ searchField == 'id' }">
             <option value="" >-선택-</option>
             <option value="id" selected >아이디</option>
             <option value="name"  >이름</option>
             <option value="id_name"  >아이디+이름</option>
             </c:when>
-            <c:when test="${ searchGubun == 'name' }">
+            <c:when test="${ searchField == 'name' }">
             <option value="" >-선택-</option>
             <option value="id"  >아이디</option>
             <option value="name" selected >이름</option>
             <option value="id_name"  >아이디+이름</option>
             </c:when>
-            <c:when test="${ searchGubun == 'id_name' }">
+            <c:when test="${ searchField == 'id_name' }">
             <option value="" >-선택-</option>
             <option value="id"  >아이디</option>
             <option value="name"  >이름</option>
@@ -47,7 +48,7 @@
             </c:otherwise>
          </c:choose>
          </select>
-         <input type="text"  name="searchWord"  id="searchWord" value="${ searchData }">
+         <input type="text"  name="searchWord"  id="searchWord" value="${ searchWord }">
          <button type="button" onClick="search()">검색</button>
     </form>
 	</td>

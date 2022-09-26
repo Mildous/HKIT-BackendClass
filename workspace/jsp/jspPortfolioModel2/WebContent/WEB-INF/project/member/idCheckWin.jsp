@@ -21,16 +21,20 @@
 		<td>
 			<input type="text" name="id" id="id" value="${ id }" style="width: 100px">
 			<span id="spanMsg">${ msg }</span>
-			<br>
-			<input type="text" name="result" id="result" value="${ imsiId }" style="width: 100px">
+			<input type="hidden" name="result" id="result" value="${ imsiId }" style="width: 100px">
 		</td>
 	</tr>
 	<tr>
 		<td colspan="2" align="center" style="height: 50px;">
 			<button type="button" onclick="search();">검색</button>
-			<span id="spanView" style="display: none;">
-				<button type="button" onclick="save();">적용</button>
-			</span>
+			<c:choose>
+				<c:when test="${ imsiId == '' }">
+					&nbsp;
+				</c:when>
+				<c:otherwise>
+					<button type="button" onclick="apply();">적용</button>
+				</c:otherwise>
+			</c:choose>
 		</td>
 	</tr>
 </table>
@@ -38,12 +42,25 @@
 
 <script>
 function search() {
+	if(document.DirForm.id.value == '') {
+		alert('아이디를 입력하세요.');
+		document.DirForm.id.focus();
+		return;
+	}
 	if(confirm('OK?')) {
 		document.DirForm.action = "${ path }/member_servlet/member_idCheckWinProc.do";
 		document.DirForm.method = "post";
 		document.DirForm.submit();
 		
 	}
+}
+
+function apply() {
+	var id = document.getElementById("result").value;
+	opener.document.getElementById("id").value = id;
+	opener.document.getElementById("tempId").value = id;
+	opener.document.getElementById("label_id").innerHTML = "<font style='color: blue; font-size: 10px;'>사용 가능한 아이디입니다.</font>";
+	window.close();
 }
 
 </script>

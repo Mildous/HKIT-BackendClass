@@ -1,60 +1,100 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../include/inc_header.jsp" %>
-
+<%@ include file="_inc_top.jsp" %>
 <script>
 function validateForm(form) {
-		if(form.id.value == "") {
-			alert('아이디를 입력하세요');
-			form.id.focus();
-			return false;
-		}
-		if(form.passwd.value == "") {
-			alert('비밀번호를 입력하세요');
-			form.passwd.focus();
-			return false;
-		}
-		if(form.passwdChk.value == "") {
-			alert('비밀번호 확인을 입력하세요');
-			form.passwdChk.focus();
-			return false;
-		}
-		if(form.passwd.value != form.passwdChk.value) {
-			alert('비밀번호가 다릅니다.');
-			form.passwdChk.focus();
-			return false;
-		}
-		if(form.jumin1.value == "") {
-			alert('주민번호 앞자리를 입력하세요');
-			form.jumin1.focus();
-			return false;
-		}
-		if(form.jumin2.value == "") {
-			alert('주민번호 뒷자리를 입력하세요');
-			form.jumin2.focus();
-			return false;
-		}
-		if(form.email1.value == "") {
-			alert('이메일을 입력하세요');
-			form.email1.focus();
-			return false;
-		}
-		if(form.sample6_postcode.value == "") {
-			alert('주소를 선택 후 입력하세요');
-			form.email1.focus();
-			return false;
-		}
-		if(form.sample6_detailAddress.value == "") {
-			alert('상세주소를 입력하세요');
-			form.email1.focus();
-			return false;
-		}
+	
+	if(form.id.value == "" || form.tempId.value == "") {
+		alert('아이디 찾기를 해주세요');
+		form.id.focus();
+		return false;
 	}
+	if(form.id.value != form.tempId.value) {
+		alert('아이디 찾기를 해주세요');
+		form.id.focus();
+		return false;
+	}
+	
+	if(form.passwd.value == "") {
+		alert('비밀번호를 입력하세요');
+		form.passwd.focus();
+		return false;
+	}
+	if(form.passwdChk.value == "") {
+		alert('비밀번호 확인을 입력하세요');
+		form.passwdChk.focus();
+		return false;
+	}
+	if(form.passwd.value != form.passwdChk.value) {
+		alert('비밀번호가 다릅니다.');
+		form.passwdChk.focus();
+		return false;
+	}
+	if(form.jumin1.value == "") {
+		alert('주민번호 앞자리를 입력하세요');
+		form.jumin1.focus();
+		return false;
+	}
+	if(form.jumin2.value == "") {
+		alert('주민번호 뒷자리를 입력하세요');
+		form.jumin2.focus();
+		return false;
+	}
+	if(form.email1.value == "") {
+		alert('이메일을 입력하세요');
+		form.email1.focus();
+		return false;
+	}
+	if(form.sample6_postcode.value == "") {
+		alert('주소를 선택 후 입력하세요');
+		form.email1.focus();
+		return false;
+	}
+	if(form.sample6_detailAddress.value == "") {
+		alert('상세주소를 입력하세요');
+		form.email1.focus();
+		return false;
+	}
+		
+}
 
 </script>
 
 <script>
 function idCheck() {
+	var id = $("#id").val();
+	if(id == '') {
+		$("#label_id").html("아이디를 입력하세요.");
+		$("#label_id").css('color', 'red');
+		$("#label_id").css('font-size', '10px');
+		$("#id").focus();
+		return;
+	}
+	
+	var param = "id=" + id;
+	$.ajax({
+		type: "post",
+		data: param,
+		url: "${ path }/member_servlet/member_idCheck.do",
+		success: function(result) {
+			if(result > 0) {
+				$("#label_id").html("이미 사용중인 아이디입니다.");
+				$("#label_id").css('color', 'red');
+				$("#label_id").css('font-size', '10px');
+				$("#id").val("");
+				$("#tempId").val("");
+				$("id").focus();
+				
+			} else {
+				$("#label_id").html("사용 가능한 아이디입니다.");
+				$("#label_id").css('color', 'blue');
+				$("#label_id").css('font-size', '10px');
+				$("#id").val(id);
+				$("#tempId").val(id);
+			}
+		}
+	});
 	
 }
 
@@ -64,12 +104,13 @@ function idCheckWin() {
 </script>
 <h2>회원등록</h2>
 
-<form name="DirForm" method="post" action="${ path }/member_servlet/member_regiProc.do" onsubmit="validateForm(this)">
+<form name="DirForm" method="post" action="${ path }/member_servlet/member_regiProc.do" onsubmit="return validateForm(this)">
 <table border="1" align="center" width="80%">
 	<tr>
 		<td width="150px" align="center">아이디</td>
 		<td>
 			<input type="text" name="id" id="id" value="">
+			<input type="hidden" name="tempId" id="tempId" value="">
 			<button type="button" onclick="idCheck();">아이디찾기</button>
 			<button type="button" onclick="idCheckWin();">아이디찾기(새창)</button>
 			<br>
@@ -93,7 +134,7 @@ function idCheckWin() {
 		<td>
 			<input type="text" name="jumin1" maxlength="6" style="width: 50px;">
 			-
-			<input type="password" name="jumin2" maxlength="1" style="width: 10px;">●●●●●●
+			<input type="password" name="jumin2" maxlength="1" style="width: 14px;">●●●●●●
 		</td>
 	</tr>
 	<tr>

@@ -1,7 +1,11 @@
 package project.memo.controller;
 
 import java.io.IOException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import project.common.Pagenation;
 import project.common.Util;
 import project.memo.model.dao.MemoDAO;
 import project.memo.model.dto.MemoDTO;
@@ -45,19 +50,77 @@ public class MemoController extends HttpServlet {
 		request.setAttribute("fileName", fileName);
 		request.setAttribute("ip", ip);
 		
+		String searchField = request.getParameter("searchField");
+		String searchWord = request.getParameter("searchWord");
+		String pageNum_ = request.getParameter("pageNum");
+		int pageNum = util.getNumberCheck(pageNum_, 1);
+		
+		String imsiSearchYN = "Y";
+		searchField = util.getNullBlankCheck(searchField);
+		searchWord = util.getNullBlankCheck(searchWord);
+		if(searchField.equals("") || searchWord.equals("")) {
+			imsiSearchYN = "N";
+			searchField = "";
+			searchWord = "";
+		}
+		
+		searchField = URLDecoder.decode(searchField, "UTF-8");
+		searchWord = URLDecoder.decode(searchWord, "UTF-8");
+		
+		String searchQuery = "searchField=&searchWord=";
+		if(imsiSearchYN.equals("Y")) {
+			String imsisearchField = URLEncoder.encode(searchField, "UTF-8");
+			String imsisearchWord = URLEncoder.encode(searchWord, "UTF-8");
+			searchQuery = "searchField=" + imsisearchField + "&searchWord=" + imsisearchWord;
+		}
+		
+		request.setAttribute("searchField", searchField);
+		request.setAttribute("searchWord", searchWord);
+		request.setAttribute("searchQuery", searchQuery);
+		request.setAttribute("pageNum", pageNum);
+		
 		String forwardPage = "/WEB-INF/project/main/main.jsp";
+		
 		if(fileName.equals("list")) {
+			MemoDTO dto = new MemoDTO();
+			dto.setSearchField(searchField);
+			dto.setSearchWord(searchWord);
+			
+			/* 페이징 처리 */
+			int pageSize = 10;
+			int blockSize = 5;
 			MemoDAO dao = new MemoDAO();
-			ArrayList<MemoDTO> list = dao.getSelectAll();
+			
+			int totalRecord = dao.getTotalRecord(dto);
+			
+			int startRecord = pageSize * (pageNum - 1) + 1;
+			int lastRecord = pageSize * pageNum;
+			
+			MemoDTO listDto = new MemoDTO();
+			listDto.setStartRecord(startRecord);
+			listDto.setLastRecord(lastRecord);
+			listDto.setSearchField(searchField);
+			listDto.setSearchWord(searchWord);
+			
+			ArrayList<MemoDTO> list = dao.getSelectAll(listDto);
+			Map<String, Object> map = new HashMap<String, Object>();
+			String pagingImg = Pagenation.pagingStr(totalRecord, pageSize, blockSize, pageNum, path + "/memo_servlet/memo_list.do", searchField, searchWord);
+			
+			map.put("pagingImg", pagingImg);
+			map.put("totalRecord", totalRecord);
+			map.put("pageSize", pageSize);
+			map.put("pageNum", pageNum);
 			
 			request.setAttribute("memo", list);
-			
+			request.setAttribute("map", map);
 			request.getRequestDispatcher(forwardPage).forward(request, response);
 			
 		} else if(fileName.equals("view")) {
 			int no = Integer.parseInt(request.getParameter("no"));
 			MemoDTO arguDto = new MemoDTO();
 			arguDto.setNo(no);
+			arguDto.setSearchField(searchField);
+			arguDto.setSearchWord(searchWord);
 			
 			MemoDAO dao = new MemoDAO();
 			MemoDTO dto = dao.getSelectOne(arguDto);
@@ -73,6 +136,8 @@ public class MemoController extends HttpServlet {
 			int no = Integer.parseInt(request.getParameter("no"));
 			MemoDTO arguDto = new MemoDTO();
 			arguDto.setNo(no);
+			arguDto.setSearchField(searchField);
+			arguDto.setSearchWord(searchWord);
 			
 			MemoDAO dao = new MemoDAO();
 			MemoDTO dto = dao.getSelectOne(arguDto);
@@ -86,6 +151,8 @@ public class MemoController extends HttpServlet {
 			int no = Integer.parseInt(request.getParameter("no"));
 			MemoDTO arguDto = new MemoDTO();
 			arguDto.setNo(no);
+			arguDto.setSearchField(searchField);
+			arguDto.setSearchWord(searchWord);
 			
 			MemoDAO dao = new MemoDAO();
 			MemoDTO dto = dao.getSelectOne(arguDto);
@@ -94,6 +161,11 @@ public class MemoController extends HttpServlet {
 			request.setAttribute("dto", dto);
 			request.getRequestDispatcher(forwardPage).forward(request, response);
 			
+		} else if(fileName.equals("search")) {
+			String moveUrl = "";
+			moveUrl += path + "/memo_servlet/memo_list.do?" + searchQuery;
+			
+			response.sendRedirect(moveUrl);
 		}
 		
 		// ============ process ==============

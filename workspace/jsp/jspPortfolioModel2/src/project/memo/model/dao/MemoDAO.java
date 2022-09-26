@@ -14,12 +14,85 @@ public class MemoDAO {
 	PreparedStatement pstmt = null;
 	ResultSet rs = null;
 	
-	public ArrayList<MemoDTO> getSelectAll() {
+	public int getTotalRecord(MemoDTO param) {
+		int result = 0;
+		conn = DB.dbConn();
+		try {
+			String query = "select count(*) counter from memo where 1 = 1";
+			
+			if(param.getSearchField().equals("writer")) {
+				query += " and writer like ? ";
+			} else if(param.getSearchField().equals("content")) {
+				query += " and content like ? ";
+			} else if(param.getSearchField().equals("writer_content")) {
+				query += " and (writer like ? or content like ?) ";
+			}
+
+			pstmt = conn.prepareStatement(query);
+			
+			if(param.getSearchField().equals("writer")) {
+				pstmt.setString(1, '%' + param.getSearchWord() + '%');
+			} else if(param.getSearchField().equals("content")) {
+				pstmt.setString(1, '%' + param.getSearchWord() + '%');
+			} else if(param.getSearchField().equals("writer_content")) {
+				pstmt.setString(1, '%' + param.getSearchWord() + '%');
+				pstmt.setString(2, '%' + param.getSearchWord() + '%');
+			}
+			
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				result = rs.getInt("counter");
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			DB.dbConnClose(rs, pstmt, conn);
+		}
+		
+		return result;
+	}
+	
+	public ArrayList<MemoDTO> getSelectAll(MemoDTO param) {
 		ArrayList<MemoDTO> list = new ArrayList<MemoDTO>();
 		conn = DB.dbConn();
 		try {
-			String query = "select * from memo order by no desc";
-			pstmt = conn.prepareStatement(query);
+			String query = "select * from memo where 1 = 1";
+			
+			if(param.getSearchField().equals("writer")) {
+				query += " and writer like ? ";
+			} else if(param.getSearchField().equals("content")) {
+				query += " and content like ? ";
+			} else if(param.getSearchField().equals("writer_content")) {
+				query += " and (writer like ? or content like ?) ";
+			}
+			
+			query += " order by no desc";
+			
+			String sql = "";
+			sql += "select * from (select A.*, rownum rnum from (";
+			sql += query;
+			sql += ") A) where rnum >= ? and rnum <= ?";
+			
+			pstmt = conn.prepareStatement(sql);
+			
+			if(param.getSearchField().equals("writer")) {
+				pstmt.setString(1, '%' + param.getSearchWord() + '%');
+				pstmt.setInt(2, param.getStartRecord());
+				pstmt.setInt(3, param.getLastRecord());
+			} else if(param.getSearchField().equals("content")) {
+				pstmt.setString(1, '%' + param.getSearchWord() + '%');
+				pstmt.setInt(2, param.getStartRecord());
+				pstmt.setInt(3, param.getLastRecord());
+			} else if(param.getSearchField().equals("writer_content")) {
+				pstmt.setString(1, '%' + param.getSearchWord() + '%');
+				pstmt.setString(2, '%' + param.getSearchWord() + '%');
+				pstmt.setInt(3, param.getStartRecord());
+				pstmt.setInt(4, param.getLastRecord());
+			} else {
+				pstmt.setInt(1, param.getStartRecord());
+				pstmt.setInt(2, param.getLastRecord());
+			}
+			
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
 				MemoDTO dto = new MemoDTO();
@@ -42,9 +115,46 @@ public class MemoDAO {
 		MemoDTO dto = new MemoDTO();
 		conn = DB.dbConn();
 		try {
-			String query = "select * from memo where no = ?";
+			//String query = "select * from memo where no = ?";
+			String query = "";
+			query += "select * from ( ";
+			
+			query += "select m.*, ";
+			query += "LAG(no) OVER(order by no desc) preNo, ";
+			query += "LAG(name) OVER(order by no desc) preName, ";
+			query += "LEAD(no) OVER(order by no desc) nxtNo, ";
+			query += "LEAD(name) OVER(order by no desc) nxtName ";
+			
+			query += " from memo m  where 1 = 1 ";
+			
+			if(param.getSearchField().equals("writer")) {
+				query += " and writer like ? ";
+			} else if(param.getSearchField().equals("content")) {
+				query += " and content like ? ";
+			} else if(param.getSearchField().equals("writer_content")) {
+				query += " and (writer like ? or content like ?) ";
+			}
+			
+			query += "order by no desc";
+			query += ") where no = ?";
+			
 			pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1, param.getNo());
+			
+			int k = 0;
+			if(param.getSearchField().equals("writer")) {
+				pstmt.setString(++k, '%' + param.getSearchWord() + '%');
+			
+			} else if(param.getSearchField().equals("content")) {
+				pstmt.setString(++k, '%' + param.getSearchWord() + '%');
+			
+			} else if(param.getSearchField().equals("writer_content")) {
+				pstmt.setString(++k, '%' + param.getSearchWord() + '%');
+				pstmt.setString(++k, '%' + param.getSearchWord() + '%');
+			
+			}
+			
+			pstmt.setInt(++k, param.getNo());
+			
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				dto.setNo(rs.getInt("no"));
