@@ -31,7 +31,7 @@
 		<th>ip</th>
 		<td colspan="3"><%= dto.getIp() %></td>	
 	</tr>
-		<tr>
+	<tr>
 		<th>공지글</th>
 		<td><%= dto.getNoticeNo() %></td>	
 		<th>비밀글</th>

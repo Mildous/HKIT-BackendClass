@@ -6,38 +6,63 @@
 
 <form name="DirForm">
 <input type="hidden" name="no" value="${ dto.no }">
-<table border="1" align="center" width="60%">
+<table border="1" align="center" width="80%">
 	<tr>
-		<td width="150px" align="center">이름</td>
-		<td>${ dto.name }</td>
+		<th>번호</th>
+		<td>${ dto.getNum() }</td>
+		<th>조회수</th>
+		<td>${ dto.getHit() }</td>
 	</tr>
 	<tr>
-		<td align="center">이메일</td>
-		<td>${ dto.email }</td>
+		<th>작성자</th>
+		<td>${ dto.getWriter() }</td>
+		<th>이메일</th>
+		<td>${ dto.getEmail() }</td>
 	</tr>
 	<tr>
-		<td align="center">내용</td>
-		<td>${ content }</td>
+		<th>제목</th>
+		<td>${ dto.getSubject() }</td>
+		<th>작성일</th>
+		<td>${ dto.getRegiDate() }</td>
 	</tr>
 	<tr>
-		<td colspan="2" align="center" style="height: 50px;">
-			<button type="button" onclick="move('guestBook_edit.do', '${ dto.no }');">수정</button>
-			<button type="button" onclick="move('guestBook_drop.do', '${ dto.no }');">삭제</button>
+		<th>ip</th>
+		<td colspan="3">${ dto.getIp() }</td>	
+	</tr>
+	<tr>
+		<th>공지글</th>
+		<td>${ dto.getNoticeNo() }</td>
+		<th>비밀글</th>
+		<td>${ dto.getSecretGubun() }</td>
+	</tr>
+	<tr>
+		<th>첨부</th>
+		<td colspan="3">${ dto.getAttachInfo() }</td>
+	</tr>
+	<tr>
+		<th>내용</th>
+		<td colspan="3" height="100">${ content }</td>
+	</tr>
+	<tr>
+		<td colspan="4" align="center" style="height: 50px;">
+			<button type="button" onclick="move('board_regi.do', '${ dto.getNo() }');">답글달기</button>&nbsp;
+			<button type="button" onclick="move('board_edit.do', '${ dto.getNo() }');">수정하기</button>&nbsp;
+			<button type="button" onclick="move('board_drop.do', '${ dto.getNo() }');">삭제하기</button>&nbsp;
 		</td>
 	</tr>
 </table>
 </form>
 
-<div style="width: 60%; margin-top: 10px;" align="right">
+<div style="width: 80%; margin-top: 10px;" align="right">
 |
-<a href="#" onclick="move('guestBook_regi.do', '');">등록</a>
+<a href="#" onclick="move('board_regi.do', '');">등록</a>
 |
-<a href="#" onclick="move('guestBook_list.do', '');">목록</a>
+<a href="#" onclick="move('board_list.do', '');">목록</a>
 |
 </div>
 
 <script>
 function move(value1, value2) {
-	location.href='${ path }/guestBook_servlet/' + value1 + '?no=' + value2;
+	location.href='${ path }/board_servlet/' + value1 + '?no=' + value2;
 }
 </script>

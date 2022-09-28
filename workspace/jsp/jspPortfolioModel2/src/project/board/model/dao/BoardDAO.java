@@ -75,12 +75,12 @@ public class BoardDAO {
 				query += " and (subject like ? or writer like ? or content like ?) ";
 			}
 			
-			query += "	order by noticeNo desc, refNo desc, levelNo asc ) A ";
+			query += "	order by noticeNo desc, refNo desc, levelNo asc ";
 			
 			String sql = "";
-			sql += "select * from (select A.*, rownum rnum from (";
+			sql += "select * from (select A.*, rownum rnum from ( ";
 			sql += query;
-			sql += ") A) where rnum between ? and ? ";
+			sql += " ) A) where rnum >= ? and rnum <= ? ";
 			
 			pstmt = conn.prepareStatement(sql);
 			
@@ -150,9 +150,9 @@ public class BoardDAO {
 			
 			query += "select b.*, ";
 			query += "LAG(no) OVER(order by no desc) preNo, ";
-			query += "LAG(name) OVER(order by no desc) preName, ";
+			query += "LAG(writer) OVER(order by no desc) preName, ";
 			query += "LEAD(no) OVER(order by no desc) nxtNo, ";
-			query += "LEAD(name) OVER(order by no desc) nxtName ";
+			query += "LEAD(writer) OVER(order by no desc) nxtName ";
 			
 			query += " from board b  where 1 = 1 ";
 			
@@ -258,7 +258,6 @@ public class BoardDAO {
 			String query = "update board set "
 					 + "subject = ?, "
 					 + "content = ?, "
-					 + "email = ?, "
 					 + "noticeNo = ?, "
 					 + "secretGubun = ?, "
 					 + "attachInfo = ? "
@@ -266,12 +265,11 @@ public class BoardDAO {
 			pstmt = conn.prepareStatement(query);
 			pstmt.setString(1, param.getSubject());
 			pstmt.setString(2, param.getContent());
-			pstmt.setString(3, param.getEmail());
-			pstmt.setInt(4, param.getNoticeNo());
-			pstmt.setString(5, param.getSecretGubun());
-			pstmt.setString(6, param.getAttachInfo());
-			pstmt.setInt(7, param.getNo());
-			pstmt.setString(8, param.getPasswd());
+			pstmt.setInt(3, param.getNoticeNo());
+			pstmt.setString(4, param.getSecretGubun());
+			pstmt.setString(5, param.getAttachInfo());
+			pstmt.setInt(6, param.getNo());
+			pstmt.setString(7, param.getPasswd());
 			result = pstmt.executeUpdate();
 		} catch(Exception e) {
 			e.printStackTrace();

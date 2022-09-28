@@ -70,13 +70,13 @@ function validateForm(form) {
 <table id="login_table">
 	<tr>
 		<td align="center">
-			<img src="../../img/user.png" id="login_img">&nbsp;
+			<img src="../img/user.png" id="login_img">&nbsp;
 			<input type="text" id="login_input" name="user_id" placeholder="enter your ID..">
 		</td>
 	</tr>
 	<tr>
 		<td align="center">
-			<img src="../../img/lock.png" id="login_img">&nbsp;
+			<img src="../img/lock.png" id="login_img">&nbsp;
 			<input type="password" id="login_input" name="user_pw" placeholder="enter your Password..">
 		</td>
 	</tr>
@@ -94,6 +94,7 @@ function validateForm(form) {
 <c:otherwise>
 <div >
 	<h2 id="main_title">Hello world!</h2>
+	<img src="../img/251.png" id="main_img">
 </div>
 </c:otherwise>
 </c:choose>

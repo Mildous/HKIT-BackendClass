@@ -19,11 +19,11 @@ function deleteMemo(form) {
 <input type="hidden" name="no" value="${ dto.no }">
 <table border="1" align="center" width="60%">
 	<tr>
-		<td width="150px">작성자</td>
+		<td width="150px" align="center">작성자</td>
 		<td>${ dto.writer }</td>
 	</tr>
 	<tr>
-		<td>내용</td>
+		<td align="center">내용</td>
 		<td>${ content }</td>
 	</tr>
 	<tr>
@@ -42,6 +42,31 @@ function deleteMemo(form) {
 <a href="#" onclick="move('memo_list.do', '');">목록</a>
 |
 </div>
+
+<table border="0" align="center" width="60%">
+<tr>
+	<td width="100px">이전메모</td>
+	<c:choose>
+		<c:when test="${ dto.preNo < 1 }">
+			<td>이전 메모가 없습니다</td>
+		</c:when>
+		<c:otherwise>
+			<td><a href="#" onclick="move('memo_view.do', '${ dto.preNo }')">${ dto.preName }</a></td>
+		</c:otherwise>
+	</c:choose>
+</tr>
+<tr>
+	<td width="100px">이전메모</td>
+	<c:choose>
+		<c:when test="${ dto.nxtNo < 1 }">
+			<td>다음 메모가 없습니다</td>
+		</c:when>
+		<c:otherwise>
+			<td><a href="#" onclick="move('memo_view.do', '${ dto.nxtNo }')">${ dto.nxtName }</a></td>
+		</c:otherwise>
+	</c:choose>
+</tr>
+</table>
 
 <script>
 function move(value1, value2) {

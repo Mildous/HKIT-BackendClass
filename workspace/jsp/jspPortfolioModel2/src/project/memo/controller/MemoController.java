@@ -116,7 +116,11 @@ public class MemoController extends HttpServlet {
 			request.getRequestDispatcher(forwardPage).forward(request, response);
 			
 		} else if(fileName.equals("view")) {
-			int no = Integer.parseInt(request.getParameter("no"));
+			String no_ = request.getParameter("no");
+			int no = util.getNumberCheck(no_, pageNum);
+			if(no == 0) {
+				return;
+			}
 			MemoDTO arguDto = new MemoDTO();
 			arguDto.setNo(no);
 			arguDto.setSearchField(searchField);

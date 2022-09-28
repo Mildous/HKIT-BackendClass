@@ -18,37 +18,37 @@
 <table border="1" width="80%">
 <tr>
 	<td colspan="8" align="center" height="50px" style="padding-top: 10px;">
-	<form writer="searchForm">
-         <select writer="searchField" id="searchField">
+	<form name="searchForm">
+         <select name="searchField" id="searchField">
          <c:choose>
             <c:when test="${ searchField == 'writer' }">
 	            <option value="" >-선택-</option>
-	            <option value="writer" selected >이름</option>
+	            <option value="writer" selected >작성자</option>
 	            <option value="content"  >내용</option>
-	            <option value="all"  >이름+내용</option>
+	            <option value="all"  >작성자+내용</option>
             </c:when>
             <c:when test="${ searchField == 'content' }">
 	        	<option value="" >-선택-</option>
-	            <option value="writer" >이름</option>
+	            <option value="writer" >작성자</option>
 	            <option value="content" selected >내용</option>
-	             <option value="all"  >이름+내용</option>
+	             <option value="all"  >작성자+내용</option>
             </c:when>
             <c:when test="${ searchField == 'all' }">
 	        	<option value="" >-선택-</option>
-	            <option value="writer" >이름</option>
+	            <option value="writer" >작성자</option>
 	            <option value="content" >내용</option>
-	             <option value="all" selected>이름+내용</option>
+	             <option value="all" selected>작성자+내용</option>
             </c:when>
             <c:otherwise>
           		<option value="" selected >-선택-</option>
-	            <option value="writer" >이름</option>
+	            <option value="writer" >작성자</option>
 	            <option value="content" >내용</option>
-	             <option value="all"  >이름+내용</option>
+	             <option value="all"  >작성자+내용</option>
             </c:otherwise>
          </c:choose>
          </select>
-         <input type="text"  writer="searchWord"  id="searchWord" value="${ searchWord }">
-         <button type="button" onClick="search();">검색</button>
+         <input type="text"  name="searchWord"  id="searchWord" value="${ searchWord }">
+         <button type="button" onClick="search()">검색</button>
     </form>
 	</td>
 </tr>

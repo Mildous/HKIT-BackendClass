@@ -8,7 +8,7 @@
 			<%-- Location : project > ${ folderName } > ${ fileName } --%>
 			접속IP : ${ ip }
 		</td>
-		<td colspan="6" style="padding: 0px 10px 10px 10px" align="right">
+		<td colspan="7" style="padding: 0px 10px 10px 10px" align="right">
 		
 			<c:choose>
 				<c:when test="${ sessionScope.sessionNo == null || sessionScope.sessionNo == '' || sessionScope.sessionNo == 0 }">
@@ -23,8 +23,6 @@
 				</c:otherwise>
 			</c:choose>
 		</td>
-		<td>
-		</td>
 	</tr>
 	<tr align="center">
 		<td style="padding: 0px 10px;" id="home">
@@ -35,6 +33,9 @@
 		</td>
 		<td style="padding: 0px 10px;" id="memo">
 			<a href="${ path }/memo_servlet/memo_list.do">메모장</a>
+		</td>
+		<td style="padding: 0px 10px;" id="memoMybatis">
+			<a href="${ path }/memoMybatis_servlet/memoMybatis_list.do">메모장(Mybatis)</a>
 		</td>
 		<td style="padding: 0px 10px;" id="guestBook">
 			<a href="${ path }/guestBook_servlet/guestBook_list.do">방명록</a>

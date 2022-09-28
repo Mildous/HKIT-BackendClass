@@ -121,9 +121,9 @@ public class MemoDAO {
 			
 			query += "select m.*, ";
 			query += "LAG(no) OVER(order by no desc) preNo, ";
-			query += "LAG(name) OVER(order by no desc) preName, ";
+			query += "LAG(writer) OVER(order by no desc) preName, ";
 			query += "LEAD(no) OVER(order by no desc) nxtNo, ";
-			query += "LEAD(name) OVER(order by no desc) nxtName ";
+			query += "LEAD(writer) OVER(order by no desc) nxtName ";
 			
 			query += " from memo m  where 1 = 1 ";
 			
@@ -161,6 +161,10 @@ public class MemoDAO {
 				dto.setWriter(rs.getString("writer"));
 				dto.setContent(rs.getString("content"));
 				dto.setRegiDate(rs.getDate("regiDate"));
+				dto.setPreNo(rs.getInt("preNo"));
+				dto.setPreName(rs.getString("preName"));
+				dto.setNxtNo(rs.getInt("nxtNo"));
+				dto.setNxtName(rs.getString("nxtName"));
 			}
 		} catch(Exception e) {
 			e.printStackTrace();

@@ -1,3 +1,4 @@
+<%@page import="config.Pagenation"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
@@ -7,10 +8,11 @@
 	String searchField = "";
 	String searchWord = "";
 	int startPage = 1;
-	int lastPage = 10;
+	int lastPage = 5;
+	
+	// ---------------- 페이징 처리 ----------------
 	ProductDAO productDao = new ProductDAO();
 	ArrayList<ProductDTO> list = productDao.getSelectAll(searchField, searchWord, startPage, lastPage);
-
 	int productCounter = list.size();
 	int cellCounter = 3; //가로로 배열할 상품의 갯수
 	
@@ -23,11 +25,25 @@
 	} else {
 		rowCounter = imsiMok;
 	}
+	int totalRecord = productDao.getTotalRecord(searchField, searchWord);
+	int pageSize = 9;	// 한 페이지에 나타낼 레코드 개수
+	int blockSize = 5;	// 출력할 블럭의 개수
+			
+	int block = (pageNum - 1) / pageSize;
+	int jj = totalRecord - pageSize * (pageNum - 1);	//단지 화면에 보여질 일련번호..
+			
+	double totalPageDou = Math.ceil(totalRecord / (double)pageSize);
+	int totalPage = (int)totalPageDou;
+			
+	int startRecord = pageSize * (pageNum - 1) + 1;
+	int lastRecord = pageSize * pageNum;
+	String urlStr = "main.jsp?menuGubun=shopMall_list";
+
 %>
 
-<h2>쇼핑몰 목록</h2>
+<h2>쇼핑몰 목록</h2><br>
 
-<table border="0">
+<table border="1">
 
 <% 
 	int idx = 0;
@@ -55,7 +71,7 @@
  	 					imsiImg = "";
  	 					
  	 					if(dto.getAttachInfo() == null || dto.getAttachInfo().equals("-")) {
- 	 						out.println("<img src='../img/image_not_supported.png'>");
+ 	 						imsiImg = "<img src='../img/image_not_supported.png'>";
  	 					} else {
  	 						String[] imsiArray = dto.getAttachInfo().split(",");
  	 						for(int k=0; k<imsiArray.length; k++) {
@@ -78,7 +94,7 @@
  						<% if (idxExist.equals("O")) { %>
 							<table border="0" style="width: 200px;">
 								<tr>
-									<td height="100">
+									<td height="100" align="center">
 										<a href="#" onClick="move('shopMall_view', '<%= imsiCode %>');"><%= imsiImg %></a>
 									</td>
 								</tr>
@@ -105,6 +121,10 @@
 %>
 
 </table>
+
+<div style="padding-top: 20px; width: 60%;" align="center">
+	<%= Pagenation.pagingStr(totalRecord, pageSize, blockSize, pageNum, urlStr, searchField, searchWord) %>
+</div>
 
 <script>
 function move(value1, value2) {

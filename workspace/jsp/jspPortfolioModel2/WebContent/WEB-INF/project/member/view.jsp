@@ -41,7 +41,7 @@
 	</tr>
 </table>
 
-<table border="0" align="center" width="80%">
+<table border="0" align="center" width="60%">
 <tr>
 	<td width="100px">이전회원</td>
 	<c:choose>

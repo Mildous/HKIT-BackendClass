@@ -11,3 +11,11 @@
 
 <%@ include file = "../_include/inc_header.jsp" %>
 <%@ include file = "../_include/inc_sessionChk.jsp" %>
+
+<%
+	String pageNum_ = request.getParameter("pageNum");
+	if(pageNum_ == null || pageNum_.trim().equals("")) {
+		pageNum_ = "1";
+	}
+	int pageNum = Integer.parseInt(pageNum_);
+%>

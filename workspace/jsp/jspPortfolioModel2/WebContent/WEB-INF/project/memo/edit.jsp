@@ -8,11 +8,11 @@
 <input type="hidden" name="no" value="${ dto.no }">
 <table border="1" align="center" width="60%">
 	<tr>
-		<td width="150px">작성자</td>
+		<td width="150px" align="center">작성자</td>
 		<td>${ dto.writer }</td>
 	</tr>
 	<tr>
-		<td>내용</td>
+		<td align="center">내용</td>
 		<td><textarea style="width: 300px; height: 140px;" name="content">${ dto.content }</textarea></td>
 	</tr>
 	<tr>
