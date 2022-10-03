@@ -1,0 +1,16 @@
+package com.oy.springStudy.memo.model.dao;
+
+import java.util.List;
+
+import com.oy.springStudy.member.model.dto.MemberDTO;
+import com.oy.springStudy.memo.model.dto.MemoDTO;
+
+
+public interface MemoDAO {
+	public List<MemoDTO> getSelectAll();
+	public MemberDTO getSelectOne(MemberDTO param);
+	public int setInsert(MemberDTO param);
+	public int setUpdate(MemberDTO param);
+	public int setDelete(MemberDTO param);
+
+}

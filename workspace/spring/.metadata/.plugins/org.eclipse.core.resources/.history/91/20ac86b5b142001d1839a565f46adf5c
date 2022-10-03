@@ -1,0 +1,5 @@
+package com.oy.springStudy.memo.model.dto;
+
+public class MemoDTO {
+
+}

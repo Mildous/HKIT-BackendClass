@@ -1,0 +1,5 @@
+package com.oy.springStudy.memo.model.dao;
+
+public class MemoDAO {
+
+}

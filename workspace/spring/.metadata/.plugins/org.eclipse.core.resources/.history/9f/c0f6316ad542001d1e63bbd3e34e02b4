@@ -1,0 +1,5 @@
+package com.oy.springStudy.guestBook.model.dao;
+
+public class GuestBookDAOImpl implements GuestBookDAO {
+
+}

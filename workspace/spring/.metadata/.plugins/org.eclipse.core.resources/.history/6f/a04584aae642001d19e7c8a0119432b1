@@ -1,0 +1,127 @@
+package com.oy.springStudy.member.controller;
+
+import java.util.List;
+
+import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.oy.springStudy.member.model.dao.MemberDAO;
+import com.oy.springStudy.member.model.dto.MemberDTO;
+
+@Controller
+@RequestMapping("/member")
+public class MemberController {
+	
+	@Inject
+	MemberDAO memberDao;
+	
+	@RequestMapping("/list")
+	public String list(Model model) {
+		String title = "회원목록";
+		List<MemberDTO> list = memberDao.getSelectAll();
+		model.addAttribute("title", title);
+		model.addAttribute("member", list);
+		return "member/list";
+	}
+	
+	@RequestMapping("/view")
+	public String view(Model model, @ModelAttribute MemberDTO param) {
+		String title = "회원정보";
+		MemberDTO dto = memberDao.getSelectOne(param);
+		model.addAttribute("title", title);
+		model.addAttribute("dto", dto);
+		return "member/list";
+	}
+	
+	@RequestMapping("/regi")
+	public String regi(Model model) {
+		String title = "회원등록";
+		model.addAttribute("title", title);
+		return "member/regi";
+	}
+	
+	@RequestMapping("/edit")
+	public String edit(Model model, @ModelAttribute MemberDTO param) {
+		MemberDTO dto = memberDao.getSelectOne(param);
+		
+		String title = "회원수정";
+		model.addAttribute("title", title);
+		model.addAttribute("dto", dto);
+		return "member/edit";
+	}
+	
+	@RequestMapping("/drop")
+	public String drop(Model model, @ModelAttribute MemberDTO param) {
+		MemberDTO dto = memberDao.getSelectOne(param);
+		
+		String title = "회원삭제";
+		model.addAttribute("title", title);
+		model.addAttribute("dto", dto);
+		return "member/drop";
+	}
+	
+	// process ================================
+	
+	@RequestMapping("/regiProc")
+	public String regiProc(Model model, @ModelAttribute MemberDTO param) {
+		int result = memberDao.setInsert(param);
+		if(result > 0) {
+			return "redirect:/member/list";
+		} else {
+			return "redirect:/member/regi";
+		}
+	}
+	
+	@RequestMapping("/editProc")
+	public String editProc(Model model, @ModelAttribute MemberDTO param) {
+		int result = memberDao.setUpdate(param);
+		if(result > 0) {
+			return "redirect:/member/view?no=" + param.getNo();
+		} else {
+			return "redirect:/member/edit?no=" + param.getNo();
+		}
+	}
+	
+	@RequestMapping("/dropProc")
+	public String dropProc(Model model, @ModelAttribute MemberDTO param) {
+		int result = memberDao.setDelete(param);
+		if(result > 0) {
+			return "redirect:/member/list";
+		} else {
+			return "redirect:/member/drop?no=" + param.getNo();
+		}
+	}
+	
+	
+	// login ----------------------------------
+	@RequestMapping("/login")
+	public String login(Model model) {
+		String title = "로그인";
+		model.addAttribute("title", title);
+		return "member/login";
+	}
+	
+	@RequestMapping("/loginProc")
+	public String loginProc(Model model, @ModelAttribute MemberDTO arguDto, HttpSession session) {
+		int result = memberDao.getLogin(arguDto);
+		if(result > 0) {
+			session.setAttribute("sessionNo", arguDto.getNo());
+			session.setAttribute("sessionId", arguDto.getId());
+			session.setAttribute("sessionPasswd", arguDto.getPasswd());
+			return "redirect:/member/list";
+		} else {
+			return "redirect:/member/login";
+		}
+	}
+	
+	@RequestMapping("/logout")
+	public String logout(Model model, HttpSession session) {
+		session.invalidate();
+		return "redirect: member/login";
+	}
+}

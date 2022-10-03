@@ -1,0 +1,12 @@
+package com.oy.springStudy.guestBook.model.dao;
+
+import java.util.List;
+
+
+public interface GuestBookDAO {
+	public List<GuestBookDTO> getSelectAll();
+	public GuestBookDTO getSelectOne(GuestBookDTO param);
+	public int setInsert(GuestBookDTO param);
+	public int setUpdate(GuestBookDTO param);
+	public int setDelete(GuestBookDTO param);
+}

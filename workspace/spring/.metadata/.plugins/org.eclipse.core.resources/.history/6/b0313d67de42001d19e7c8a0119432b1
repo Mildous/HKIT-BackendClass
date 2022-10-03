@@ -1,0 +1,5 @@
+package com.oy.springStudy.guestBook.controller;
+
+public class GuestBookController {
+
+}

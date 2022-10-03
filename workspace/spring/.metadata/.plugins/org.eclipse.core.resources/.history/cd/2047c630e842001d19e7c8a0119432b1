@@ -1,0 +1,16 @@
+package com.oy.springStudy._common;
+
+public class MultipartUpload {
+
+	String attachPath = Constants.ATTACH_PATH;
+	int maxUpload = Constants.MAX_UPLOAD;
+	
+/*
+	Servers > server.xml
+	<Context docBase="C:/Users/HKIT/attach/springStudy/member" reloadable="true"/>
+ */
+	private int createDirectory(String uploadPath) {
+		
+	}
+	
+}

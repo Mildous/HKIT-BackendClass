@@ -1,0 +1,5 @@
+package com.oy.springStudy._index;
+
+public class IndexController {
+
+}

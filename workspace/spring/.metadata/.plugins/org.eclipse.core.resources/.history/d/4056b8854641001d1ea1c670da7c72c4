@@ -1,0 +1,10 @@
+package com.oy.springStudy._test;
+
+public class Test06DTO {
+	
+	private String productCate;
+	private String productName;
+	private int productPrice;
+	salesPercent
+
+}

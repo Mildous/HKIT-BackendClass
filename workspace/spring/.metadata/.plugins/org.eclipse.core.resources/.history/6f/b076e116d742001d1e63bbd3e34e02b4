@@ -1,0 +1,21 @@
+package com.oy.springStudy.guestBook.controller;
+
+import javax.inject.Inject;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.oy.springStudy.guestBook.model.dao.GuestBookDAO;
+
+@Controller
+@RequestMapping("/guestBook")
+public class GuestBookController {
+
+	@Inject
+	GuestBookDAO guestBookDao;
+	
+	@RequestMapping("/list")
+	public String list(Model model) {
+		
+	}
+}

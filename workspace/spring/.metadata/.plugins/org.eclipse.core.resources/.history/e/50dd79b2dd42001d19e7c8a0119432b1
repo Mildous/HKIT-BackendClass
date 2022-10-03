@@ -1,0 +1,14 @@
+package com.oy.springStudy.guestBook.model.dto;
+
+import java.sql.Date;
+
+public class GuestBookDTO {
+	
+	private int no number;
+	private String name;
+	private String email;
+	private String passwd;
+	private String content;
+	private Date regiDate;
+	private int memberNo;
+}

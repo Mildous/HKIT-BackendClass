@@ -1,0 +1,5 @@
+package com.oy.springStudy.member.model.dto;
+
+public class MemberDTO {
+
+}

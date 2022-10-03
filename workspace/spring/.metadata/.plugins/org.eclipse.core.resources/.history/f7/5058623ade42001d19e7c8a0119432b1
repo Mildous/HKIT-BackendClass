@@ -1,0 +1,39 @@
+package com.oy.springStudy.guestBook.model.dao;
+
+import java.util.List;
+
+import javax.inject.Inject;
+
+import com.oy.springStudy.guestBook.model.dto.GuestBookDTO;
+
+public class GuestBookDAOImpl implements GuestBookDAO{
+
+	@Inject
+	SqlSession sqlSession;
+	
+	@Override
+	public List<GuestBookDTO> getSelectAll() {
+		return sqlSession.selectList("guestBook.getSelectAll");
+	}
+
+	@Override
+	public GuestBookDTO getSelectOne(GuestBookDTO param) {
+		
+	}
+
+	@Override
+	public int setInsert(GuestBookDTO param) {
+		
+	}
+
+	@Override
+	public int setUpdate(GuestBookDTO param) {
+		
+	}
+
+	@Override
+	public int setDelete(GuestBookDTO param) {
+		
+	}
+
+}

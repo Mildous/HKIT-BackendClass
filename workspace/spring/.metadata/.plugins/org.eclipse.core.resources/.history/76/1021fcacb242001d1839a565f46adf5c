@@ -1,0 +1,43 @@
+package com.oy.springStudy.memo.model.dao;
+
+import java.util.List;
+
+import org.springframework.stereotype.Repository;
+
+import com.oy.springStudy.memo.model.dto.MemoDTO;
+
+@Repository
+public class MemoDAOImpl implements MemoDAO {
+
+	
+	@Override
+	public List<MemoDTO> getSelectAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public MemoDTO getSelectOne(MemoDTO param) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int setInsert(MemoDTO param) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int setUpdate(MemoDTO param) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int setDelete(MemoDTO param) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+}

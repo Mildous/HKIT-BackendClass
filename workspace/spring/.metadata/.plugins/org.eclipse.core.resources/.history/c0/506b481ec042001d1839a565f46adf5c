@@ -1,0 +1,6 @@
+package com.oy.springStudy.memo.service;
+
+public class MemoServiceImpl implements MemoService {
+
+	
+}

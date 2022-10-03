@@ -1,0 +1,41 @@
+package com.oy.springStudy.guestBook.controller;
+
+import java.util.List;
+
+import javax.inject.Inject;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.oy.springStudy.guestBook.model.dao.GuestBookDAO;
+import com.oy.springStudy.guestBook.model.dto.GuestBookDTO;
+
+@Controller
+@RequestMapping("/guestBook")
+public class GuestBookController {
+	
+	@Inject
+	GuestBookDAO guestBookDao;
+	
+	@RequestMapping("/list")
+	public String list(Model model) {
+		List<GuestBookDTO> list = guestBookDao.getSelectAll();
+		String title = "방명록 목록";
+		model.addAttribute("title", title);
+		model.addAttribute("guestBook", list);
+		return "guestBook/list";
+	}
+	
+	@RequestMapping("/view")
+	public String view(Model model, @ModelAttribute GuestBookDTO param) {
+		GuestBookDTO dto = guestBookDao.getSelectOne(param);
+		String title = "방명록 상세보기";
+		model.addAttribute("title", title);
+		model.addAttribute("dto", dto);
+		return "guestBook/list";
+	}
+	
+	
+}

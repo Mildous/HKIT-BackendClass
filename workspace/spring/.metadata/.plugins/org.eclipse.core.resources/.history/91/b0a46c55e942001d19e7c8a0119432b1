@@ -1,0 +1,33 @@
+package com.oy.springStudy._common;
+
+import java.io.File;
+
+public class MultipartUpload {
+
+	String attachPath = Constants.ATTACH_PATH;
+	int maxUpload = Constants.MAX_UPLOAD;
+	
+/*
+	Servers > server.xml
+	<Context docBase="C:/Users/HKIT/attach" reloadable="true"/>
+ */
+	private int createDirectory(String uploadPath) {
+		java.io.File isDir = new java.io.File(uploadPath);
+		if(!isDir.isDirectory()) {
+			isDir.mkdirs();
+		}
+		int result = 0;
+		if(isDir.exists()) {
+			result++;
+		}
+		return result;
+	}
+	
+	// 파일 이름이 중복되지 않도록 처리
+	private String attachFileReName(String originalFileName, byte[] fileData, String uploadPath) {
+		String ext = originalFileName.substring(originalFileName.lastIndexOf(".")).toLowerCase();
+		
+		return "";
+	}
+	
+}

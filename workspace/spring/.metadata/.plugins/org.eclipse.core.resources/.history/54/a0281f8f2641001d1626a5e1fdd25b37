@@ -1,0 +1,10 @@
+package com.oy.springStudy._index;
+
+import org.springframework.stereotype.Controller;
+
+@Controller
+public class IndexController {
+	
+	
+
+}
