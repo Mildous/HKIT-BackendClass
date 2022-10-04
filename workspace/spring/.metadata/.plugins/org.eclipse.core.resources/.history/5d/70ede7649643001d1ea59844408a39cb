@@ -1,0 +1,42 @@
+package com.oy.springStudy.product.service;
+
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import com.oy.springStudy.product.model.dto.ProductDTO;
+
+@Service
+public class ProductServiceImpl implements ProductService {
+
+	@Override
+	public List<ProductDTO> getSelectAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ProductDTO getSelectOne(ProductDTO param) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int setInsert(ProductDTO param) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int setUpdate(ProductDTO param) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int setDelete(ProductDTO param) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+}

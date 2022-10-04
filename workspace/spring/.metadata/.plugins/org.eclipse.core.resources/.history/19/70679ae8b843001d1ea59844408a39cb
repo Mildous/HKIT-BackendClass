@@ -1,0 +1,49 @@
+package com.oy.springStudy.cart.model.dao;
+
+import java.util.List;
+
+import javax.inject.Inject;
+
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.stereotype.Repository;
+
+import com.oy.springStudy.cart.model.dto.CartDTO;
+
+@Repository
+public class CartDAOImpl implements CartDAO {
+	
+	@Inject
+	SqlSession sqlSession;
+	
+	@Override
+	public List<CartDTO> getSelectAll() {
+		return sqlSession.selectList("cart.getSelectAll");
+	}
+
+	@Override
+	public CartDTO getSelectOne(CartDTO param) {
+		return null;
+	}
+
+	@Override
+	public int setInsert(CartDTO param) {
+		return sqlSession.insert("cart.setInsert", param);
+	}
+
+	@Override
+	public int setUpdate(CartDTO param) {
+		return sqlSession.update("cart.setUpdate", param);
+	}
+
+	@Override
+	public int setDelete(CartDTO param) {
+		return sqlSession.delete("cart.setDelete", param);
+	}
+	
+	@Override
+	public void setAllClear() {
+		return sqlSession.delete("cart.setDelete");
+	}
+
+	
+}

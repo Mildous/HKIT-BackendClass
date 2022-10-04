@@ -1,0 +1,60 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ include file="../_include/inc_header.jsp" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>product</title>
+</head>
+<body>
+
+<%@include file="../_include/inc_menu.jsp" %>
+<h2>${title}</h2>
+
+<table border="1" width="80%">
+	<tr>
+		<th>순번</th>
+		<th>이름</th>
+		<th>가격</th>
+		<th>제조사</th>
+		<th>첨부파일</th>
+		<th>등록일</th>
+	</tr>
+	<c:choose>
+		<c:when test="${ empty product }">
+		<tr>
+			<td colspan="6" height="100px" align="center">등록된 상품이 없습니다..</td>
+		</tr>
+		</c:when>
+		
+		<c:otherwise>
+			<c:forEach items="${ product }" var="product" varStatus="loop">
+			<tr align="center">
+				<td><a href="#" onclick="move('view', '${ product.productNo }');">${ loop.index + 1 }</a></td>
+				<td>${ product.productName }</td>
+				<td>${ product.productPrice }</td>
+				<td>${ product.productDescription }</td>
+				<td>${ product.regiDate }</td>
+			</tr>
+			</c:forEach>
+		</c:otherwise>
+	</c:choose>
+</table>
+
+<div style="width: 80%; margin-top: 10px;" align="right">
+|
+<a href="#" onclick="move('regi', '');">등록</a>
+|
+<a href="#" onclick="move('list', '');">목록</a>
+|
+</div>
+
+<script>
+function move(value1, value2) {
+	location.href="${path}/product/" + value1 + "?no=" + value2;
+}
+</script>
+
+</body>
+</html>

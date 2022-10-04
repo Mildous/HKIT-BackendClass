@@ -23,35 +23,29 @@
        <td><input type="password" name="passwd" /></td>
     </tr>
     <tr>
-       <td>비밀번호확인 : </td>
-       <td><input type="password" name="passwdChk" /></td>
-    </tr>
-    <tr>
        <td>이름 : </td>
-       <td><input type="text" name="name" /></td>
+       <td>${ dto.name }</td>
     </tr>
     <tr>
        <td>연락처 : </td>
-       <td><input type="text" name="phone" /></td>
+       <td><input type="text" name="phone" value="${ dto.phone }"></td>
     </tr>
     <tr>
        <td>이메일 : </td>
-       <td><input type="text" name="email" /></td>
+       <td><input type="text" name="email" value="${ dto.email }"></td>
     </tr>
     <tr>
        <td>주민번호 : </td>
-       <td>
-          <input type="text" name="jumin">
-       </td>
+       <td>${ dto.jumin }</td>
     </tr>
     <tr>
        <td>주소 : </td>
           <td>
-             <input type="text" name="juso1" id="sample6_postcode" placeholder="우편번호" readonly>
+             <input type="text" name="juso1" id="sample6_postcode" placeholder="우편번호" value="${ dto.juso1 }" readonly>
              <button type="button" onclick="sample6_execDaumPostcode()">우편번호 찾기</button><br>
-             <input type="text" name="juso2" id="sample6_address" placeholder="주소" readonly><br>
-             <input type="text" name="juso3" id="sample6_detailAddress" placeholder="상세주소">
-             <input type="text" name="juso4" id="sample6_extraAddress" placeholder="참고항목">
+             <input type="text" name="juso2" id="sample6_address" placeholder="주소" value="${ dto.juso2 }"readonly><br>
+             <input type="text" name="juso3" id="sample6_detailAddress" value="${ dto.juso3 }" placeholder="상세주소">
+             <input type="text" name="juso4" id="sample6_extraAddress" value="${ dto.juso4 }" placeholder="참고항목">
           </td>
     </tr>
     <tr>

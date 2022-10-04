@@ -1,0 +1,30 @@
+package com.oy.springStudy.cart.controller;
+
+import java.util.List;
+
+import javax.inject.Inject;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.oy.springStudy.cart.model.dto.CartDTO;
+import com.oy.springStudy.cart.service.CartService;
+
+@Controller
+@RequestMapping("/cart")
+public class CartController {
+
+	@Inject
+	CartService cartService;
+	
+	@RequestMapping("/list")
+	public String list(Model model) {
+		List<CartDTO> list = cartService.getSelectAll();
+		String title = "장바구니 목록";
+		model.addAttribute("title", title);
+		model.addAttribute("product", list);
+		return "cart/list";
+	}
+	
+}

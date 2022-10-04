@@ -1,0 +1,46 @@
+package com.oy.springStudy.product.model.dao;
+
+import java.util.List;
+
+import javax.inject.Inject;
+
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.stereotype.Repository;
+
+import com.oy.springStudy.product.model.dto.ProductDTO;
+
+@Repository
+public class ProductDAOImpl implements ProductDAO {
+
+	@Inject
+	SqlSession sqlSession;
+	
+	@Override
+	public List<ProductDTO> getSelectAll() {
+		return null;
+	}
+
+	@Override
+	public ProductDTO getSelectOne(ProductDTO param) {
+		return null;
+	}
+
+	@Override
+	public int setInsert(ProductDTO param) {
+		
+		return 0;
+	}
+
+	@Override
+	public int setUpdate(ProductDTO param) {
+		
+		return 0;
+	}
+
+	@Override
+	public int setDelete(ProductDTO param) {
+		
+		return 0;
+	}
+
+}

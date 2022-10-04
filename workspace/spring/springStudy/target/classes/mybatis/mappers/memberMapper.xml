@@ -25,7 +25,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</delete>
 	
 	<select id="getLogin" resultType="int">
-		select no from member where id = #{id} and passwd = #{passwd}
+		select * from member where id = #{id} and passwd = #{passwd}
 	</select>
 </mapper>
 

@@ -1,0 +1,5 @@
+package com.oy.springStudy.product.controller;
+
+public class ProductController {
+
+}

@@ -1,0 +1,5 @@
+package com.oy.springStudy.cart.model.dto;
+
+public class CartDTO {
+
+}

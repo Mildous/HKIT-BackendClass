@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="product">
+	<select id="getSelectAll" resultType="com.oy.springStudy.product.model.dto.ProductDTO">
+		select * from product order by productNo desc
+	</select>
+	
+	<select id="getSelectOne" resultType="com.oy.springStudy.product.model.dto.ProductDTO">
+		select * from product where productNo = #{no}
+	</select>
+	
+	<insert id="setInsert">
+		insert into product values (seq_product1.nextval, #{productName}, #{productPrice}, #{name}, #{phone}, #{email}, #{jumin}, #{juso1}, #{juso2}, #{juso3}, #{juso4}, #{grade}, sysdate, #{attachInfo} )
+	</insert>
+
+	<update id="setUpdate">
+		update product set phone = #{phone}, email = #{email}, juso1 = #{juso1}, juso2 = #{juso2}, juso3 = #{juso3}, juso4 = {juso4} where no = #{no} and passwd = #{passwd}
+	</update>
+	
+	<delete id="setDelete">
+		delete from product where no = #{no} and passwd = #{passwd}
+	</delete>
+	
+	<select id="getLogin" resultType="int">
+		select no from product where id = #{id} and passwd = #{passwd}
+	</select>
+</mapper>
+

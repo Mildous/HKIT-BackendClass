@@ -1,0 +1,12 @@
+package com.oy.springStudy.cart.model.dto;
+
+import java.sql.Date;
+
+public class CartDTO {
+	private int cartNo;
+	private int productNo;
+	private int amount;
+	private int memberNo;
+	private Date regiDate;
+	
+}

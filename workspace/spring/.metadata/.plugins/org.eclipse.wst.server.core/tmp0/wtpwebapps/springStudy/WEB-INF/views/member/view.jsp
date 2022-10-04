@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>memo</title>
+<title>member</title>
 </head>
 <body>
 
@@ -23,11 +23,11 @@
     </tr>
     <tr>
        <td>연락처 : </td>
-       <td><input type="text" name="phone" value="${ dto.phone }"/></td>
+       <td>${ dto.phone }</td>
     </tr>
     <tr>
        <td>이메일 : </td>
-       <td><input type="text" name="email" value="${ dto.email }" /></td>
+       <td>${ dto.email }</td>
     </tr>
     <tr>
        <td>주민번호 : </td>

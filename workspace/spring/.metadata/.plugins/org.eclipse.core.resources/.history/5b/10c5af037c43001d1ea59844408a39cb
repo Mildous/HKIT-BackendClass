@@ -1,0 +1,16 @@
+package com.oy.springStudy.product.model.dto;
+
+import java.sql.Date;
+
+public class ProductDTO {
+	
+	private int productNo;
+    private String productName;
+    private int productPrice;
+    private String productDescription;
+    private int vendorNo;
+    private String vendorName;
+    private String attachInfo;
+    private Date regiDate;
+
+}

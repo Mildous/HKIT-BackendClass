@@ -15,9 +15,22 @@ public class MultipartUpload {
 	String attachPath = Constants.ATTACH_PATH;
 	int maxUpload = Constants.MAX_UPLOAD;
 	
-/*
+/*	servlet-context.xml
+
+	<!-- 파일업로드에 필요한 bean -->
+	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!-- max upload size in bytes / 10MB 10*1024*1024 -->
+	    <!-- <beans:property name="maxUploadSize" value="10485760" /> -->
+	    
+	    <!-- 디스크에 임시 파일을 생성하기 전에 메모리에 보관할수있는 최대 바이트 크기  (in bytes) / 1MB -->
+	    <!-- <beans:property name="maxInMemorySize" value="1048576" /> -->
+	    
+		<beans:property name="defaultEncoding" value="utf-8" />
+	</beans:bean>
+
+
 	Servers > server.xml
-	<Context docBase="C:/Users/HKIT/attach" reloadable="true"/>
+	<Context docBase="C:/Users/HKIT/COY/attach" reloadable="true"/>
 */
 	private int createDirectory(String uploadPath) {
 		java.io.File isDir = new java.io.File(uploadPath);
@@ -53,7 +66,6 @@ public class MultipartUpload {
 	}
 	
 	public List<String> attachProc(List<MultipartFile> multiFileList, String savePath) {
-		System.out.println("aaa");
 		String uploadPath = attachPath + savePath;	// /springStudy/member
 		int createDirResult = createDirectory(uploadPath);
 		if(createDirResult <= 0) {
@@ -70,7 +82,7 @@ public class MultipartUpload {
 			long fileSize = 0;
 			String contentType = "";
 			String mineType = "";
-			
+			int failCounter = 0;
 			try {
 				originalFileName = file.getOriginalFilename();
 				newFileName = attachFileReName(originalFileName, file.getBytes(), uploadPath);
@@ -83,9 +95,10 @@ public class MultipartUpload {
 				mineType = tika.detect(inputStream);
 			} catch(Exception e) {
 				e.printStackTrace();
+				failCounter++;
 			}
 			
-			if(contentType.equals(mineType)) {
+			if((mineType.equals(mineType)) && (failCounter == 0)) {
 //					Map<String, String> map = new HashMap<>();
 //					map.put("originalFileName", originalFileName);
 //					map.put("newFileName", newFileName);
@@ -100,7 +113,7 @@ public class MultipartUpload {
 				msg += mineType;
 				list.add(msg);
 			} else {
-				
+				list.add("-");
 			}
 		}
 		return list;

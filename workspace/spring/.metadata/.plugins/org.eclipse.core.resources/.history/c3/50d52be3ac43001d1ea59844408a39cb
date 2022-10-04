@@ -1,0 +1,66 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ include file="../_include/inc_header.jsp" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>${title}</title>
+</head>
+<body>
+
+<%@include file="../_include/inc_menu.jsp" %>
+<h2>${title}</h2>
+
+<table border="1" width="80%">
+	<tr>
+		<th>순번</th>
+		<th>상품이름</th>
+		<th>상품단가</th>
+		<th>수량</th>
+		<th>금액</th>
+		<th>등록일</th>
+		<th>비고</th>
+	</tr>
+	
+	<c:choose>
+		<c:when test="${ empty cart }">
+		<tr>
+			<td colspan="7" height="100px" align="center">장바구니가 비었습니다..</td>
+		</tr>
+		</c:when>
+		
+		<c:otherwise>
+			<c:set var="totalPay" value="0" />
+			<c:forEach items="${ cart }" var="cart" varStatus="loop">
+			<tr align="center">
+				<td>${ cart.cartNo }</td>
+				<td>${ cart.productName } (${ cart.productNo })</td>
+				<td>${ cart.productPrice }</td>
+				<td><input type="text" value="${ cart.amount }"></td>
+				<td>${ cart.pay }</td>
+				<td>${ cart.regiDate }</td>
+				<td>
+					<a href="#">[삭제]</a>
+				</td>
+			</tr>
+				<c:set var="totalPay" value="${ totalPay = totalPay + cart.pay }" />
+			</c:forEach>
+			<tr>
+				<td align="right" colspan="8">
+					장바구니 급액 합계 : <fmt:formayNumber value="${ totalPay }" pattern="###,###,###" />원<br>
+					배송료 : 5000원<br>
+					총합계 : ???원<br>
+				</td>
+			</tr>
+		</c:otherwise>
+	</c:choose>
+</table>
+
+<div style="width: 80%; margin-top: 10px;" align="right">
+	<button type="button" id="btnUpdate">수정</button>&nbsp;
+	<button type="button" id="btn">장바구니 비우기</button>
+</div>
+
+</body>
+</html>

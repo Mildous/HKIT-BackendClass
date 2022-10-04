@@ -1,0 +1,5 @@
+package com.oy.springStudy.product.model.dao;
+
+public class ProductDAOImpl implements ProductDAO {
+
+}

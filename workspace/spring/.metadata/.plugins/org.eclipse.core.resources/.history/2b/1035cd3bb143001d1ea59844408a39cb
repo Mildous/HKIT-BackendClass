@@ -1,0 +1,49 @@
+package com.oy.springStudy.cart.controller;
+
+import java.util.List;
+
+import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.oy.springStudy.cart.model.dto.CartDTO;
+import com.oy.springStudy.cart.service.CartService;
+import com.oy.springStudy.product.model.dto.ProductDTO;
+
+@Controller
+@RequestMapping("/cart")
+public class CartController {
+
+	@Inject
+	CartService cartService;
+	
+	@RequestMapping("/list")
+	public String list(Model model) {
+		List<CartDTO> list = cartService.getSelectAll();
+		String title = "장바구니 목록";
+		model.addAttribute("title", title);
+		model.addAttribute("cart", list);
+		return "cart/list";
+	}
+	
+	@RequestMapping("/regiProc")
+	public String regiProc(Model model, @ModelAttribute CartDTO param) {
+		int result = cartService.setInsert(param);
+		if(result > 0) {
+			return "redirect:/cart/list";
+		} else {
+			return "redirect:/product/view?productNo=" + param.getProductNo();
+		}
+	}
+	
+	@RequestMapping("/editProc")
+	public String editProc(Model model, HttpServletRequest req) {
+		int totalCounter = req.getParameter("totalCounter");
+		
+	}
+	
+}

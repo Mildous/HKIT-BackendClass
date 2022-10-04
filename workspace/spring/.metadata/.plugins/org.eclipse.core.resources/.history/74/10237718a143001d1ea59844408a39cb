@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cart">
+	<select id="getSelectAll" resultType="com.oy.springStudy.product.model.dto.ProductDTO">
+		select * from cart order by productNo desc
+	</select>
+	
+	<insert id="setInsert">
+		insert into product values (
+			seq_product1.nextval, 
+			#{productName}, 
+			#{productPrice}, 
+			#{productDescription}, 
+			#{vendorNo}, 
+			#{vendorName}, 
+			#{attachInfo}, 
+			sysdate
+		)
+	</insert>
+
+</mapper>
+
